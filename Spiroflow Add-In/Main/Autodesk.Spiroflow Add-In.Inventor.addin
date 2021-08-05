@@ -1,0 +1,14 @@
+<Addin Type="Standard">
+  <!--Created for Autodesk Inventor Version 23.0-->
+  <ClassId>{f3823a1a-b7e3-416a-a4d6-fa78f7e4ed8c}</ClassId>
+  <ClientId>{f3823a1a-b7e3-416a-a4d6-fa78f7e4ed8c}</ClientId>
+  <DisplayName>Spiroflow_Add_In</DisplayName>
+  <Description>Spiroflow_Add_In</Description>
+  <Assembly>Spiroflow_Add_In.dll</Assembly>
+  <LoadOnStartUp>1</LoadOnStartUp>
+  <UserUnloadable>1</UserUnloadable>
+  <Hidden>0</Hidden>
+  <SupportedSoftwareVersionGreaterThan>22..</SupportedSoftwareVersionGreaterThan>
+  <DataVersion>1</DataVersion>
+  <UserInterfaceVersion>1</UserInterfaceVersion>
+</Addin>
