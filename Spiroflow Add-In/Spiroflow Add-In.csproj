@@ -18,7 +18,7 @@
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
     <OutputType>Library</OutputType>
-    <RootNamespace>InvAddIn</RootNamespace>
+    <RootNamespace>SpiroflowAddIn</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
@@ -27,11 +27,11 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\..\..\..\ProgramData\Autodesk\Inventor Addins\Spiroflow\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -45,7 +45,7 @@
     <NoStdLib>false</NoStdLib>
     <NoWarn>
     </NoWarn>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
@@ -78,41 +78,71 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyName>SpiroflowAddIn</AssemblyName>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="autodesk.inventor.interop, Version=23.0.0.0, Culture=neutral, PublicKeyToken=d84147f8b4276564, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>False</EmbedInteropTypes>
       <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\Autodesk.Inventor.Interop\v4.0_23.0.0.0__d84147f8b4276564\autodesk.inventor.interop.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic.Compatibility" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buttons\RenumberBOMButton.cs" />
     <Compile Include="Main\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Main\StandardAddInServer.cs">
+    <Compile Include="Main\SpiroflowAddin.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Ribbons\DrawingRibbonManager.cs" />
+    <Compile Include="Utilities\CreateImageFromIcon.cs" />
+    <Compile Include="Utilities\GetInventorApp.cs" />
+    <Compile Include="Utilities\PictureDispConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Main\Spiroflow Add-In.X.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Main\Autodesk.Spiroflow Add-In.Inventor.addin" />
+    <None Include="Main\Autodesk.Spiroflow Add-In.Inventor.addin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Main\Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\test.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>call "%25VS140COMNTOOLS%25vsvars32"
-			mt.exe -manifest "$(ProjectDir)Spiroflow Add-In.X.manifest" -outputresource:"$(TargetPath)";#2
-			XCopy "$(TargetPath)" "%AppData%\Autodesk\ApplicationPlugins\$(TargetName)\" /Y /R
-		    XCopy "$(ProjectDir)Autodesk.Spiroflow Add-In.Inventor.addin" "%AppData%\Autodesk\ApplicationPlugins\$(TargetName)\" /Y /R   
+    <PostBuildEvent>rem call "%25VS140COMNTOOLS%25vsvars32" mt.exe -manifest "$(ProjectDir)Spiroflow Add-In.X.manifest" -outputresource:"$(TargetPath)";#2
+rem XCopy "$(TargetPath)" "%25AppData%25\Autodesk\ApplicationPlugins\$(TargetName)\" /Y /R
+rem XCopy "$(ProjectDir)Autodesk.Spiroflow Add-In.Inventor.addin" "%25AppData%25\Autodesk\ApplicationPlugins\$(TargetName)\" /Y /R   
 	</PostBuildEvent>
   </PropertyGroup>
 </Project>

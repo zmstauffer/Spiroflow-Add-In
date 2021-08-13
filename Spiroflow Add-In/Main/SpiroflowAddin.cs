@@ -1,7 +1,11 @@
 using Inventor;
 using Microsoft.Win32;
 using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
+using SpiroflowAddIn.Ribbons;
+using SpiroflowAddIn.Utilities;
+using SpiroflowAddIn.Buttons;
 
 namespace Spiroflow_Add_In
 {
@@ -11,13 +15,19 @@ namespace Spiroflow_Add_In
 	/// the AddIn is via the methods on this interface.
 	/// </summary>
 	[GuidAttribute("f3823a1a-b7e3-416a-a4d6-fa78f7e4ed8c")]
-	public class StandardAddInServer : ApplicationAddInServer
+	public class SpiroflowAddin : ApplicationAddInServer
 	{
 
-		// Inventor application object.
 		private Application inventorApp;
+		private UserInterfaceManager UIManager;
+		private string AddInGUID { get; set; }
 
-		public StandardAddInServer()
+		#region Button Definitions
+		ButtonDefinition renumberBOMButton;
+
+		#endregion
+
+		public SpiroflowAddin()
 		{
 		}
 
@@ -31,9 +41,17 @@ namespace Spiroflow_Add_In
 
 			// Initialize AddIn members.
 			inventorApp = addInSiteObject.Application;
+			UIManager = inventorApp.UserInterfaceManager;
+			AddInGUID = Assembly.GetExecutingAssembly().GetCustomAttribute<GuidAttribute>().Value.ToUpper();
 
-			// TODO: Add ApplicationAddInServer.Activate implementation.
-			// e.g. event initialization, command creation etc.
+			DrawingRibbonManager drawingRibbon = new DrawingRibbonManager(UIManager, AddInGUID);
+			drawingRibbon.CreateRibbonPanels(inventorApp, renumberBOMButton);
+			//create BOM button functions
+			var renumberBOMIcon = CreateImageFromIcon.CreateInventorIcon(SpiroflowAddIn.Properties.Resources.test);
+			renumberBOMButton = inventorApp.CommandManager.ControlDefinitions.AddButtonDefinition("Renumber BOM", "renumberBOM", CommandTypesEnum.kShapeEditCmdType, AddInGUID, "", "", renumberBOMIcon, renumberBOMIcon);
+			renumberBOMButton.OnExecute += renumberBOMButton_OnExecute;
+			renumberBOMButton.Enabled = true;
+			drawingRibbon.AddButton(renumberBOMButton);
 		}
 
 		public void Deactivate()
@@ -71,6 +89,14 @@ namespace Spiroflow_Add_In
 			}
 		}
 
+		#endregion
+
+		#region Button Executions
+		void renumberBOMButton_OnExecute(NameValueMap context)
+		{
+			var renumberBOM = new RenumberBOMButton();
+			renumberBOM.Execute();
+		}
 		#endregion
 
 	}
