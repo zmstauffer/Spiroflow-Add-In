@@ -22,16 +22,26 @@ namespace Spiroflow_Add_In
 		private UserInterfaceManager UIManager;
 		private string AddInGUID { get; set; }
 
-		#region Button Definitions
+		#region Drawing Button Definitions
 		ButtonDefinition renumberBOMButton;
+		ButtonDefinition createPDFandDWGButton;
+		#endregion
 
+		#region Assembly Button Definitions
+		ButtonDefinition changePartNumbertoFilenameButton;
+		ButtonDefinition createNewEquipmentButton;                      //this button also shown on zero doc ribbon
+		ButtonDefinition exportStructuredBOMButton;
+		#endregion
+
+		#region ZeroDoc Button Definitions
+		ButtonDefinition createNewEquipmentButtonZeroDoc;
 		#endregion
 
 		public SpiroflowAddin()
 		{
 		}
 
-		#region ApplicationAddInServer Members
+		#region Main Activation
 
 		public void Activate(ApplicationAddInSite addInSiteObject, bool firstTime)
 		{
@@ -44,16 +54,19 @@ namespace Spiroflow_Add_In
 			UIManager = inventorApp.UserInterfaceManager;
 			AddInGUID = Assembly.GetExecutingAssembly().GetCustomAttribute<GuidAttribute>().Value.ToUpper();
 
-			DrawingRibbonManager drawingRibbon = new DrawingRibbonManager(UIManager, AddInGUID);
-			drawingRibbon.CreateRibbonPanels(inventorApp, renumberBOMButton);
-			//create BOM button functions
-			var renumberBOMIcon = CreateImageFromIcon.CreateInventorIcon(SpiroflowAddIn.Properties.Resources.test);
-			renumberBOMButton = inventorApp.CommandManager.ControlDefinitions.AddButtonDefinition("Renumber BOM", "renumberBOM", CommandTypesEnum.kShapeEditCmdType, AddInGUID, "", "", renumberBOMIcon, renumberBOMIcon);
-			renumberBOMButton.OnExecute += renumberBOMButton_OnExecute;
-			renumberBOMButton.Enabled = true;
-			drawingRibbon.AddButton(renumberBOMButton);
+			//add new buttons to the drawing ribbon
+			CreateSpiroflowDrawingRibbon();
+
+			//add new buttons to assembly ribbon
+			CreateSpiroflowAssemblyRibbon();
+
+			//add new buttons to zero doc ribbon
+			CreateSpiroflowZeroDocRibbon();
 		}
 
+		#endregion
+
+		#region Deactivation
 		public void Deactivate()
 		{
 			// This method is called by Inventor when the AddIn is unloaded.
@@ -91,13 +104,36 @@ namespace Spiroflow_Add_In
 
 		#endregion
 
-		#region Button Executions
-		void renumberBOMButton_OnExecute(NameValueMap context)
+		#region Custom Ribbon Creation
+		private void CreateSpiroflowDrawingRibbon()
 		{
-			var renumberBOM = new RenumberBOMButton();
-			renumberBOM.Execute();
+			DrawingRibbonManager drawingRibbon = new DrawingRibbonManager(inventorApp, UIManager, AddInGUID);
+
+			drawingRibbon.CreateRibbonPanels();
+
+			drawingRibbon.AddButton(renumberBOMButton, "SpiroflowAddIn.Buttons.RenumberBOMButton");
+			drawingRibbon.AddButton(createPDFandDWGButton, "SpiroflowAddIn.Buttons.CreatePDFandDWGButton");
+		}
+
+		private void CreateSpiroflowAssemblyRibbon()
+		{
+			AssemblyRibbonManager assemblyRibbon = new AssemblyRibbonManager(inventorApp, UIManager, AddInGUID);
+
+			assemblyRibbon.CreateRibbonPanels();
+
+			assemblyRibbon.AddButton(changePartNumbertoFilenameButton, "SpiroflowAddIn.Buttons.ChangePartNumbertoFilenameButton");
+			assemblyRibbon.AddButton(createNewEquipmentButton, "SpiroflowAddIn.Buttons.CreateNewEquipmentButton");
+			assemblyRibbon.AddButton(exportStructuredBOMButton, "SpiroflowAddIn.Buttons.ExportStructuredBOMButton");
+		}
+
+		private void CreateSpiroflowZeroDocRibbon()
+		{
+			ZeroDocRibbonManager zeroDocRibbon = new ZeroDocRibbonManager(inventorApp, UIManager, AddInGUID);
+
+			zeroDocRibbon.CreateRibbonPanels();
+
+			zeroDocRibbon.AddButton(createNewEquipmentButtonZeroDoc, "SpiroflowAddIn.Buttons.CreateNewEquipmentButtonZeroDoc");
 		}
 		#endregion
-
 	}
 }

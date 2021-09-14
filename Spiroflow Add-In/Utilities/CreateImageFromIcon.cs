@@ -8,5 +8,9 @@ namespace SpiroflowAddIn.Utilities
 		{
 			return PictureDispConverter.ToIPictureDisp(icon);
 		}
+		public static stdole.IPictureDisp CreateInventorIcon(Bitmap bitmap)
+		{
+			return PictureDispConverter.ToIPictureDisp(bitmap);
+		}
 	}
 }

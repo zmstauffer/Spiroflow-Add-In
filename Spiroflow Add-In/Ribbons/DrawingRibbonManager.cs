@@ -1,42 +1,27 @@
 ﻿using Inventor;
+using SpiroflowAddIn.Buttons;
+using SpiroflowAddIn.Utilities;
 using System;
-using System.Drawing;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Resources;
 
 namespace SpiroflowAddIn.Ribbons
 {
-	class DrawingRibbonManager
+	class DrawingRibbonManager : BaseRibbon
 	{
-		//private RibbonTab ribbonTab { get; set; }
-		private UserInterfaceManager UIManager { get; set; }
-		private string AddInGUID { get; set; }
-		private Ribbon drawingRibbon { get; set; }
-		private RibbonTab drawingRibbonTab { get; set; }
-		private RibbonPanel BOMPanel { get; set; }
 
-		public DrawingRibbonManager(UserInterfaceManager UIManager, string AddInGUID)
+		public DrawingRibbonManager(Application inventorApp, UserInterfaceManager UIManager, string AddInGUID) : base(inventorApp, UIManager, AddInGUID)
 		{
-			this.UIManager = UIManager;
-			this.AddInGUID = AddInGUID;
 		}
 
-		public void CreateRibbonPanels(Inventor.Application invApp, ButtonDefinition renumberBOMButton)
+		public override void CreateRibbonPanels()
 		{
-			drawingRibbon = UIManager.Ribbons["Drawing"];
-			drawingRibbonTab = drawingRibbon.RibbonTabs.Add("Spiroflow", "id_Spiroflow_Drawing", AddInGUID);
-			BOMPanel = drawingRibbonTab.RibbonPanels.Add("BOM Functions", "bomFunctions", AddInGUID);
-			//create print/pdf/dwg button functions
-
-		}
-
-		public ButtonDefinition CreateButtonDef(Inventor.Application invApp, ButtonDefinition buttonDef, Icon icon)
-		{
-			buttonDef = invApp.CommandManager.ControlDefinitions.AddButtonDefinition("Renumber BOM", "renumberBOM", CommandTypesEnum.kShapeEditCmdType, AddInGUID, "", "", icon, icon);
-			return buttonDef;
-		}
-
-		public void AddButton(ButtonDefinition renumberBOMButton)
-		{
-			BOMPanel.CommandControls.AddButton(renumberBOMButton);
+			ribbon = UIManager.Ribbons["Drawing"];
+			ribbonTab = ribbon.RibbonTabs.Add("Spiroflow", "id_Spiroflow_Drawing", AddInGUID);
+			panels.Add(ribbonTab.RibbonPanels.Add("BOM Functions", "bomPanel", AddInGUID));
+			panels.Add(ribbonTab.RibbonPanels.Add("Printing", "printPanel", AddInGUID));
 		}
 	}
 }

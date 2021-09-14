@@ -1,22 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Inventor;
 using SpiroflowAddIn.Utilities;
 
 namespace SpiroflowAddIn.Buttons
 {
-	public class RenumberBOMButton
+	public class RenumberBOMButton : IButton
 	{
+		public Application invApp { get; set; }
+		public string DisplayName {get;set;}
+		public string InternalName { get; set; }
+		public string PanelID { get; set; }
+		public stdole.IPictureDisp icon { get; set; }
+		public ButtonDefinition buttonDef { get; set; }
+
 		public Dictionary<int, int> itemNumberDictionary = new Dictionary<int, int>();
 		private PartsList partList { get; set; }
 
-		public void Execute() 
+		public RenumberBOMButton()
 		{
-			var doc = GetInventorApp.GetApp().ActiveDocument;
+			DisplayName = "Renumber BOM";
+			InternalName = "renumberBOM";
+			PanelID = "bomPanel";
+			icon = CreateImageFromIcon.CreateInventorIcon(Properties.Resources.test);
+		}
+
+		public void Execute(NameValueMap context) 
+		{
+			var doc = invApp.ActiveDocument;
 
 			if (doc.DocumentType != DocumentTypeEnum.kDrawingDocumentObject) return;
 
@@ -29,6 +42,7 @@ namespace SpiroflowAddIn.Buttons
 			}
 			catch (Exception e)
 			{
+				Debug.WriteLine(e.Message);
 				return;
 			}
 
@@ -52,6 +66,9 @@ namespace SpiroflowAddIn.Buttons
 				else SetItemNumber(row, GetGoodItemNumber(1), false);
 			}
 
+			//sort and save BOM overrides to model
+			partList.Sort2("ITEM", AutoSortOnUpdate: true);
+			partList.SaveItemOverridesToBOM();
 			return;
 		}
 
