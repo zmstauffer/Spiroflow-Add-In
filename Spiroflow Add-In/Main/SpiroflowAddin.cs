@@ -25,6 +25,8 @@ namespace Spiroflow_Add_In
 		#region Drawing Button Definitions
 		ButtonDefinition renumberBOMButton;
 		ButtonDefinition createPDFandDWGButton;
+		ButtonDefinition createPDFButton;
+		ButtonDefinition createDWGButton;
 		#endregion
 
 		#region Assembly Button Definitions
@@ -113,6 +115,8 @@ namespace Spiroflow_Add_In
 
 			drawingRibbon.AddButton(renumberBOMButton, "SpiroflowAddIn.Buttons.RenumberBOMButton");
 			drawingRibbon.AddButton(createPDFandDWGButton, "SpiroflowAddIn.Buttons.CreatePDFandDWGButton");
+			drawingRibbon.AddButton(createPDFButton, "SpiroflowAddIn.Buttons.CreatePDFButton");
+			drawingRibbon.AddButton(createDWGButton, "SpiroflowAddIn.Buttons.CreateDWGButton");
 		}
 
 		private void CreateSpiroflowAssemblyRibbon()

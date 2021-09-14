@@ -132,8 +132,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buttons\ChangePartNumbertoFilenameButton.cs" />
+    <Compile Include="Buttons\CreateDWGButton.cs" />
     <Compile Include="Buttons\CreateNewEquipmentButton.cs" />
     <Compile Include="Buttons\CreateNewEquipmentButtonZeroDoc.cs" />
+    <Compile Include="Buttons\CreatePDFButton.cs" />
     <Compile Include="Buttons\ExportStructuredBOMButton.cs" />
     <Compile Include="Buttons\IButton.cs" />
     <Compile Include="Buttons\CreatePDFandDWGButton.cs" />
@@ -154,7 +156,9 @@
     <Compile Include="Ribbons\DrawingRibbonManager.cs" />
     <Compile Include="Ribbons\ZeroDocRibbonManager.cs" />
     <Compile Include="Utilities\CreateImageFromIcon.cs" />
+    <Compile Include="Utilities\DWGPrinter.cs" />
     <Compile Include="Utilities\GetInventorApp.cs" />
+    <Compile Include="Utilities\PDFPrinter.cs" />
     <Compile Include="Utilities\PictureDispConverter.cs" />
     <Compile Include="WPF Forms\CreateNewEquipmentForm.xaml.cs">
       <DependentUpon>CreateNewEquipmentForm.xaml</DependentUpon>
@@ -199,6 +203,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\billOfMaterialsIcon.png" />
+    <None Include="Resources\CreatePDFButtonIcon.png" />
+    <None Include="Resources\createDWGIcon.png" />
     <None Include="Resources\changePartNumber.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

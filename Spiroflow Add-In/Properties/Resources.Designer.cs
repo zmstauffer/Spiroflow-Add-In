@@ -83,9 +83,29 @@ namespace SpiroflowAddIn.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap createDWGIcon {
+            get {
+                object obj = ResourceManager.GetObject("createDWGIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap createPDFandDWGIcon {
             get {
                 object obj = ResourceManager.GetObject("createPDFandDWGIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CreatePDFButtonIcon {
+            get {
+                object obj = ResourceManager.GetObject("CreatePDFButtonIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
