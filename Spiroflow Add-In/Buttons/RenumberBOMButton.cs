@@ -16,7 +16,7 @@ namespace SpiroflowAddIn.Buttons
 		public stdole.IPictureDisp icon { get; set; }
 		public ButtonDefinition buttonDef { get; set; }
 
-		public Dictionary<int, int> itemNumberDictionary = new Dictionary<int, int>();
+		public Dictionary<int, int> itemNumberDictionary { get; set; }
 		private PartsList partList { get; set; }
 
 		public RenumberBOMButton()
@@ -33,6 +33,7 @@ namespace SpiroflowAddIn.Buttons
 
 			if (doc.DocumentType != DocumentTypeEnum.kDrawingDocumentObject) return;
 
+			itemNumberDictionary = new Dictionary<int, int>();
 			DrawingDocument drawingDoc = (DrawingDocument)doc;
 			Sheet currentSheet = drawingDoc.ActiveSheet;
 
@@ -55,9 +56,15 @@ namespace SpiroflowAddIn.Buttons
 
 				if (cell.Value.Contains("-P"))
 				{
-					int itemNumber = Convert.ToInt32(new Regex(@"(?:-P0*)(?<itemCode>\d+)")
-						.Match(cell.Value)
-						.Groups["itemCode"].Value);
+					int itemNumber = 0;
+					try
+					{
+						itemNumber = Convert.ToInt32(new Regex(@"(?:-P0*)(?<itemCode>\d+)")
+						  .Match(cell.Value)
+						  .Groups["itemCode"].Value);
+					}
+					catch
+					{ }
 
 					if (itemNumber != 0) desiredItemNumber = itemNumber;
 				}
