@@ -6,7 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
+using Application = Inventor.Application;
 
 namespace SpiroflowAddIn.Buttons
 {
@@ -104,7 +107,7 @@ namespace SpiroflowAddIn.Buttons
 					string newFilename = System.IO.Path.GetFileNameWithoutExtension(assyDoc.DisplayName);
 					workbook.SaveAs(@"C:\workspace\" + newFilename + "-BOM.xlsx");
 				}
-				catch
+				catch(Exception ex)
 				{
 					string newFilename = System.IO.Path.GetFileNameWithoutExtension(assyDoc.DisplayName);
 					workbook.SaveAs(@"C:\workspace\" + newFilename + "-BOM.xlsx");
@@ -163,7 +166,13 @@ namespace SpiroflowAddIn.Buttons
 				boldText = true;
 			}
 
-			worksheet.Range("C" + rowNum).Value = currentBOMRow.TotalQuantity;
+			if (subItem)
+			{
+				var quantity = GetTotalQuantity(currentBOMRow);
+				worksheet.Range("C" + rowNum).Value = quantity;
+			}
+			else worksheet.Range("C" + rowNum).Value = currentBOMRow.TotalQuantity;
+
 			worksheet.Range("D" + rowNum).Value = subDocDesignPropertySet["Part Number"].Value;
 			worksheet.Range("D" + rowNum).Style.Alignment.WrapText = true;
 			worksheet.Range("F" + rowNum).Value = subDocDesignPropertySet["Description"].Value;
@@ -221,7 +230,13 @@ namespace SpiroflowAddIn.Buttons
 				boldText = true;
 			}
 
-			worksheet.Range("C" + rowNum).Value = currentBOMRow.TotalQuantity;
+			if (subItem)
+			{
+				var quantity = GetTotalQuantity(currentBOMRow);
+				worksheet.Range("C" + rowNum).Value = quantity;
+			}
+			else worksheet.Range("C" + rowNum).Value = currentBOMRow.TotalQuantity;
+
 			worksheet.Range("D" + rowNum).Value = subDocDesignPropertySet["Part Number"].Value;
 			worksheet.Range("D" + rowNum).Style.Alignment.WrapText = true;
 			worksheet.Range("F" + rowNum).Value = subDocDesignPropertySet["Description"].Value;
@@ -245,6 +260,33 @@ namespace SpiroflowAddIn.Buttons
 			{
 				worksheet.Row(rowNum).Style.Font.Bold = true;
 				worksheet.Row(rowNum).Style.Font.FontSize = 12;
+			}
+		}
+
+		private string GetTotalQuantity(BOMRow bomRow)
+		{
+			var qtyString = bomRow.TotalQuantity;
+			try
+			{
+				var numberPart = Regex.Match(qtyString, "[0-9.]*");
+				var unitString = Regex.Match(qtyString, "[A-z]+");
+
+				if (!numberPart.Success)
+				{
+					MessageBox.Show($"Can't determine quantity of {bomRow.ItemNumber}");
+					return bomRow.TotalQuantity;
+				}
+
+				BOMRow parentRow = (BOMRow)bomRow.Parent;
+
+				string totalQty = (Convert.ToDouble(numberPart.Value) * Convert.ToDouble(parentRow.TotalQuantity)).ToString();
+
+				return $"{totalQty} {unitString.Value}";
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Can't determine quantity of {bomRow.ItemNumber}");
+				return bomRow.TotalQuantity;
 			}
 		}
 
