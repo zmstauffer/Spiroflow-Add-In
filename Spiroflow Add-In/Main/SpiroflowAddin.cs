@@ -33,6 +33,7 @@ namespace Spiroflow_Add_In
 		ButtonDefinition changePartNumbertoFilenameButton;
 		ButtonDefinition createNewEquipmentButton;                      //this button also shown on zero doc ribbon
 		ButtonDefinition exportStructuredBOMButton;
+		private ButtonDefinition replaceSubassemblyButton;
 		#endregion
 
 		#region ZeroDoc Button Definitions
@@ -126,8 +127,10 @@ namespace Spiroflow_Add_In
 			assemblyRibbon.CreateRibbonPanels();
 
 			assemblyRibbon.AddButton(changePartNumbertoFilenameButton, "SpiroflowAddIn.Buttons.ChangePartNumbertoFilenameButton");
-			assemblyRibbon.AddButton(createNewEquipmentButton, "SpiroflowAddIn.Buttons.CreateNewEquipmentButton");
+			//assemblyRibbon.AddButton(createNewEquipmentButton, "SpiroflowAddIn.Buttons.CreateNewEquipmentButton");
+			assemblyRibbon.AddButton(replaceSubassemblyButton, "SpiroflowAddIn.Buttons.ReplaceSubassemblyButton");
 			assemblyRibbon.AddButton(exportStructuredBOMButton, "SpiroflowAddIn.Buttons.ExportStructuredBOMButton");
+
 		}
 
 		private void CreateSpiroflowZeroDocRibbon()
