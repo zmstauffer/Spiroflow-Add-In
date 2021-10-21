@@ -33,7 +33,7 @@ namespace Spiroflow_Add_In
 		ButtonDefinition changePartNumbertoFilenameButton;
 		ButtonDefinition createNewEquipmentButton;                      //this button also shown on zero doc ribbon
 		ButtonDefinition exportStructuredBOMButton;
-		private ButtonDefinition replaceSubassemblyButton;
+		ButtonDefinition replaceSubassemblyButton;
 		#endregion
 
 		#region ZeroDoc Button Definitions

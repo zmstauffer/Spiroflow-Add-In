@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using DocumentFormat.OpenXml.Drawing;
 using Application = Inventor.Application;
 
 namespace SpiroflowAddIn.Buttons
@@ -153,7 +154,7 @@ namespace SpiroflowAddIn.Buttons
 			PropertySet subDocSummaryInfo = subDoc.PropertySets["Inventor Summary Information"];
 			PropertySet subDocDocInfo = subDoc.PropertySets["Document Summary Information"];
 
-			var boldText = false;
+			bool boldText = currentBOMRow.ChildRows != null & currentBOMRow.BOMStructure != BOMStructureEnum.kInseparableBOMStructure;
 
 			if (subItem)
 			{
@@ -163,7 +164,6 @@ namespace SpiroflowAddIn.Buttons
 			else
 			{
 				worksheet.Range("A" + rowNum).Value = currentBOMRow.ItemNumber;
-				boldText = true;
 			}
 
 			if (subItem)
@@ -195,7 +195,7 @@ namespace SpiroflowAddIn.Buttons
 
 			// put the picture in the excel file and format it
 			var picToInsert = worksheet.AddPicture(picFilename)
-									   .MoveTo(worksheet.Cell(rowNum, 5));
+				.MoveTo(worksheet.Cell(rowNum, 5));
 			picToInsert.Width = 70;
 			picToInsert.Height = 70;
 
@@ -217,7 +217,7 @@ namespace SpiroflowAddIn.Buttons
 			PropertySet subDocSummaryInfo = subDefinition.PropertySets["Inventor Summary Information"];
 			PropertySet subDocDocInfo = subDefinition.PropertySets["Document Summary Information"];
 
-			var boldText = false;
+			bool boldText = currentBOMRow.ChildRows != null & currentBOMRow.BOMStructure != BOMStructureEnum.kInseparableBOMStructure;
 
 			if (subItem)
 			{
@@ -227,7 +227,6 @@ namespace SpiroflowAddIn.Buttons
 			else
 			{
 				worksheet.Range("A" + rowNum).Value = currentBOMRow.ItemNumber;
-				boldText = true;
 			}
 
 			if (subItem)

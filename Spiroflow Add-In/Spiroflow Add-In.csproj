@@ -197,6 +197,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Spiroflow Vault\Spiroflow Vault.csproj">
+      <Project>{7190c79a-4684-49cb-9a00-49f0d614b7da}</Project>
+      <Name>Spiroflow Vault</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SpiroflowViewModel\SpiroflowViewModel.csproj">
       <Project>{7DF152CC-4E93-493B-A617-5B3FBC913AE0}</Project>
       <Name>SpiroflowViewModel</Name>

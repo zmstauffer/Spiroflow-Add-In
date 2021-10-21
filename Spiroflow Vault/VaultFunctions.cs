@@ -40,7 +40,7 @@ namespace SpiroflowVault
 
 			File[] files = docService.GetLatestFilesByFolderId(folderID, true);
 
-			if (files is not null)
+			if (files != null)
 			{
 				foreach (File file in files)
 				{
