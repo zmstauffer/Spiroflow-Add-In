@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Inventor;
+using Spiroflow_Vault;
+using SpiroflowVault;
 
 namespace SpiroflowViewModel.Button_Forms
 {
@@ -21,9 +24,32 @@ namespace SpiroflowViewModel.Button_Forms
 	public partial class ReplaceSubassemblyForm : Window
 	{
 
+		public ComponentOccurrence subAssyToReplace;
+
 		public ReplaceSubassemblyForm()
 		{
 			InitializeComponent();
+		}
+
+		public void OnItemMouseDoubleClick(object sender, MouseButtonEventArgs args)
+		{
+			if (sender is TreeViewItem && !((TreeViewItem)sender).IsSelected) return;
+
+			var item = (TreeViewItem) sender;
+			{
+				if (item.DataContext.GetType() == typeof(FolderInfo)) return;
+			}
+
+			VaultFileInfo file = (VaultFileInfo)item.Header;
+
+			if (!System.IO.File.Exists(file.LocalFilePath))
+			{
+				VaultFunctions.DownloadFileById(file.Id);
+			}
+
+			subAssyToReplace.Replace(file.LocalFilePath, false);
+
+			this.Close();
 
 		}
 	}

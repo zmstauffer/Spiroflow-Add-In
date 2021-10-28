@@ -10,6 +10,11 @@
              d:DesignHeight="450" d:DesignWidth="300">
     <Grid>
         <TreeView Name="fileTreeView" x:FieldModifier="public">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <EventSetter Event="MouseDoubleClick" Handler="OnItemMouseDoubleClick"></EventSetter>
+                </Style>
+            </TreeView.ItemContainerStyle>
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type FolderInfo:FolderInfo}" ItemsSource="{Binding files}">
                     <StackPanel Orientation="Horizontal">

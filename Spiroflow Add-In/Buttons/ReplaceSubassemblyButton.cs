@@ -62,6 +62,7 @@ namespace SpiroflowAddIn.Buttons
 			InitializeTreeView();
 
 			form.fileTreeView.ItemsSource = folders;
+			form.subAssyToReplace = subAssemblyToReplace;
 
 			form.ShowDialog();
 
