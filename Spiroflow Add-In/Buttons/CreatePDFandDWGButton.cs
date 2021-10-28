@@ -22,7 +22,7 @@ namespace SpiroflowAddIn.Buttons
 			DisplayName = $"Create PDF{System.Environment.NewLine}and DWGs";
 			InternalName = "createPDFandDWG";
 			PanelID = "printPanel";
-			icon = CreateImageFromIcon.CreateInventorIcon(Properties.Resources.createPDFandDWGIcon);
+			icon = CreateImageFromIcon.CreateInventorIcon(Properties.Resources.createPDFandDWGIcon1);
 		}
 
 		public void Execute(NameValueMap context)

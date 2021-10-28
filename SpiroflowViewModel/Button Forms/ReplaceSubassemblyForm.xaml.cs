@@ -20,9 +20,11 @@ namespace SpiroflowViewModel.Button_Forms
 	/// </summary>
 	public partial class ReplaceSubassemblyForm : Window
 	{
+
 		public ReplaceSubassemblyForm()
 		{
 			InitializeComponent();
+
 		}
 	}
 }

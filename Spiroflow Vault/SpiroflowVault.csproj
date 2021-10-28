@@ -7,8 +7,8 @@
     <ProjectGuid>{7190C79A-4684-49CB-9A00-49F0D614B7DA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spiroflow_Vault</RootNamespace>
-    <AssemblyName>Spiroflow Vault</AssemblyName>
+    <RootNamespace>SpiroflowVault</RootNamespace>
+    <AssemblyName>SpiroflowVault</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -56,6 +56,7 @@
     <Compile Include="FolderAndFileInfo.cs" />
     <Compile Include="FolderInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VaultFileInfo.cs" />
     <Compile Include="VaultFunctions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

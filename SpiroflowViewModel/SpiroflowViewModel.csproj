@@ -48,16 +48,25 @@
     <Compile Include="Button Forms\ReplaceSubassemblyForm.xaml.cs">
       <DependentUpon>ReplaceSubassemblyForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Button Forms\TestClass.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TreeViewNode.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Button Form Data Classes\" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Button Forms\ReplaceSubassemblyForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Spiroflow Vault\SpiroflowVault.csproj">
+      <Project>{7190c79a-4684-49cb-9a00-49f0d614b7da}</Project>
+      <Name>SpiroflowVault</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

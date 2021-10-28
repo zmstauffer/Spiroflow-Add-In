@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Autodesk.Connectivity.WebServices;
 using Autodesk.DataManagement.Client.Framework.Vault.Currency;
 using Autodesk.DataManagement.Client.Framework.Vault.Currency.Connections;
 using Autodesk.DataManagement.Client.Framework.Vault.Settings;
+using Spiroflow_Vault;
 
 namespace SpiroflowVault
 {
@@ -27,10 +29,10 @@ namespace SpiroflowVault
 		/// </summary>
 		/// <param name="folderID"></param>
 		/// <returns></returns>
-		public static List<FolderAndFileInfo> GetFilenamesFromId(long folderID)
+		public static ObservableCollection<VaultFileInfo> GetFilenamesFromFolderId(long folderID)
 		{
 
-			List<FolderAndFileInfo> fileList = new List<FolderAndFileInfo>();
+			ObservableCollection<VaultFileInfo> fileList = new ObservableCollection<VaultFileInfo>();
 
 			var vaultConnection = GetVaultConnection();
 
@@ -47,18 +49,18 @@ namespace SpiroflowVault
 					if (file.Name.Contains(".dwf")) continue;
 					if (file.Name.Contains(".iam") || file.Name.Contains(".ipt"))
 					{
-						Folder newFolder = docService.GetFolderById(file.FolderId);
+						Folder newFolder = docService.GetFolderById(folderID);
 						string localFolderPath = newFolder.FullName.Replace(@"$/", @"C:\workspace\");
 						string localFilePath = $@"{localFolderPath}\{file.Name}";
 
-						fileList.Add(new FolderAndFileInfo(newFolder.Name, localFolderPath, file.Name, localFilePath, file.Id));
+						fileList.Add(new VaultFileInfo(file.Name, localFolderPath, localFilePath, file.Id));
 					}
 				}
 			}
 
 			return fileList;
 		}
-
+		
 		/// <summary>
 		/// Returns the fileID of a specific file in a specific folder in the Vault. Returns ID of file if found, 0 if not found.
 		/// </summary>
@@ -133,6 +135,7 @@ namespace SpiroflowVault
 		{
 			var folderList = new List<FolderInfo>();
 
+			vaultPath = vaultPath.Replace(@"C:\workspace\", @"$\");
 			vaultPath = vaultPath.Replace(@"\", @"/");
 
 			var vaultConnection = GetVaultConnection();

@@ -3,20 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
              xmlns:local="clr-namespace:SpiroflowViewModel.Button_Forms"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             xmlns:FolderInfo="clr-namespace:SpiroflowVault;assembly=SpiroflowVault"
+             xmlns:spiroflowVault="clr-namespace:Spiroflow_Vault;assembly=SpiroflowVault"
+             d:DesignHeight="450" d:DesignWidth="300">
     <Grid>
-              <Grid.ColumnDefinitions>
-                  <ColumnDefinition></ColumnDefinition>
-                  <ColumnDefinition></ColumnDefinition>
-              </Grid.ColumnDefinitions>  
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-
-        <TextBlock Text="Hi Everybody" Grid.Row="0" Grid.Column="0" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-
+        <TreeView Name="fileTreeView" x:FieldModifier="public">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type FolderInfo:FolderInfo}" ItemsSource="{Binding files}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding folderName}"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+                <DataTemplate DataType="{x:Type spiroflowVault:VaultFileInfo}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="" Margin="0,0,5,0"></Image>
+                        <TextBlock Text="{Binding FileName}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </TreeView.Resources>
+        </TreeView>
     </Grid>
 </Window>

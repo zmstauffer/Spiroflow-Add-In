@@ -179,16 +179,13 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Resources\test.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\createPDFandDWGIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="WPF Forms\CreateNewEquipmentForm.xaml">
@@ -197,9 +194,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Spiroflow Vault\Spiroflow Vault.csproj">
+    <ProjectReference Include="..\Spiroflow Vault\SpiroflowVault.csproj">
       <Project>{7190c79a-4684-49cb-9a00-49f0d614b7da}</Project>
-      <Name>Spiroflow Vault</Name>
+      <Name>SpiroflowVault</Name>
     </ProjectReference>
     <ProjectReference Include="..\SpiroflowViewModel\SpiroflowViewModel.csproj">
       <Project>{7DF152CC-4E93-493B-A617-5B3FBC913AE0}</Project>
@@ -208,6 +205,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\billOfMaterialsIcon.png" />
+    <None Include="Resources\createPDFandDWGIcon.ico" />
     <None Include="Resources\CreatePDFButtonIcon.png" />
     <None Include="Resources\createDWGIcon.png" />
     <None Include="Resources\changePartNumber.png" />

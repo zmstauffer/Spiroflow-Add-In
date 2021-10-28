@@ -91,12 +91,12 @@ namespace SpiroflowAddIn.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Bitmap createPDFandDWGIcon {
+        internal static System.Drawing.Icon createPDFandDWGIcon1 {
             get {
-                object obj = ResourceManager.GetObject("createPDFandDWGIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("createPDFandDWGIcon1", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         

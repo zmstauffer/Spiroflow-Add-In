@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spiroflow Add-In", "Spirofl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpiroflowViewModel", "SpiroflowViewModel\SpiroflowViewModel.csproj", "{7DF152CC-4E93-493B-A617-5B3FBC913AE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spiroflow Vault", "Spiroflow Vault\Spiroflow Vault.csproj", "{7190C79A-4684-49CB-9A00-49F0D614B7DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpiroflowVault", "Spiroflow Vault\SpiroflowVault.csproj", "{7190C79A-4684-49CB-9A00-49F0D614B7DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
