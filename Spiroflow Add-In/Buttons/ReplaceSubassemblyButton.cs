@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+using System.Windows;
 using System.Windows.Interop;
 using Inventor;
-using Spiroflow_Vault;
 using SpiroflowAddIn.Utilities;
 using SpiroflowVault;
 using SpiroflowViewModel.Button_Forms;
+using Application = Inventor.Application;
 using IPictureDisp = stdole.IPictureDisp;
 
 namespace SpiroflowAddIn.Buttons
@@ -32,13 +29,13 @@ namespace SpiroflowAddIn.Buttons
 			DisplayName = $"Replace{System.Environment.NewLine}Subassembly";
 			InternalName = "replaceSubassembly";
 			PanelID = "assemblyPanel";
-			icon = CreateImageFromIcon.CreateInventorIcon(Properties.Resources.test);
+			icon = CreateImageFromIcon.CreateInventorIcon(Properties.Resources.Replace_Subassembly);
 		}
 
 		public void Execute(NameValueMap context)
 		{
 			ComponentOccurrence subAssemblyToReplace;
-			if (invApp.ActiveDocument.SelectSet.Count <= 0 || invApp.ActiveDocument.SelectSet.Count > 1)				//check if we already have something selected, make sure it's only 1 thing
+			if (invApp.ActiveDocument.SelectSet.Count != 1)				//check if we already have something selected, make sure it's only 1 thing
 			{
 				subAssemblyToReplace = (ComponentOccurrence) invApp.CommandManager.Pick(SelectionFilterEnum.kAssemblyOccurrenceFilter, "Select Subassembly to Replace.");
 			}
@@ -47,12 +44,16 @@ namespace SpiroflowAddIn.Buttons
 				subAssemblyToReplace = (ComponentOccurrence)invApp.ActiveDocument.SelectSet[1];				//index starts at 1...
 			}
 
-			if (subAssemblyToReplace is null) return;
+			if (subAssemblyToReplace is null)
+			{
+				MessageBox.Show("No subassembly selected.", "ERROR");
+				return;
+			}
 
-			Document subAssyDoc = (Document)subAssemblyToReplace.Definition.Document;
+			Document subAssemblyDocument = (Document)subAssemblyToReplace.Definition.Document;
 			
-			subAssemblyPath = subAssyDoc.FullFileName;
-			subAssemblyPath = System.IO.Path.GetFullPath(System.IO.Path.Combine(subAssemblyPath, @"..\..\"));
+			subAssemblyPath = subAssemblyDocument.FullFileName;
+			subAssemblyPath = System.IO.Path.GetFullPath(System.IO.Path.Combine(subAssemblyPath, @"..\..\"));			//this gets us two levels up in directory structure, potential for errors.
 			
 			//open form
 			var form = new ReplaceSubassemblyForm();

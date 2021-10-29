@@ -40,7 +40,7 @@ namespace SpiroflowViewModel.Button_Forms
 				if (item.DataContext.GetType() == typeof(FolderInfo)) return;
 			}
 
-			VaultFileInfo file = (VaultFileInfo)item.Header;
+			var file = (VaultFileInfo)item.Header;
 
 			if (!System.IO.File.Exists(file.LocalFilePath))
 			{
@@ -49,8 +49,7 @@ namespace SpiroflowViewModel.Button_Forms
 
 			subAssyToReplace.Replace(file.LocalFilePath, false);
 
-			this.Close();
-
+			Close();
 		}
 	}
 }

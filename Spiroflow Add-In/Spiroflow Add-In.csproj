@@ -139,6 +139,7 @@
     <Compile Include="Buttons\ExportStructuredBOMButton.cs" />
     <Compile Include="Buttons\IButton.cs" />
     <Compile Include="Buttons\CreatePDFandDWGButton.cs" />
+    <Compile Include="Buttons\SetEngineerAndDateIPropertiesButton.cs" />
     <Compile Include="Buttons\RenumberBOMButton.cs" />
     <Compile Include="Buttons\ReplaceSubassemblyButton.cs" />
     <Compile Include="Main\AssemblyInfo.cs">
@@ -205,6 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\billOfMaterialsIcon.png" />
+    <None Include="Resources\Replace_Subassembly.ico" />
     <None Include="Resources\createPDFandDWGIcon.ico" />
     <None Include="Resources\CreatePDFButtonIcon.png" />
     <None Include="Resources\createDWGIcon.png" />

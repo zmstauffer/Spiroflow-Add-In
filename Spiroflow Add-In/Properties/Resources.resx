@@ -133,6 +133,9 @@
   <data name="CreatePDFButtonIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CreatePDFButtonIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Replace_Subassembly" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Replace_Subassembly.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="test" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\test.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

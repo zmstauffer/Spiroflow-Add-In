@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using DocumentFormat.OpenXml.Office.CustomUI;
 using SpiroflowAddIn.Ribbons;
 using SpiroflowAddIn.Utilities;
 using SpiroflowAddIn.Buttons;
@@ -34,6 +35,7 @@ namespace Spiroflow_Add_In
 		ButtonDefinition createNewEquipmentButton;                      //this button also shown on zero doc ribbon
 		ButtonDefinition exportStructuredBOMButton;
 		ButtonDefinition replaceSubassemblyButton;
+		ButtonDefinition setEngineerAndDateIPropertiesButton;			//also shown on drawing ribbon
 		#endregion
 
 		#region ZeroDoc Button Definitions
@@ -118,6 +120,7 @@ namespace Spiroflow_Add_In
 			drawingRibbon.AddButton(createPDFandDWGButton, "SpiroflowAddIn.Buttons.CreatePDFandDWGButton");
 			drawingRibbon.AddButton(createPDFButton, "SpiroflowAddIn.Buttons.CreatePDFButton");
 			drawingRibbon.AddButton(createDWGButton, "SpiroflowAddIn.Buttons.CreateDWGButton");
+			//drawingRibbon.AddButton(setEngineerAndDateIPropertiesButton, "SpiroflowAddIn.Buttons.SetEngineerAndDateIPropertiesButton");
 		}
 
 		private void CreateSpiroflowAssemblyRibbon()
@@ -130,7 +133,7 @@ namespace Spiroflow_Add_In
 			//assemblyRibbon.AddButton(createNewEquipmentButton, "SpiroflowAddIn.Buttons.CreateNewEquipmentButton");
 			assemblyRibbon.AddButton(replaceSubassemblyButton, "SpiroflowAddIn.Buttons.ReplaceSubassemblyButton");
 			assemblyRibbon.AddButton(exportStructuredBOMButton, "SpiroflowAddIn.Buttons.ExportStructuredBOMButton");
-
+			assemblyRibbon.AddButton(setEngineerAndDateIPropertiesButton, "SpiroflowAddIn.Buttons.SetEngineerAndDateIPropertiesButton");
 		}
 
 		private void CreateSpiroflowZeroDocRibbon()
