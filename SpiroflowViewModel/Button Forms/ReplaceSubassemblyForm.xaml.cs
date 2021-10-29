@@ -49,7 +49,12 @@ namespace SpiroflowViewModel.Button_Forms
 
 			subAssyToReplace.Replace(file.LocalFilePath, false);
 
-			Close();
+			this.Close();
+		}
+
+		private void CloseCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs eventArgs)
+		{
+			this.Close();
 		}
 	}
 }

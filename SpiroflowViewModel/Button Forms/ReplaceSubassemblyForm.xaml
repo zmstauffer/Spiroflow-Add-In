@@ -7,7 +7,8 @@
              xmlns:local="clr-namespace:SpiroflowViewModel.Button_Forms"
              xmlns:FolderInfo="clr-namespace:SpiroflowVault;assembly=SpiroflowVault"
              xmlns:spiroflowVault="clr-namespace:Spiroflow_Vault;assembly=SpiroflowVault"
-             d:DesignHeight="450" d:DesignWidth="300">
+             d:DesignHeight="400"
+             Window.SizeToContent="Width">
     <Grid>
         <TreeView Name="fileTreeView" x:FieldModifier="public">
             <TreeView.ItemContainerStyle>
@@ -30,4 +31,10 @@
             </TreeView.Resources>
         </TreeView>
     </Grid>
+    <Window.InputBindings>
+        <KeyBinding Command="ApplicationCommands.Close" Key="Escape"></KeyBinding>
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Close" Executed="CloseCommandBinding_Executed"></CommandBinding>
+    </Window.CommandBindings>
 </Window>
