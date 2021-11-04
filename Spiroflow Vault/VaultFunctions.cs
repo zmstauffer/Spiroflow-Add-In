@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Linq;
 using Autodesk.Connectivity.WebServices;
+using VDF = Autodesk.DataManagement.Client.Framework;
 using Autodesk.DataManagement.Client.Framework.Vault.Currency;
 using Autodesk.DataManagement.Client.Framework.Vault.Currency.Connections;
+using Autodesk.DataManagement.Client.Framework.Vault.Currency.Entities;
+using Autodesk.DataManagement.Client.Framework.Vault.Currency.Properties;
 using Autodesk.DataManagement.Client.Framework.Vault.Settings;
 using Spiroflow_Vault;
+using Folder = Autodesk.Connectivity.WebServices.Folder;
 
 namespace SpiroflowVault
 {
@@ -52,15 +58,128 @@ namespace SpiroflowVault
 						Folder newFolder = docService.GetFolderById(folderID);
 						string localFolderPath = newFolder.FullName.Replace(@"$/", @"C:\workspace\");
 						string localFilePath = $@"{localFolderPath}\{file.Name}";
+						string vaultFilePath = $@"{newFolder.FullName}/{file.Name}";
+						vaultFilePath.Replace(@"\", @"/");
 
-						fileList.Add(new VaultFileInfo(file.Name, localFolderPath, localFilePath, file.Id));
+						string description = "";//GetDescription(file);
+						Image thumbnail = GetThumbnailImage(vaultFilePath);
+
+						fileList.Add(new VaultFileInfo(file.Name, localFolderPath, localFilePath, file.Id, description, thumbnail));
 					}
 				}
 			}
 
 			return fileList;
 		}
-		
+
+		private static Image GetThumbnailImage(string vaultFilePath)
+		{
+			List<string> files = new List<string> { vaultFilePath };
+			var vaultConnection = GetVaultConnection();
+			try
+			{
+				var latestFiles = vaultConnection.WebServiceManager.DocumentService.FindLatestFilesByPaths(files.ToArray());
+				FileIteration fileIteration = new FileIteration(vaultConnection, latestFiles[0]);
+
+				return GetThumbnailImage(fileIteration);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
+		}
+
+		private static Image GetThumbnailImage(FileIteration fileIteration, int width = 100, int height = 100)
+		{
+
+			var vaultConnection = GetVaultConnection();
+
+			try
+			{
+				var propDefs = vaultConnection.PropertyManager.GetPropertyDefinitions(EntityClassIds.Files, null, PropertyDefinitionFilter.IncludeSystem);
+				var thumbnailPropertyDef = propDefs.SingleOrDefault(x => x.Key == "Thumbnail").Value;
+				var propSetting = new PropertyValueSettings();
+				var thumbInfo = (ThumbnailInfo) vaultConnection.PropertyManager.GetPropertyValue(fileIteration, thumbnailPropertyDef, propSetting);
+
+				return RenderThumbnailToImage(thumbInfo, height, width);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
+		}
+
+		private static Image RenderThumbnailToImage(ThumbnailInfo thumbInfo, int height, int width)
+		{
+			// convert the property value to a byte array
+			byte[] thumbnailRaw = thumbInfo.Image as byte[];
+
+			if (null == thumbnailRaw || 0 == thumbnailRaw.Length)
+				return null;
+
+			Image retImage = null;
+
+			using (System.IO.MemoryStream memStream = new System.IO.MemoryStream(thumbnailRaw))
+			{
+				using (System.IO.BinaryReader br = new System.IO.BinaryReader(memStream))
+				{
+					int CF_METAFILEPICT = 3;
+					int CF_ENHMETAFILE = 14;
+
+					int clipboardFormatId = br.ReadInt32(); /*int clipFormat =*/
+					bool bytesRepresentMetafile = (clipboardFormatId == CF_METAFILEPICT || clipboardFormatId == CF_ENHMETAFILE);
+					try
+					{
+
+						if (bytesRepresentMetafile)
+						{
+							// the bytes represent a clipboard metafile
+
+							// read past header information
+							br.ReadInt16();
+							br.ReadInt16();
+							br.ReadInt16();
+							br.ReadInt16();
+
+							System.Drawing.Imaging.Metafile mf = new System.Drawing.Imaging.Metafile(br.BaseStream);
+							retImage = mf.GetThumbnailImage(width, height, new Image.GetThumbnailImageAbort(GetThumbnailImageAbort), IntPtr.Zero);
+						}
+						else
+						{
+							// the bytes do not represent a metafile, try to convert to an Image
+							memStream.Seek(0, System.IO.SeekOrigin.Begin);
+							Image im = Image.FromStream(memStream, true, false);
+
+							retImage = im.GetThumbnailImage(width, height, new Image.GetThumbnailImageAbort(GetThumbnailImageAbort), IntPtr.Zero);
+						}
+					}
+					catch
+					{
+					}
+				}
+			}
+
+			return retImage;
+		}
+
+		private static bool GetThumbnailImageAbort()
+		{
+			return false;
+		}
+
+
+		private static string GetDescription(File file)
+		{
+			var vaultConnection = GetVaultConnection();
+
+			var items = vaultConnection.WebServiceManager.ItemService.GetItemsByFileId(file.Id);
+
+			return null;
+
+		}
+
 		/// <summary>
 		/// Returns the fileID of a specific file in a specific folder in the Vault. Returns ID of file if found, 0 if not found.
 		/// </summary>
