@@ -32,14 +32,14 @@ namespace Spiroflow_Add_In
 
 		#region Assembly Button Definitions
 		ButtonDefinition changePartNumbertoFilenameButton;
-		ButtonDefinition createNewEquipmentButton;                      //this button also shown on zero doc ribbon
+		//ButtonDefinition createNewEquipmentButton;                      //this button also shown on zero doc ribbon
 		ButtonDefinition exportStructuredBOMButton;
 		ButtonDefinition replaceSubassemblyButton;
 		ButtonDefinition setEngineerAndDateIPropertiesButton;			//also shown on drawing ribbon
 		#endregion
 
 		#region ZeroDoc Button Definitions
-		ButtonDefinition createNewEquipmentButtonZeroDoc;
+		//ButtonDefinition createNewEquipmentButtonZeroDoc;
 		#endregion
 
 		public SpiroflowAddin()
@@ -136,14 +136,14 @@ namespace Spiroflow_Add_In
 			assemblyRibbon.AddButton(setEngineerAndDateIPropertiesButton, "SpiroflowAddIn.Buttons.SetEngineerAndDateIPropertiesButton");
 		}
 
-		private void CreateSpiroflowZeroDocRibbon()
-		{
-			ZeroDocRibbonManager zeroDocRibbon = new ZeroDocRibbonManager(inventorApp, UIManager, AddInGUID);
+		//private void CreateSpiroflowZeroDocRibbon()
+		//{
+		//	ZeroDocRibbonManager zeroDocRibbon = new ZeroDocRibbonManager(inventorApp, UIManager, AddInGUID);
 
-			zeroDocRibbon.CreateRibbonPanels();
+		//	zeroDocRibbon.CreateRibbonPanels();
 
-			zeroDocRibbon.AddButton(createNewEquipmentButtonZeroDoc, "SpiroflowAddIn.Buttons.CreateNewEquipmentButtonZeroDoc");
-		}
+		//	zeroDocRibbon.AddButton(createNewEquipmentButtonZeroDoc, "SpiroflowAddIn.Buttons.CreateNewEquipmentButtonZeroDoc");
+		//}
 		#endregion
 	}
 }

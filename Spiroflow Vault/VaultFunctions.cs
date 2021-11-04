@@ -61,7 +61,7 @@ namespace SpiroflowVault
 						string vaultFilePath = $@"{newFolder.FullName}/{file.Name}";
 						vaultFilePath.Replace(@"\", @"/");
 
-						string description = "";//GetDescription(file);
+						string description = GetDescription(vaultFilePath);
 						Image thumbnail = GetThumbnailImage(vaultFilePath);
 
 						fileList.Add(new VaultFileInfo(file.Name, localFolderPath, localFilePath, file.Id, description, thumbnail));
@@ -74,6 +74,20 @@ namespace SpiroflowVault
 
 		private static Image GetThumbnailImage(string vaultFilePath)
 		{
+			var fileIteration = GetFileIterationFromPath(vaultFilePath);
+			try
+			{
+				return GetThumbnailImage(fileIteration);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
+		}
+
+		private static FileIteration GetFileIterationFromPath(string vaultFilePath)
+		{
 			List<string> files = new List<string> { vaultFilePath };
 			var vaultConnection = GetVaultConnection();
 			try
@@ -81,7 +95,7 @@ namespace SpiroflowVault
 				var latestFiles = vaultConnection.WebServiceManager.DocumentService.FindLatestFilesByPaths(files.ToArray());
 				FileIteration fileIteration = new FileIteration(vaultConnection, latestFiles[0]);
 
-				return GetThumbnailImage(fileIteration);
+				return fileIteration;
 			}
 			catch (Exception e)
 			{
@@ -92,7 +106,6 @@ namespace SpiroflowVault
 
 		private static Image GetThumbnailImage(FileIteration fileIteration, int width = 100, int height = 100)
 		{
-
 			var vaultConnection = GetVaultConnection();
 
 			try
@@ -100,7 +113,7 @@ namespace SpiroflowVault
 				var propDefs = vaultConnection.PropertyManager.GetPropertyDefinitions(EntityClassIds.Files, null, PropertyDefinitionFilter.IncludeSystem);
 				var thumbnailPropertyDef = propDefs.SingleOrDefault(x => x.Key == "Thumbnail").Value;
 				var propSetting = new PropertyValueSettings();
-				var thumbInfo = (ThumbnailInfo) vaultConnection.PropertyManager.GetPropertyValue(fileIteration, thumbnailPropertyDef, propSetting);
+				var thumbInfo = (ThumbnailInfo)vaultConnection.PropertyManager.GetPropertyValue(fileIteration, thumbnailPropertyDef, propSetting);
 
 				return RenderThumbnailToImage(thumbInfo, height, width);
 			}
@@ -111,6 +124,13 @@ namespace SpiroflowVault
 			}
 		}
 
+		/// <summary>
+		/// Takes a thumbnail image and stuffs it into a System.Drawing.Image
+		/// </summary>
+		/// <param name="thumbInfo"></param>
+		/// <param name="height"></param>
+		/// <param name="width"></param>
+		/// <returns></returns>
 		private static Image RenderThumbnailToImage(ThumbnailInfo thumbInfo, int height, int width)
 		{
 			// convert the property value to a byte array
@@ -169,15 +189,23 @@ namespace SpiroflowVault
 			return false;
 		}
 
-
-		private static string GetDescription(File file)
+		private static string GetDescription(string vaultFilePath)
 		{
 			var vaultConnection = GetVaultConnection();
-
-			var items = vaultConnection.WebServiceManager.ItemService.GetItemsByFileId(file.Id);
-
-			return null;
-
+			var fileIteration = GetFileIterationFromPath(vaultFilePath);
+			try
+			{
+				var propDefs = vaultConnection.PropertyManager.GetPropertyDefinitions(EntityClassIds.Files, null, PropertyDefinitionFilter.IncludeAll);
+				var descriptionPropertyDef = propDefs.SingleOrDefault(x => x.Key == "Description").Value;
+				var propSetting = new PropertyValueSettings();
+				var descriptionString = (string)vaultConnection.PropertyManager.GetPropertyValue(fileIteration, descriptionPropertyDef, propSetting);
+				return descriptionString;
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
 		}
 
 		/// <summary>

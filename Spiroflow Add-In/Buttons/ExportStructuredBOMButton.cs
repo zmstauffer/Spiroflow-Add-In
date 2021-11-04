@@ -112,6 +112,7 @@ namespace SpiroflowAddIn.Buttons
 				{
 					string newFilename = System.IO.Path.GetFileNameWithoutExtension(assyDoc.DisplayName);
 					workbook.SaveAs(@"C:\workspace\" + newFilename + "-BOM.xlsx");
+					Console.Write(ex.Message);
 				}
 			}
 		}
@@ -285,6 +286,7 @@ namespace SpiroflowAddIn.Buttons
 			catch (Exception ex)
 			{
 				MessageBox.Show($"Can't determine quantity of {bomRow.ItemNumber}");
+				Console.Write(ex.Message);
 				return bomRow.TotalQuantity;
 			}
 		}
