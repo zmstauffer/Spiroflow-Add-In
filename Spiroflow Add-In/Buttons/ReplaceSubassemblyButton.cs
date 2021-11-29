@@ -22,8 +22,7 @@ namespace SpiroflowAddIn.Buttons
 
 		private string subAssemblyPath { get; set; }
 		private List<FolderInfo> folders { get; set; }
-
-
+		
 		public ReplaceSubassemblyButton()
 		{
 			DisplayName = $"Replace{System.Environment.NewLine}Subassembly";

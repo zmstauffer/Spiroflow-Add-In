@@ -36,6 +36,7 @@ namespace Spiroflow_Add_In
 		ButtonDefinition exportStructuredBOMButton;
 		ButtonDefinition replaceSubassemblyButton;
 		ButtonDefinition setEngineerAndDateIPropertiesButton;			//also shown on drawing ribbon
+		ButtonDefinition findMissingFabricationDrawingsButton;
 		#endregion
 
 		#region ZeroDoc Button Definitions
@@ -66,7 +67,7 @@ namespace Spiroflow_Add_In
 			CreateSpiroflowAssemblyRibbon();
 
 			//add new buttons to zero doc ribbon
-			CreateSpiroflowZeroDocRibbon();
+			//CreateSpiroflowZeroDocRibbon();
 		}
 
 		#endregion
@@ -134,6 +135,7 @@ namespace Spiroflow_Add_In
 			assemblyRibbon.AddButton(replaceSubassemblyButton, "SpiroflowAddIn.Buttons.ReplaceSubassemblyButton");
 			assemblyRibbon.AddButton(exportStructuredBOMButton, "SpiroflowAddIn.Buttons.ExportStructuredBOMButton");
 			assemblyRibbon.AddButton(setEngineerAndDateIPropertiesButton, "SpiroflowAddIn.Buttons.SetEngineerAndDateIPropertiesButton");
+			assemblyRibbon.AddButton(findMissingFabricationDrawingsButton, "SpiroflowAddIn.Buttons.FindMissingFabricationDrawingsButton");
 		}
 
 		//private void CreateSpiroflowZeroDocRibbon()

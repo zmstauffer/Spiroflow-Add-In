@@ -73,7 +73,7 @@ namespace SpiroflowAddIn.Buttons
 				worksheet.Column(2).Width = 6;
 				worksheet.Column(3).Width = 8.5d;
 				worksheet.Column(4).Width = 19;
-				worksheet.Column(5).Width = 10.71d;
+				worksheet.Column(5).Width = 9.3d;
 				worksheet.Column(6).Width = 60;
 				worksheet.Column(7).Width = 19;
 				worksheet.Column(8).Width = 20;
@@ -201,7 +201,7 @@ namespace SpiroflowAddIn.Buttons
 			picToInsert.Height = 70;
 
 			// set row height to fit picture
-			worksheet.Row(rowNum).Height = 60;
+			worksheet.Row(rowNum).Height = 53;
 
 			//set text to bold
 			if (boldText)
@@ -253,7 +253,7 @@ namespace SpiroflowAddIn.Buttons
 			worksheet.Range("H" + rowNum).Value = subDocDesignPropertySet["Vendor"].Value;
 
 			// set row height to fit picture
-			worksheet.Row(rowNum).Height = 60;
+			worksheet.Row(rowNum).Height = 53;
 
 			//set text to bold
 			if (boldText)

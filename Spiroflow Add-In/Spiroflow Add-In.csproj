@@ -137,6 +137,7 @@
     <Compile Include="Buttons\CreateNewEquipmentButtonZeroDoc.cs" />
     <Compile Include="Buttons\CreatePDFButton.cs" />
     <Compile Include="Buttons\ExportStructuredBOMButton.cs" />
+    <Compile Include="Buttons\FindMissingFabricationDrawingsButton.cs" />
     <Compile Include="Buttons\IButton.cs" />
     <Compile Include="Buttons\CreatePDFandDWGButton.cs" />
     <Compile Include="Buttons\SetEngineerAndDateIPropertiesButton.cs" />

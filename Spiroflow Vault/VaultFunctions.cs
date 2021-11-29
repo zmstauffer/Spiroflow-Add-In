@@ -320,7 +320,7 @@ namespace SpiroflowVault
 			settings.OptionsRelationshipGathering.FileRelationshipSettings.VersionGatheringOption = VersionGatheringOption.Latest;
 
 			var docService = vaultConnection.WebServiceManager.DocumentService;
-			var fileIteration = new Autodesk.DataManagement.Client.Framework.Vault.Currency.Entities.FileIteration(vaultConnection, docService.GetFileById(fileId));
+			var fileIteration = new FileIteration(vaultConnection, docService.GetFileById(fileId));
 
 			try
 			{
