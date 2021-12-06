@@ -40,6 +40,13 @@ namespace SpiroflowAddIn.Buttons
 			AssemblyDocument assyDoc = (AssemblyDocument)invApp.ActiveDocument;
 			AssemblyComponentDefinition assyDef = assyDoc.ComponentDefinition;
 			BOM assyBOM = assyDef.BOM;
+
+			if (assyBOM is null) return;
+
+			assyBOM.PartsOnlyViewEnabled = false;
+			assyBOM.StructuredViewFirstLevelOnly = false;
+			assyBOM.StructuredViewEnabled = true;
+
 			string bomImportFilename = @"C:\workspace\bom - structured view.xml";
 			BOMView bomView = assyBOM.BOMViews["Structured"];
 			string templateFilename = @"Y:\BOM\HEADER TEMPLATE.xlsx";
@@ -48,9 +55,6 @@ namespace SpiroflowAddIn.Buttons
 			{
 				worksheet = workbook.Worksheet("BOM");
 
-				assyBOM.PartsOnlyViewEnabled = false;
-				assyBOM.StructuredViewFirstLevelOnly = false;
-				assyBOM.StructuredViewEnabled = true;
 				assyBOM.StructuredViewDelimiter = ".";
 				assyBOM.ImportBOMCustomization(bomImportFilename);
 

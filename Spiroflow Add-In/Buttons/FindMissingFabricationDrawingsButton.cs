@@ -45,8 +45,9 @@ namespace SpiroflowAddIn.Buttons
 				if (occurrence.Name.Contains("SP") || occurrence.Name.Contains("PC") || occurrence.Name.Contains("CF"))
 				{
 					fileList.Add(occurrence.Name);
-					if (occurrence.BOMStructure != BOMStructureEnum.kInseparableBOMStructure && occurrence.Definition.Occurrences.Count > 1) GetSubOccurrences(occurrence);
+					
 				}
+				if (occurrence.BOMStructure != BOMStructureEnum.kInseparableBOMStructure) GetSubOccurrences(occurrence);
 			}
 
 			var existingFileList = GetExistingFiles();
@@ -54,7 +55,8 @@ namespace SpiroflowAddIn.Buttons
 			foreach (var name in fileList)
 			{
 				var filename = name.Split(new[] { ':' })[0];
-				if (!existingFileList.Contains(filename)) neededFiles.Add(filename);
+				var file = existingFileList.FirstOrDefault(x => x.Contains(filename));
+				if (file is null) neededFiles.Add(filename);
 			}
 
 			neededFiles = neededFiles.Distinct().ToList();
@@ -68,11 +70,11 @@ namespace SpiroflowAddIn.Buttons
 		{
 			foreach (ComponentOccurrence subOccurrence in occurrence.Definition.Occurrences)
 			{
-				if (subOccurrence.Name.Contains("SP") && (subOccurrence.Name.Contains("-CS") || subOccurrence.Name.Contains("-304")))
+				if (subOccurrence.Name.Contains("SP") || subOccurrence.Name.Contains("CF") && (subOccurrence.Name.Contains("-CS") || subOccurrence.Name.Contains("-304")))
 				{
 					if(!fileList.Contains(subOccurrence.Name)) fileList.Add(subOccurrence.Name);
 				}
-				if (subOccurrence.BOMStructure != BOMStructureEnum.kInseparableBOMStructure && subOccurrence.Definition.Occurrences.Count > 1 && !subOccurrence.Name.Contains("SP")) GetSubOccurrences(subOccurrence);
+				if (subOccurrence.BOMStructure != BOMStructureEnum.kInseparableBOMStructure) GetSubOccurrences(subOccurrence);
 			}
 		}
 
