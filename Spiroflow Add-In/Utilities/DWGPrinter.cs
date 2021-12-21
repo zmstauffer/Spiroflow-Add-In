@@ -32,6 +32,7 @@ namespace SpiroflowAddIn.Utilities
 			foreach (Sheet sheet in drawingDoc.Sheets)
 			{
 				sheet.Activate();
+				sheet.Update();
 
 				if (drawingDoc.Sheets.Count > 1) dataMedium.FileName = $"{filepath}{drawingName} Sheet {sheetNum} of {totalSheets}.dwg";
 				else dataMedium.FileName = $"{filepath}{drawingName}.dwg";

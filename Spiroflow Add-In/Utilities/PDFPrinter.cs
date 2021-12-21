@@ -33,6 +33,7 @@ namespace SpiroflowAddIn.Utilities
 			foreach (Sheet sheet in drawingDoc.Sheets)
 			{
 				sheet.Activate();
+				sheet.Update();
 				foreach (DrawingView view in sheet.DrawingViews)
 				{
 					do

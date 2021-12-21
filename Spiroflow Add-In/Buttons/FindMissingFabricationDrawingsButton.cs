@@ -20,7 +20,7 @@ namespace SpiroflowAddIn.Buttons
 		public string DisplayName { get; set; }
 		public string InternalName { get; set; }
 		public ButtonDefinition buttonDef { get; set; }
-		private List<string> fileList { get; }
+		private List<string> fileList { get; set; }
 
 		public FindMissingFabricationDrawingsButton()
 		{
@@ -28,24 +28,23 @@ namespace SpiroflowAddIn.Buttons
 			InternalName = "findMissingDrawings";
 			PanelID = "assemblyPanel";
 			icon = CreateImageFromIcon.CreateInventorIcon(Properties.Resources.test);
-			fileList = new List<string>();
 		}
 
 		public void Execute(NameValueMap context)
 		{
 			var doc = invApp.ActiveDocument;
 			var neededFiles = new List<string>();
-			
+			fileList = new List<string>();
+
 			if (doc.DocumentType != DocumentTypeEnum.kAssemblyDocumentObject) return;
 
 			AssemblyDocument assemblyDoc = (AssemblyDocument)doc;
 
 			foreach (ComponentOccurrence occurrence in assemblyDoc.ComponentDefinition.Occurrences)
 			{
-				if (occurrence.Name.Contains("SP") || occurrence.Name.Contains("PC") || occurrence.Name.Contains("CF"))
+				if (occurrence.Name.Contains("SP") || occurrence.Name.Contains("PC") || occurrence.Name.Contains("CF") && occurrence.Name.Count(x => x == '-') <= 1)
 				{
 					fileList.Add(occurrence.Name);
-					
 				}
 				if (occurrence.BOMStructure != BOMStructureEnum.kInseparableBOMStructure) GetSubOccurrences(occurrence);
 			}
@@ -70,7 +69,7 @@ namespace SpiroflowAddIn.Buttons
 		{
 			foreach (ComponentOccurrence subOccurrence in occurrence.Definition.Occurrences)
 			{
-				if (subOccurrence.Name.Contains("SP") || subOccurrence.Name.Contains("CF") && (subOccurrence.Name.Contains("-CS") || subOccurrence.Name.Contains("-304")))
+				if (subOccurrence.Name.Contains("SP") || subOccurrence.Name.Contains("PC") || subOccurrence.Name.Contains("CF") && occurrence.Name.Count(x => x == '-') <= 1)
 				{
 					if(!fileList.Contains(subOccurrence.Name)) fileList.Add(subOccurrence.Name);
 				}
