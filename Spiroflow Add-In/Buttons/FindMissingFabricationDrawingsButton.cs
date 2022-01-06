@@ -5,8 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Autodesk.DataManagement.Client.Framework.Vault.Services;
+using Autodesk.iLogic.Automation;
+using Connectivity.Application.VaultBase;
 using Inventor;
 using SpiroflowAddIn.Utilities;
+using SpiroflowVault;
 using Application = Inventor.Application;
 using Environment = Inventor.Environment;
 
@@ -60,9 +64,61 @@ namespace SpiroflowAddIn.Buttons
 
 			neededFiles = neededFiles.Distinct().ToList();
 
-			var outputString = string.Join(System.Environment.NewLine, neededFiles);
-			if (outputString == "") outputString = "No missing drawings.";
-			MessageBox.Show(outputString);
+			ExportToDwg(neededFiles);
+		}
+
+		private void ExportToDwg(List<string> neededFiles)
+		{
+			List<string> filenames = new List<string>();
+
+			foreach (var file in neededFiles)
+			{
+				filenames.Add(file + ".idw");
+			}
+
+			var progressBar = invApp.CreateProgressBar(false, filenames.Count, "Creating DWGs...");
+			var currentStep = 1;
+			
+			foreach (var filename in filenames)
+			{
+				progressBar.Message = $"Creating DWG {currentStep} of {filenames.Count} - {filename}";
+				progressBar.UpdateProgress();
+
+				var files = VaultFunctions.FindFilesByFilename(filename);
+				if (files.Count != 1)
+				{
+					MessageBox.Show($"File {filename} was found multiple times in Vault, or not found at all. Please print that one yourself.");
+				}
+				else
+				{
+					//download file
+					VaultFunctions.DownloadFileById(files[0].Id);
+
+					var ilogicAddin = invApp.ApplicationAddIns.get_ItemById("{3bdd8d79-2179-4b11-8a5a-257b1c0263ac}");
+					iLogicAutomation ilogicAutomation = (iLogicAutomation)ilogicAddin.Automation;
+
+					//open file, but disable ilogic first. This is because some drawings have an "Update" rule that requires the model to update but fails.
+					try
+					{
+						ilogicAutomation.RulesOnEventsEnabled = false;
+						var doc = invApp.Documents.Open(files[0].LocalFilePath, false);
+						
+						DrawingDocument drawingDoc = (DrawingDocument) doc;
+
+						DWGPrinter.Print(drawingDoc, invApp);
+						doc.Close(true);
+					}
+					catch {}
+					finally
+					{
+						ilogicAutomation.RulesOnEventsEnabled = true;
+					}
+				}
+				progressBar.UpdateProgress();
+				currentStep++;
+			}
+
+			progressBar.Close();
 		}
 
 		private void GetSubOccurrences(ComponentOccurrence occurrence)

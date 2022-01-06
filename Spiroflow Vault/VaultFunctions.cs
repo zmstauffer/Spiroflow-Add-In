@@ -9,6 +9,7 @@ using Autodesk.DataManagement.Client.Framework.Vault.Currency;
 using Autodesk.DataManagement.Client.Framework.Vault.Currency.Connections;
 using Autodesk.DataManagement.Client.Framework.Vault.Currency.Entities;
 using Autodesk.DataManagement.Client.Framework.Vault.Currency.Properties;
+using Autodesk.DataManagement.Client.Framework.Vault.Services.Connection;
 using Autodesk.DataManagement.Client.Framework.Vault.Settings;
 using Spiroflow_Vault;
 using Folder = Autodesk.Connectivity.WebServices.Folder;
@@ -320,6 +321,7 @@ namespace SpiroflowVault
 			settings.OptionsRelationshipGathering.FileRelationshipSettings.VersionGatheringOption = VersionGatheringOption.Latest;
 
 			var docService = vaultConnection.WebServiceManager.DocumentService;
+			var item = docService.GetFileById(fileId);
 			var fileIteration = new FileIteration(vaultConnection, docService.GetFileById(fileId));
 
 			try
@@ -331,6 +333,44 @@ namespace SpiroflowVault
 			{
 				Console.WriteLine(ex.Message);
 			}
+		}
+
+		public static List<FolderAndFileInfo> FindFilesByFilename(string filename)
+		{
+			var vaultConnection = GetVaultConnection();
+			var docService = vaultConnection.WebServiceManager.DocumentService;
+
+			var propDefs = vaultConnection.PropertyManager.GetPropertyDefinitions(EntityClassIds.Files, null, PropertyDefinitionFilter.IncludeAll);
+
+			var namePropertyDef = propDefs.SingleOrDefault(x => x.Key == "Name").Value;
+			var propSetting = new PropertyValueSettings();
+
+
+			SrchCond[] searchConditions = new [] {new SrchCond()};
+			searchConditions[0].PropDefId = namePropertyDef.Id;
+			searchConditions[0].PropTyp = PropertySearchType.SingleProperty;
+			searchConditions[0].SrchOper = 3;			//3 = Is Exactly (from vault SDK)
+			searchConditions[0].SrchTxt = filename;
+
+			var rootFolder = docService.GetFolderRoot();
+			long[] folderIDs = new[] {rootFolder.Id};
+			var status = new SrchStatus();
+			var bookmark = string.Empty;
+
+			var filesFound = docService.FindFilesBySearchConditions(searchConditions, null, folderIDs, true, true, ref bookmark, out status);
+
+			var infoList = new List<FolderAndFileInfo>();
+
+			foreach (var file in filesFound)
+			{
+				Folder folder = docService.GetFolderById(file.FolderId);
+				string localFolderPath = folder.FullName.Replace(@"$/", @"C:\workspace\");
+				string localFilePath = $@"{localFolderPath}\{file.Name}";
+
+				infoList.Add(new FolderAndFileInfo(folder.Name, localFolderPath, file.Name, localFilePath, file.Id));
+			}
+
+			return infoList;
 		}
 	}
 }

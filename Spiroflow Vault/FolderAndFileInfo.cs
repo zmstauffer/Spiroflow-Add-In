@@ -16,7 +16,5 @@
 			LocalFilePath = localFilePath;
 			Id = id;
 		}
-
-		
 	}
 }
