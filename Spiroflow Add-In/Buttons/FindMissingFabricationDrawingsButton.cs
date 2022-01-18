@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Interop;
 using Autodesk.DataManagement.Client.Framework.Vault.Services;
 using Autodesk.iLogic.Automation;
 using Connectivity.Application.VaultBase;
 using Inventor;
 using SpiroflowAddIn.Utilities;
 using SpiroflowVault;
+using SpiroflowViewModel.Button_Forms;
 using Application = Inventor.Application;
 using Environment = Inventor.Environment;
 
@@ -64,7 +66,20 @@ namespace SpiroflowAddIn.Buttons
 
 			neededFiles = neededFiles.Distinct().ToList();
 
-			ExportToDwg(neededFiles);
+			var sticker = neededFiles.FirstOrDefault(x => x.Contains("STICKER"));
+			if (sticker != null) neededFiles.Remove(sticker);
+
+			var form = new FindMissingFabDrawingsForm();
+			var helper = new WindowInteropHelper(form);
+			helper.Owner = new IntPtr(invApp.MainFrameHWND);
+
+			form.fileList.ItemsSource = neededFiles;
+			var dialogResult = form.ShowDialog();
+
+			if (dialogResult.HasValue && dialogResult.Value)
+			{
+				ExportToDwg(neededFiles);
+			}
 		}
 
 		private void ExportToDwg(List<string> neededFiles)
@@ -94,7 +109,7 @@ namespace SpiroflowAddIn.Buttons
 					//download file
 					VaultFunctions.DownloadFileById(files[0].Id);
 
-					var ilogicAddin = invApp.ApplicationAddIns.get_ItemById("{3bdd8d79-2179-4b11-8a5a-257b1c0263ac}");
+					var ilogicAddin = invApp.ApplicationAddIns.ItemById["{3bdd8d79-2179-4b11-8a5a-257b1c0263ac}"];
 					iLogicAutomation ilogicAutomation = (iLogicAutomation)ilogicAddin.Automation;
 
 					//open file, but disable ilogic first. This is because some drawings have an "Update" rule that requires the model to update but fails.

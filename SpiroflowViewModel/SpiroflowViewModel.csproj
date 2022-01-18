@@ -48,6 +48,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Button Forms\FindMissingFabDrawingsForm.xaml.cs">
+      <DependentUpon>FindMissingFabDrawingsForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Button Forms\ReplaceSubassemblyForm.xaml.cs">
       <DependentUpon>ReplaceSubassemblyForm.xaml</DependentUpon>
     </Compile>
@@ -60,6 +63,10 @@
     <Folder Include="Button Form Data Classes\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Button Forms\FindMissingFabDrawingsForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Button Forms\ReplaceSubassemblyForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

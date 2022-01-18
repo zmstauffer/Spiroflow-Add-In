@@ -27,6 +27,7 @@ namespace SpiroflowAddIn.Utilities
 
 			int sheetNum = 1;
 			int totalSheets = drawingDoc.Sheets.Count;
+			var revision = drawingDoc.PropertySets["Inventor Summary Information"]["Revision Number"].Value;
 			string drawingName = System.IO.Path.GetFileNameWithoutExtension(drawingDoc.DisplayName);
 
 			foreach (Sheet sheet in drawingDoc.Sheets)
@@ -34,8 +35,8 @@ namespace SpiroflowAddIn.Utilities
 				sheet.Activate();
 				sheet.Update();
 
-				if (drawingDoc.Sheets.Count > 1) dataMedium.FileName = $"{filepath}{drawingName} Sheet {sheetNum} of {totalSheets}.dwg";
-				else dataMedium.FileName = $"{filepath}{drawingName}.dwg";
+				if (drawingDoc.Sheets.Count > 1) dataMedium.FileName = $"{filepath}{drawingName} rev {revision} Sheet {sheetNum} of {totalSheets}.dwg";
+				else dataMedium.FileName = $"{filepath}{drawingName} rev {revision}.dwg";
 
 				DWGAddin.SaveCopyAs(drawingDoc, context, options, dataMedium);
 
