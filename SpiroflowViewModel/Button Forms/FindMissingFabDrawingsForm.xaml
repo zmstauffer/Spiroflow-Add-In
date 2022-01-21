@@ -24,11 +24,11 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <TextBlock Grid.ColumnSpan="2" Grid.Row="1" Margin="10,10,10,0" Text="Do you want to print these drawings?" TextAlignment="Left"/>
-        <Button  Grid.Column="0" Grid.Row="2" Width="100" Margin="10"  Content="Yes" IsCancel="False"/>
-        <Button  Grid.Column="1" Grid.Row="2" Width="100" Margin="10" Content="No" IsCancel="True"/>
+        <Button x:Name="Yes" Grid.Column="0" Grid.Row="2" Width="100" Margin="10"  Content="Yes" IsDefault="True" Command="ApplicationCommands.Close"/>
+        <Button x:Name="No"  Grid.Column="1" Grid.Row="2" Width="100" Margin="10" Content="No" IsCancel="True" Command="ApplicationCommands.Close"/>
     </Grid>
     <Window.InputBindings>
-        <KeyBinding Command="ApplicationCommands.Close" Key="Escape"></KeyBinding>
+        <KeyBinding Command="ApplicationCommands.Close" Key="Escape"/>
     </Window.InputBindings>
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Close" Executed="CloseCommandBinding_Executed"></CommandBinding>

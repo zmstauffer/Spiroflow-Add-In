@@ -40,13 +40,11 @@
     <Reference Include="Autodesk.DataManagement.Client.Framework.Vault">
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Inventor 2019\Bin\Autodesk.DataManagement.Client.Framework.Vault.dll</HintPath>
     </Reference>
-    <Reference Include="Autodesk.iLogic.Automation">
-      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Inventor 2019\Bin\Autodesk.iLogic.Automation.dll</HintPath>
-    </Reference>
     <Reference Include="Connectivity.Application.VaultBase">
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Inventor 2019\Bin\Connectivity.Application.VaultBase.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />

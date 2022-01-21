@@ -1,6 +1,6 @@
 ﻿using Inventor;
 using SpiroflowAddIn.Utilities;
-using SpiroflowAddIn.WPF_Forms;
+//using SpiroflowAddIn.WPF_Forms;
 using System;
 
 namespace SpiroflowAddIn.Buttons
@@ -24,8 +24,8 @@ namespace SpiroflowAddIn.Buttons
 
 		public void Execute(NameValueMap context)
 		{
-			CreateNewEquipmentForm createNewEquipmentForm = new CreateNewEquipmentForm();
-			createNewEquipmentForm.ShowDialog();
+			//CreateNewEquipmentForm createNewEquipmentForm = new CreateNewEquipmentForm();
+			//createNewEquipmentForm.ShowDialog();
 		}
 	}
 }

@@ -12,26 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Inventor;
 
 namespace SpiroflowViewModel.Button_Forms
 {
 	/// <summary>
-	/// Interaction logic for FindMissingFabDrawingsForm.xaml
+	/// Interaction logic for ConfigureFSC.xaml
 	/// </summary>
-	public partial class FindMissingFabDrawingsForm : Window
+	public partial class ConfigureFSC : Window
 	{
-		public bool? result { get; set; }
-		public FindMissingFabDrawingsForm()
+		public ConfigureFSC()
 		{
 			InitializeComponent();
-		}
-
-		private void CloseCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs eventArgs)
-		{
-			if(eventArgs.OriginalSource.Equals(Yes)) DialogResult = true;
-			if (eventArgs.OriginalSource.Equals(No)) DialogResult = false;
-			this.Close();
 		}
 	}
 }

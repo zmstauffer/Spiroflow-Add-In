@@ -28,6 +28,7 @@ namespace Spiroflow_Add_In
 		ButtonDefinition createPDFandDWGButton;
 		ButtonDefinition createPDFButton;
 		ButtonDefinition createDWGButton;
+		ButtonDefinition updateDrawingTitleBlock;
 		#endregion
 
 		#region Assembly Button Definitions
@@ -121,6 +122,7 @@ namespace Spiroflow_Add_In
 			drawingRibbon.AddButton(createPDFandDWGButton, "SpiroflowAddIn.Buttons.CreatePDFandDWGButton");
 			drawingRibbon.AddButton(createPDFButton, "SpiroflowAddIn.Buttons.CreatePDFButton");
 			drawingRibbon.AddButton(createDWGButton, "SpiroflowAddIn.Buttons.CreateDWGButton");
+			drawingRibbon.AddButton(updateDrawingTitleBlock, "SpiroflowAddIn.Buttons.UpdateDrawingTitleBlockButton");
 			//drawingRibbon.AddButton(setEngineerAndDateIPropertiesButton, "SpiroflowAddIn.Buttons.SetEngineerAndDateIPropertiesButton");
 		}
 
