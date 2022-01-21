@@ -19,6 +19,7 @@ namespace SpiroflowAddIn.Utilities
 			string filepath = @"C:\workspace\";
 			string fileName = System.IO.Path.GetFileNameWithoutExtension(drawingDoc.DisplayName);
 			var revision = drawingDoc.PropertySets["Inventor Summary Information"]["Revision Number"].Value;
+			var revisionText = revision == "1" ? "" : $" rev {revision}";
 
 			context.Type = IOMechanismEnum.kFileBrowseIOMechanism;
 
@@ -29,7 +30,7 @@ namespace SpiroflowAddIn.Utilities
 			options.Value["Vector_Resolution"] = 400;
 			options.Value["Sheet_Range"] = PrintRangeEnum.kPrintAllSheets;
 
-			dataMedium.FileName = $"{filepath}{fileName} rev {revision}.pdf";
+			dataMedium.FileName = $"{filepath}{fileName}{revisionText}.pdf";
 
 			foreach (Sheet sheet in drawingDoc.Sheets)
 			{

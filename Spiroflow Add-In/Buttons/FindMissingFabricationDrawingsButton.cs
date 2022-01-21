@@ -69,6 +69,12 @@ namespace SpiroflowAddIn.Buttons
 			var sticker = neededFiles.FirstOrDefault(x => x.Contains("STICKER"));
 			if (sticker != null) neededFiles.Remove(sticker);
 
+			if (neededFiles.Count <= 0)
+			{
+				MessageBox.Show("No files need to be printed.");
+				return;
+			}
+
 			var form = new FindMissingFabDrawingsForm();
 			var helper = new WindowInteropHelper(form);
 			helper.Owner = new IntPtr(invApp.MainFrameHWND);

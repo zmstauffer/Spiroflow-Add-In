@@ -27,6 +27,12 @@ namespace SpiroflowViewModel.Button_Forms
 			InitializeComponent();
 		}
 
+		private void Window_Loaded(object sender, RoutedEventArgs eventArgs)
+		{
+			Top = Mouse.GetPosition(null).Y;
+			Left = Mouse.GetPosition(null).X;
+		}
+
 		private void CloseCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs eventArgs)
 		{
 			if(eventArgs.OriginalSource.Equals(Yes)) DialogResult = true;
