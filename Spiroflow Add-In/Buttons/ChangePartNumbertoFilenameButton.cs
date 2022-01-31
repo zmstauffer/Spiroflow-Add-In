@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace SpiroflowAddIn.Buttons
 {
-	public class ChangePartNumbertoFilenameButton : IButton
+	public class ChangePartNumberToFilenameButton : IButton
 	{
 		public Inventor.Application invApp { get; set; }
 		public string DisplayName { get; set; }
@@ -13,7 +13,7 @@ namespace SpiroflowAddIn.Buttons
 		public stdole.IPictureDisp icon { get; set; }
 		public ButtonDefinition buttonDef { get; set; }
 		
-		public ChangePartNumbertoFilenameButton()
+		public ChangePartNumberToFilenameButton()
 		{
 			DisplayName = $"Change Part #{System.Environment.NewLine}To Filename";
 			InternalName = "changePartNumToFilename";
