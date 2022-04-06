@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Autodesk.iLogic.Automation;
 using Autodesk.iLogic.Interfaces;
 using Inventor;
 using SpiroflowAddIn.Utilities;
+using Application = Inventor.Application;
 
 namespace SpiroflowAddIn.Buttons
 {
@@ -79,11 +81,13 @@ namespace SpiroflowAddIn.Buttons
 			}
 			catch (Exception ex)
 			{
+				MessageBox.Show("Couldn't delete existing iLogic rule");
 			}
 			finally
 			{
 				automation.AddRule(doc, ruleName, ruleText);
 				automation.RulesOnEventsEnabled = true;
+				automation.RunRule(doc, ruleName);
 			}
 
 			//replace title block, separate try/catch block because we want to do both of these things, even if one fails
@@ -99,6 +103,7 @@ namespace SpiroflowAddIn.Buttons
 			}
 			catch (Exception ex)
 			{
+				MessageBox.Show("Couldn't replace titleblock.", "ERROR");
 			}
 		}
 
@@ -106,6 +111,7 @@ namespace SpiroflowAddIn.Buttons
 		{
 			try
 			{
+				//we have to delete any titleblocks that have the same name as this one, as well as delete any titleblock currently in use
 				var existingTitleBlockDef = drawingDoc.TitleBlockDefinitions[titleBlockDefinition.Name];
 
 				if (existingTitleBlockDef != null)
@@ -124,17 +130,27 @@ namespace SpiroflowAddIn.Buttons
 			}
 			catch (Exception ex)
 			{
-
+				MessageBox.Show("Couldn't delete existing titleblock or sheetformat.");
 			}
 			finally
 			{
 				//we are assuming either that title block doesn't exist already, or we can safely replace it now
 				titleBlockDefinition.CopyTo((_DrawingDocument)drawingDoc, true);
-				
+
+				var sheetTitleBlockDefinition = drawingDoc.TitleBlockDefinitions[titleBlockDefinition.Name];
+
 				foreach (Sheet sheet in drawingDoc.Sheets)
 				{
-					sheet.AddTitleBlock(titleBlockDefinition);
+					sheet.AddTitleBlock(sheetTitleBlockDefinition);
+					if (sheet.CustomTables.Count != 0)
+					{
+						for (int i = sheet.CustomTables.Count; i >= 0; i--)
+						{
+							sheet.CustomTables[i].Delete();
+						}
+					}
 				}
+				
 			}
 		}
 	}

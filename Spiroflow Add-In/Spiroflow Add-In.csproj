@@ -151,6 +151,7 @@
     <Compile Include="Buttons\SetEngineerAndDateIPropertiesButton.cs" />
     <Compile Include="Buttons\RenumberBOMButton.cs" />
     <Compile Include="Buttons\ReplaceSubassemblyButton.cs" />
+    <Compile Include="Buttons\TestButton.cs" />
     <Compile Include="Buttons\UpdateDrawingTitleBlockButton.cs" />
     <Compile Include="Main\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -206,6 +207,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\billOfMaterialsIcon.ico" />
     <Content Include="Resources\billOfMaterialsIcon.png" />
     <None Include="Resources\Replace_Subassembly.ico" />
     <None Include="Resources\createPDFandDWGIcon.ico" />
