@@ -12,6 +12,7 @@ namespace SpiroflowAddIn.Buttons
 		public string InternalName { get; set; }
 		public string PanelID { get; set; }
 		public stdole.IPictureDisp icon { get; set; }
+		public stdole.IPictureDisp smallIcon { get; set; }
 		public ButtonDefinition buttonDef { get; set; }
 
 		public CreateNewEquipmentButton()

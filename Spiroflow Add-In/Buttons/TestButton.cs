@@ -4,9 +4,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using DocumentFormat.OpenXml.Office2013.Drawing.ChartStyle;
 using Inventor;
 using SpiroflowAddIn.Utilities;
+using Application = Inventor.Application;
 
 namespace SpiroflowAddIn.Buttons
 {
@@ -17,6 +19,7 @@ namespace SpiroflowAddIn.Buttons
 		public string InternalName { get; set; }
 		public string PanelID { get; set; }
 		public stdole.IPictureDisp icon { get; set; }
+		public stdole.IPictureDisp smallIcon { get; set; }
 		public ButtonDefinition buttonDef { get; set; }
 
 		public TestButton()
@@ -44,6 +47,7 @@ namespace SpiroflowAddIn.Buttons
 				}
 				catch (Exception ex)
 				{
+					MessageBox.Show($"Test Button Error: {ex}");
 					continue;
 				}
 			}

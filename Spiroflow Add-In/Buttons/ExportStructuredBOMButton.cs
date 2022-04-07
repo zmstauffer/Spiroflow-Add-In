@@ -21,6 +21,7 @@ namespace SpiroflowAddIn.Buttons
 		public string InternalName { get; set; }
 		public string PanelID { get; set; }
 		public stdole.IPictureDisp icon { get; set; }
+		public stdole.IPictureDisp smallIcon { get; set; }
 		public ButtonDefinition buttonDef { get; set; }
 		public IXLWorkbook workbook { get; set; }
 		public IXLWorksheet worksheet { get; set; }
@@ -34,7 +35,8 @@ namespace SpiroflowAddIn.Buttons
 			DisplayName = $"Export BOM";
 			InternalName = "exportBOM";
 			PanelID = "assemblyPanel";
-			icon = CreateImageFromIcon.CreateInventorIcon(Properties.Resources.billOfMaterialsIcon);
+			icon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.billOfMaterialsIcon, 32, 32));
+			smallIcon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.billOfMaterialsIcon, 16, 16));
 		}
 
 		public void Execute(NameValueMap context)

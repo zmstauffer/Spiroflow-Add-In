@@ -208,12 +208,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\billOfMaterialsIcon.ico" />
-    <Content Include="Resources\billOfMaterialsIcon.png" />
     <None Include="Resources\Replace_Subassembly.ico" />
     <None Include="Resources\createPDFandDWGIcon.ico" />
-    <None Include="Resources\CreatePDFButtonIcon.png" />
-    <None Include="Resources\createDWGIcon.png" />
-    <None Include="Resources\changePartNumber.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\changePartNumber.ico" />
+    <Content Include="Resources\createDWGIcon.ico" />
+    <Content Include="Resources\CreatePDFButtonIcon.ico" />
+    <Content Include="Resources\findMissingFabDrawings.ico" />
+    <None Include="Resources\setEngineerAndDate.ico" />
+    <None Include="Resources\renumberBOM.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

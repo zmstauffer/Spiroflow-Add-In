@@ -71,42 +71,62 @@ namespace SpiroflowAddIn.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Bitmap changePartNumber {
+        internal static System.Drawing.Icon changePartNumber {
             get {
                 object obj = ResourceManager.GetObject("changePartNumber", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap createDWGIcon {
-            get {
-                object obj = ResourceManager.GetObject("createDWGIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon createPDFandDWGIcon1 {
+        internal static System.Drawing.Icon createDWGIcon {
             get {
-                object obj = ResourceManager.GetObject("createPDFandDWGIcon1", resourceCulture);
+                object obj = ResourceManager.GetObject("createDWGIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Bitmap CreatePDFButtonIcon {
+        internal static System.Drawing.Icon createPDFandDWGIcon {
+            get {
+                object obj = ResourceManager.GetObject("createPDFandDWGIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon CreatePDFButtonIcon {
             get {
                 object obj = ResourceManager.GetObject("CreatePDFButtonIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon findMissingFabDrawings {
+            get {
+                object obj = ResourceManager.GetObject("findMissingFabDrawings", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon renumberBOM {
+            get {
+                object obj = ResourceManager.GetObject("renumberBOM", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -116,6 +136,16 @@ namespace SpiroflowAddIn.Properties {
         internal static System.Drawing.Icon Replace_Subassembly {
             get {
                 object obj = ResourceManager.GetObject("Replace_Subassembly", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon setEngineerAndDate {
+            get {
+                object obj = ResourceManager.GetObject("setEngineerAndDate", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

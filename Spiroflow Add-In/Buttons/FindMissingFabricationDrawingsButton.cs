@@ -27,13 +27,15 @@ namespace SpiroflowAddIn.Buttons
 		public string InternalName { get; set; }
 		public ButtonDefinition buttonDef { get; set; }
 		private List<string> fileList { get; set; }
+		public stdole.IPictureDisp smallIcon { get; set; }
 
 		public FindMissingFabricationDrawingsButton()
 		{
 			DisplayName = $"Find Missing{System.Environment.NewLine}Fab Drawings";
 			InternalName = "findMissingDrawings";
 			PanelID = "assemblyPanel";
-			icon = CreateImageFromIcon.CreateInventorIcon(Properties.Resources.test);
+			icon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.findMissingFabDrawings, 32,32));
+			smallIcon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.findMissingFabDrawings, 16, 16));
 		}
 
 		public void Execute(NameValueMap context)

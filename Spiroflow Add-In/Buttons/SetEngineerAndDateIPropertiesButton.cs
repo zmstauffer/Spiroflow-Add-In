@@ -16,6 +16,7 @@ namespace SpiroflowAddIn.Buttons
 		public string InternalName { get; set; }
 		public string PanelID { get; set; }
 		public stdole.IPictureDisp icon { get; set; }
+		public stdole.IPictureDisp smallIcon { get; set; }
 		public ButtonDefinition buttonDef { get; set; }
 
 		public SetEngineerAndDateIPropertiesButton()
@@ -23,7 +24,8 @@ namespace SpiroflowAddIn.Buttons
 			DisplayName = $"Set Engineer{System.Environment.NewLine}and Date";
 			InternalName = "setEngineerAndDate";
 			PanelID = "assemblyPanel";
-			icon = CreateImageFromIcon.CreateInventorIcon(Properties.Resources.test);
+			icon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.setEngineerAndDate, 32, 32));
+			smallIcon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.setEngineerAndDate, 16, 16));
 		}
 
 		public void Execute(NameValueMap context)

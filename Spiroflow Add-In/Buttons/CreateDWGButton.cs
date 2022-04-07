@@ -13,6 +13,7 @@ namespace SpiroflowAddIn.Buttons
 		public Application invApp { get; set; }
 		public string PanelID { get; set; }
 		public stdole.IPictureDisp icon { get; set; }
+		public stdole.IPictureDisp smallIcon { get; set; }
 		public string DisplayName { get; set; }
 		public string InternalName { get; set; }
 		public ButtonDefinition buttonDef { get; set; }
@@ -22,7 +23,8 @@ namespace SpiroflowAddIn.Buttons
 			DisplayName = $"Create DWGs";
 			InternalName = "createDWG";
 			PanelID = "printPanel";
-			icon = CreateImageFromIcon.CreateInventorIcon(Properties.Resources.createDWGIcon);
+			icon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.createDWGIcon, 32, 32));
+			smallIcon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.createDWGIcon, 16, 16));
 		}
 
 		public void Execute(NameValueMap context)

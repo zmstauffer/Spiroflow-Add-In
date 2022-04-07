@@ -133,13 +133,13 @@ namespace Spiroflow_Add_In
 
 			assemblyRibbon.CreateRibbonPanels();
 
-			assemblyRibbon.AddButton(changePartNumbertoFilenameButton, "SpiroflowAddIn.Buttons.ChangePartNumberToFilenameButton");
+			//assemblyRibbon.AddButton(changePartNumbertoFilenameButton, "SpiroflowAddIn.Buttons.ChangePartNumberToFilenameButton");
 			//assemblyRibbon.AddButton(createNewEquipmentButton, "SpiroflowAddIn.Buttons.CreateNewEquipmentButton");
 			assemblyRibbon.AddButton(replaceSubassemblyButton, "SpiroflowAddIn.Buttons.ReplaceSubassemblyButton");
 			assemblyRibbon.AddButton(exportStructuredBOMButton, "SpiroflowAddIn.Buttons.ExportStructuredBOMButton");
 			assemblyRibbon.AddButton(setEngineerAndDateIPropertiesButton, "SpiroflowAddIn.Buttons.SetEngineerAndDateIPropertiesButton");
 			assemblyRibbon.AddButton(findMissingFabricationDrawingsButton, "SpiroflowAddIn.Buttons.FindMissingFabricationDrawingsButton");
-			assemblyRibbon.AddButton(testButton, "SpiroflowAddIn.Buttons.TestButton");
+			//assemblyRibbon.AddButton(testButton, "SpiroflowAddIn.Buttons.TestButton");
 		}
 
 		//private void CreateSpiroflowZeroDocRibbon()

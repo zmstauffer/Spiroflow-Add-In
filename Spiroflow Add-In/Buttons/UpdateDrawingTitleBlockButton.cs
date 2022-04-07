@@ -17,6 +17,7 @@ namespace SpiroflowAddIn.Buttons
 		public Application invApp { get; set; }
 		public string PanelID { get; set; }
 		public stdole.IPictureDisp icon { get; set; }
+		public stdole.IPictureDisp smallIcon { get; set; }
 		public string DisplayName { get; set; }
 		public string InternalName { get; set; }
 		public ButtonDefinition buttonDef { get; set; }
@@ -53,7 +54,8 @@ namespace SpiroflowAddIn.Buttons
 			DisplayName = $"Update{System.Environment.NewLine}Title Block";
 			InternalName = "updateTitleBlock";
 			PanelID = "miscPanel";
-			icon = CreateImageFromIcon.CreateInventorIcon(Properties.Resources.test);
+			icon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.test, 32, 32));
+			smallIcon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.test, 16, 16));
 		}
 
 		public void Execute(NameValueMap context)
@@ -81,7 +83,7 @@ namespace SpiroflowAddIn.Buttons
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("Couldn't delete existing iLogic rule");
+				MessageBox.Show($"Couldn't delete existing iLogic rule, error: {ex}");
 			}
 			finally
 			{
@@ -103,7 +105,7 @@ namespace SpiroflowAddIn.Buttons
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("Couldn't replace titleblock.", "ERROR");
+				MessageBox.Show($"Couldn't replace titleblock. Error: {ex}", "ERROR");
 			}
 		}
 
@@ -130,7 +132,7 @@ namespace SpiroflowAddIn.Buttons
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("Couldn't delete existing titleblock or sheetformat.");
+				MessageBox.Show($"Couldn't delete existing titleblock or sheetformat. Error: {ex}");
 			}
 			finally
 			{

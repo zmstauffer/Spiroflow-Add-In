@@ -14,6 +14,7 @@ namespace SpiroflowAddIn.Buttons
 		public string InternalName { get; set; }
 		public string PanelID { get; set; }
 		public stdole.IPictureDisp icon { get; set; }
+		public stdole.IPictureDisp smallIcon { get; set; }
 		public ButtonDefinition buttonDef { get; set; }
 
 		public Dictionary<int, int> itemNumberDictionary { get; set; }
@@ -21,10 +22,11 @@ namespace SpiroflowAddIn.Buttons
 
 		public RenumberBOMButton()
 		{
-			DisplayName = "Renumber BOM";
+			DisplayName = $"Renumber{System.Environment.NewLine}BOM";
 			InternalName = "renumberBOM";
 			PanelID = "bomPanel";
-			icon = CreateImageFromIcon.CreateInventorIcon(Properties.Resources.test);
+			icon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.renumberBOM, 32, 32));
+			smallIcon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.renumberBOM, 16, 16));
 		}
 
 		public void Execute(NameValueMap context) 

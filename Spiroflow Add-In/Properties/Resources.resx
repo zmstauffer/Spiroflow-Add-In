@@ -122,19 +122,28 @@
     <value>..\Resources\billOfMaterialsIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="changePartNumber" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\changePartNumber.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\changePartNumber.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="createDWGIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\createDWGIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\createDWGIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="createPDFandDWGIcon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="createPDFandDWGIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\createPDFandDWGIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CreatePDFButtonIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CreatePDFButtonIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\CreatePDFButtonIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="findMissingFabDrawings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\findMissingFabDrawings.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="renumberBOM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\renumberBOM.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Replace_Subassembly" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Replace_Subassembly.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="setEngineerAndDate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\setEngineerAndDate.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="test" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\test.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

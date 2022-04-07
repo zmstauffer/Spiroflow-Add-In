@@ -19,10 +19,10 @@ namespace SpiroflowAddIn.Ribbons
 		public override void CreateRibbonPanels()
 		{
 			ribbon = UIManager.Ribbons["Drawing"];
-			ribbonTab = ribbon.RibbonTabs.Add("Spiroflow", "id_Spiroflow_Drawing", AddInGUID);
+			ribbonTab = ribbon.RibbonTabs["id_TabPlaceViews"];																		//ribbon.RibbonTabs.Add("Spiroflow", "id_Spiroflow_Drawing", AddInGUID);
 			panels.Add(ribbonTab.RibbonPanels.Add("BOM Functions", "bomPanel", AddInGUID));
-			panels.Add(ribbonTab.RibbonPanels.Add("Printing", "printPanel", AddInGUID));
 			panels.Add(ribbonTab.RibbonPanels.Add("Miscellaneous Functions", "miscPanel", AddInGUID));
+			panels.Add(ribbonTab.RibbonPanels.Add("Printing", "printPanel", AddInGUID));
 		}
 	}
 }

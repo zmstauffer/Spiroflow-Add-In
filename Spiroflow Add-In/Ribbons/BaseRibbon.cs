@@ -36,7 +36,7 @@ namespace SpiroflowAddIn.Ribbons
 				buttonObj = (IButton)type;
 				buttonObj.invApp = inventorApp;
 				buttonObj.buttonDef = button;
-				buttonObj.buttonDef = inventorApp.CommandManager.ControlDefinitions.AddButtonDefinition(buttonObj.DisplayName, buttonObj.InternalName, CommandTypesEnum.kShapeEditCmdType, AddInGUID, "", "", buttonObj.icon, buttonObj.icon);
+				buttonObj.buttonDef = inventorApp.CommandManager.ControlDefinitions.AddButtonDefinition(buttonObj.DisplayName, buttonObj.InternalName, CommandTypesEnum.kShapeEditCmdType, AddInGUID, "", "", buttonObj.smallIcon, buttonObj.icon);
 				buttonObj.buttonDef.OnExecute += buttonObj.Execute;
 				buttonObj.buttonDef.Enabled = true;
 
