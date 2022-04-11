@@ -162,9 +162,11 @@
     <Compile Include="Buttons\FindMissingFabricationDrawingsButton.cs" />
     <Compile Include="Buttons\IButton.cs" />
     <Compile Include="Buttons\CreatePDFandDWGButton.cs" />
+    <Compile Include="Buttons\SetEngineerAndDateIProperties_PartButton.cs" />
     <Compile Include="Buttons\SetEngineerAndDateIPropertiesButton.cs" />
     <Compile Include="Buttons\RenumberBOMButton.cs" />
     <Compile Include="Buttons\ReplaceSubassemblyButton.cs" />
+    <Compile Include="Buttons\SetWeldmentMaterialButton.cs" />
     <Compile Include="Buttons\ShowSettingsWindowButton.cs" />
     <Compile Include="Buttons\TestButton.cs" />
     <Compile Include="Buttons\UpdateDrawingTitleBlockButton.cs" />
@@ -187,6 +189,7 @@
     <Compile Include="Ribbons\AssemblyRibbonManager.cs" />
     <Compile Include="Ribbons\BaseRibbon.cs" />
     <Compile Include="Ribbons\DrawingRibbonManager.cs" />
+    <Compile Include="Ribbons\PartRibbonManager.cs" />
     <Compile Include="Ribbons\ZeroDocRibbonManager.cs" />
     <Compile Include="Utilities\CreateImageFromIcon.cs" />
     <Compile Include="Utilities\DWGPrinter.cs" />
@@ -240,6 +243,7 @@
     <Content Include="Resources\createDWGIcon.ico" />
     <Content Include="Resources\CreatePDFButtonIcon.ico" />
     <Content Include="Resources\findMissingFabDrawings.ico" />
+    <None Include="Resources\weldMaterial.ico" />
     <None Include="Resources\settings.ico" />
     <None Include="Resources\setEngineerAndDate.ico" />
     <None Include="Resources\renumberBOM.ico" />

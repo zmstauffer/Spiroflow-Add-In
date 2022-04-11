@@ -3,10 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="BOMExportPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">c:\workspace</Value>
+      <Value Profile="(Default)">c:\workspace\</Value>
     </Setting>
     <Setting Name="DrawingExportPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">c:\workspace</Value>
+      <Value Profile="(Default)">c:\workspace\</Value>
+    </Setting>
+    <Setting Name="Engineer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">zstauffer</Value>
     </Setting>
   </Settings>
 </SettingsFile>

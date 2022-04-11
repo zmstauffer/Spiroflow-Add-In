@@ -9,7 +9,7 @@ using Application = Inventor.Application;
 
 namespace SpiroflowAddIn.Buttons
 {
-	public class SetEngineerAndDateIPropertiesButton : IButton
+	public class SetEngineerAndDateIProperties_PartButton : IButton
 	{
 		public Application invApp { get; set; }
 		public string DisplayName { get; set; }
@@ -19,11 +19,11 @@ namespace SpiroflowAddIn.Buttons
 		public stdole.IPictureDisp smallIcon { get; set; }
 		public ButtonDefinition buttonDef { get; set; }
 
-		public SetEngineerAndDateIPropertiesButton()
+		public SetEngineerAndDateIProperties_PartButton()
 		{
 			DisplayName = $"Set Engineer{System.Environment.NewLine}and Date";
-			InternalName = "setEngineerAndDate";
-			PanelID = "assemblyPanel";
+			InternalName = "setEngineerAndDate_Part";
+			PanelID = "partPanel";
 			icon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.setEngineerAndDate, 32, 32));
 			smallIcon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.setEngineerAndDate, 16, 16));
 		}

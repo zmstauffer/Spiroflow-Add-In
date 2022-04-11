@@ -25,7 +25,7 @@ namespace SpiroflowAddIn.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c:\\workspace")]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\workspace\\")]
         public string BOMExportPath {
             get {
                 return ((string)(this["BOMExportPath"]));
@@ -37,13 +37,25 @@ namespace SpiroflowAddIn.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c:\\workspace")]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\workspace\\")]
         public string DrawingExportPath {
             get {
                 return ((string)(this["DrawingExportPath"]));
             }
             set {
                 this["DrawingExportPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("zstauffer")]
+        public string Engineer {
+            get {
+                return ((string)(this["Engineer"]));
+            }
+            set {
+                this["Engineer"] = value;
             }
         }
     }

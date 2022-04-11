@@ -38,8 +38,13 @@ namespace Spiroflow_Add_In
 		ButtonDefinition replaceSubassemblyButton;
 		ButtonDefinition setEngineerAndDateIPropertiesButton;			
 		ButtonDefinition findMissingFabricationDrawingsButton;
+		ButtonDefinition setWeldmentMaterial;
 		ButtonDefinition testButton;                                        //this is to put different random things in to test w/out having to worry about creating a new button every time
-		//ButtonDefinition createNewEquipmentButton;						//this button also shown on zero doc ribbon
+																			//ButtonDefinition createNewEquipmentButton;						//this button also shown on zero doc ribbon
+		#endregion
+
+		#region Part Button Definitions
+		ButtonDefinition setEngineerAndDateIProperties_PartButton;
 		#endregion
 
 		#region ZeroDoc Button Definitions
@@ -69,6 +74,9 @@ namespace Spiroflow_Add_In
 
 			//add new buttons to assembly ribbon
 			CreateSpiroflowAssemblyRibbon();
+
+			//add new buttons to part ribbon
+			CreateSpiroflowPartRibbon();
 
 			//add new buttons to zero doc ribbon
 			CreateSpiroflowZeroDocRibbon();
@@ -139,9 +147,19 @@ namespace Spiroflow_Add_In
 			assemblyRibbon.AddButton(exportStructuredBOMButton, "SpiroflowAddIn.Buttons.ExportStructuredBOMButton");
 			assemblyRibbon.AddButton(setEngineerAndDateIPropertiesButton, "SpiroflowAddIn.Buttons.SetEngineerAndDateIPropertiesButton");
 			assemblyRibbon.AddButton(findMissingFabricationDrawingsButton, "SpiroflowAddIn.Buttons.FindMissingFabricationDrawingsButton");
+			assemblyRibbon.AddButton(setWeldmentMaterial, "SpiroflowAddIn.Buttons.SetWeldmentMaterialButton");
 			//assemblyRibbon.AddButton(testButton, "SpiroflowAddIn.Buttons.TestButton");
 			//assemblyRibbon.AddButton(changePartNumbertoFilenameButton, "SpiroflowAddIn.Buttons.ChangePartNumberToFilenameButton");
 			//assemblyRibbon.AddButton(createNewEquipmentButton, "SpiroflowAddIn.Buttons.CreateNewEquipmentButton");
+		}
+
+		private void CreateSpiroflowPartRibbon()
+		{
+			PartRibbonManager partRibbon = new PartRibbonManager(inventorApp, UIManager, AddInGUID);
+
+			partRibbon.CreateRibbonPanels();
+
+			partRibbon.AddButton(setEngineerAndDateIProperties_PartButton, "SpiroflowAddIn.Buttons.SetEngineerAndDateIProperties_PartButton");
 		}
 
 		private void CreateSpiroflowZeroDocRibbon()
