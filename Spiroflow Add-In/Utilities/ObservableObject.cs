@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace SpiroflowViewModel
+namespace SpiroflowAddIn.Utilities
 {
 	public class ObservableObject : INotifyPropertyChanged
 	{

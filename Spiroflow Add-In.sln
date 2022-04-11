@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spiroflow Add-In", "Spiroflow Add-In\Spiroflow Add-In.csproj", "{3DC284CE-6572-439D-ADA3-E703FF8498B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpiroflowViewModel", "SpiroflowViewModel\SpiroflowViewModel.csproj", "{7DF152CC-4E93-493B-A617-5B3FBC913AE0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpiroflowVault", "Spiroflow Vault\SpiroflowVault.csproj", "{7190C79A-4684-49CB-9A00-49F0D614B7DA}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{3DC284CE-6572-439D-ADA3-E703FF8498B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DC284CE-6572-439D-ADA3-E703FF8498B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DC284CE-6572-439D-ADA3-E703FF8498B6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7DF152CC-4E93-493B-A617-5B3FBC913AE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7DF152CC-4E93-493B-A617-5B3FBC913AE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7DF152CC-4E93-493B-A617-5B3FBC913AE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7DF152CC-4E93-493B-A617-5B3FBC913AE0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7190C79A-4684-49CB-9A00-49F0D614B7DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7190C79A-4684-49CB-9A00-49F0D614B7DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7190C79A-4684-49CB-9A00-49F0D614B7DA}.Release|Any CPU.ActiveCfg = Release|Any CPU

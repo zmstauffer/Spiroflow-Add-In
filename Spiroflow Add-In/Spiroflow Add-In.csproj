@@ -135,11 +135,25 @@
     <Reference Include="System.IO.Packaging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.Packaging.4.0.0\lib\net46\System.IO.Packaging.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Button Forms\ChangeSettingsForm.xaml.cs">
+      <DependentUpon>ChangeSettingsForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Button Forms\ConfigureFSC.xaml.cs">
+      <DependentUpon>ConfigureFSC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Button Forms\FindMissingFabDrawingsForm.xaml.cs">
+      <DependentUpon>FindMissingFabDrawingsForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Button Forms\ReplaceSubassemblyForm.xaml.cs">
+      <DependentUpon>ReplaceSubassemblyForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Buttons\ChangePartNumberToFilenameButton.cs" />
+    <Compile Include="Buttons\CreateBendNotesButton.cs" />
     <Compile Include="Buttons\CreateDWGButton.cs" />
     <Compile Include="Buttons\CreateNewEquipmentButton.cs" />
     <Compile Include="Buttons\CreateNewEquipmentButtonZeroDoc.cs" />
@@ -151,6 +165,7 @@
     <Compile Include="Buttons\SetEngineerAndDateIPropertiesButton.cs" />
     <Compile Include="Buttons\RenumberBOMButton.cs" />
     <Compile Include="Buttons\ReplaceSubassemblyButton.cs" />
+    <Compile Include="Buttons\ShowSettingsWindowButton.cs" />
     <Compile Include="Buttons\TestButton.cs" />
     <Compile Include="Buttons\UpdateDrawingTitleBlockButton.cs" />
     <Compile Include="Main\AssemblyInfo.cs">
@@ -164,6 +179,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Ribbons\AssemblyRibbonManager.cs" />
     <Compile Include="Ribbons\BaseRibbon.cs" />
     <Compile Include="Ribbons\DrawingRibbonManager.cs" />
@@ -171,10 +191,14 @@
     <Compile Include="Utilities\CreateImageFromIcon.cs" />
     <Compile Include="Utilities\DWGPrinter.cs" />
     <Compile Include="Utilities\GetInventorApp.cs" />
+    <Compile Include="Utilities\ObservableObject.cs" />
     <Compile Include="Utilities\PDFPrinter.cs" />
     <Compile Include="Utilities\PictureDispConverter.cs" />
+    <Compile Include="Utilities\SettingService.cs" />
+    <Compile Include="Utilities\TreeViewNode.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Main\Spiroflow Add-In.X.manifest" />
   </ItemGroup>
   <ItemGroup>
@@ -194,16 +218,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Resources\test.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Spiroflow Vault\SpiroflowVault.csproj">
       <Project>{7190c79a-4684-49cb-9a00-49f0d614b7da}</Project>
       <Name>SpiroflowVault</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SpiroflowViewModel\SpiroflowViewModel.csproj">
-      <Project>{7DF152CC-4E93-493B-A617-5B3FBC913AE0}</Project>
-      <Name>SpiroflowViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -216,8 +240,32 @@
     <Content Include="Resources\createDWGIcon.ico" />
     <Content Include="Resources\CreatePDFButtonIcon.ico" />
     <Content Include="Resources\findMissingFabDrawings.ico" />
+    <None Include="Resources\settings.ico" />
     <None Include="Resources\setEngineerAndDate.ico" />
     <None Include="Resources\renumberBOM.ico" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Page Include="Button Forms\ChangeSettingsForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Button Forms\ConfigureFSC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Button Forms\FindMissingFabDrawingsForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Button Forms\ReplaceSubassemblyForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StyleTemplates\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

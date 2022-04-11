@@ -45,6 +45,9 @@ namespace SpiroflowAddIn.Buttons
 
 			AssemblyDocument assyDoc = (AssemblyDocument)invApp.ActiveDocument;
 			AssemblyComponentDefinition assyDef = assyDoc.ComponentDefinition;
+
+			if (assyDef.Occurrences.Count <= 0) return;
+
 			assyBOM = assyDef.BOM;
 
 			if (assyBOM is null) return;

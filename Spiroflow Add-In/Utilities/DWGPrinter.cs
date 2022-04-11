@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Inventor;
+using Application = Inventor.Application;
 
 namespace SpiroflowAddIn.Utilities
 {
@@ -16,8 +18,16 @@ namespace SpiroflowAddIn.Utilities
 			TranslationContext context = invApp.TransientObjects.CreateTranslationContext();
 			NameValueMap options = invApp.TransientObjects.CreateNameValueMap();
 			DataMedium dataMedium = invApp.TransientObjects.CreateDataMedium();
+			
 			string iniFilename = @"C:\workspace\AutoCAD export settings.ini";
-			string filepath = @"C:\workspace\";
+			
+			if (!System.IO.File.Exists(@"C:\workspace\AutoCAD export settings.ini"))
+			{
+				MessageBox.Show($@"Cannot find {iniFilename}, please generate AutoCAD export settings and save them to {iniFilename} for DWG export to work.", "ERROR");
+				return;
+			}
+
+			string filepath = SettingService.GetSetting("DrawingExportPath");
 
 			context.Type = IOMechanismEnum.kFileBrowseIOMechanism;
 

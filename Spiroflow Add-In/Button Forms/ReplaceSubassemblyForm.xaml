@@ -1,0 +1,60 @@
+﻿<Window x:Class="SpiroflowAddIn.Button_Forms.ReplaceSubassemblyForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             xmlns:local="clr-namespace:SpiroflowAddIn.Button_Forms"
+             xmlns:FolderInfo="clr-namespace:SpiroflowVault;assembly=SpiroflowVault"
+             xmlns:SpiroflowVault="clr-namespace:SpiroflowVault;assembly=SpiroflowVault"
+             d:DesignHeight="400"
+             WindowStartupLocation="CenterScreen"
+             WindowStyle="None"
+             ResizeMode="NoResize"
+             Background="Transparent"
+             AllowsTransparency="True"
+             Window.SizeToContent="Width">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary 
+                    Source="/SpiroflowAddIn;component/StyleTemplates/Styles.xaml">
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Background="White">
+        <Grid>
+            <TreeView Name="fileTreeView" x:FieldModifier="public" Margin="5">
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <EventSetter Event="MouseDoubleClick" Handler="OnItemMouseDoubleClick"></EventSetter>
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type FolderInfo:FolderInfo}" ItemsSource="{Binding files}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding folderName}" Margin="3"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                    <DataTemplate DataType="{x:Type SpiroflowVault:VaultFileInfo}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Picture}" Margin="0,0,5,0"></Image>
+                            <TextBlock Text="{Binding FileName}"></TextBlock>
+                            <TextBlock Text =" - "></TextBlock>
+                            <TextBlock Text="{Binding Description}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </TreeView.Resources>
+            </TreeView>
+        </Grid>
+    </Border>
+    <Window.InputBindings>
+        <KeyBinding Command="ApplicationCommands.Close" Key="Escape"></KeyBinding>
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Close" Executed="CloseCommandBinding_Executed"></CommandBinding>
+    </Window.CommandBindings>
+</Window>

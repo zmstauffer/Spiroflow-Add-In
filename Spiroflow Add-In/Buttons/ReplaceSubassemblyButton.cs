@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Interop;
 using Inventor;
+using SpiroflowAddIn.Button_Forms;
 using SpiroflowAddIn.Utilities;
 using SpiroflowVault;
-using SpiroflowViewModel.Button_Forms;
 using Application = Inventor.Application;
 using IPictureDisp = stdole.IPictureDisp;
 
@@ -76,7 +76,7 @@ namespace SpiroflowAddIn.Buttons
 			folders = VaultFunctions.GetFolderNames(subAssemblyPath);
 
 			if (folders == null || folders.Count == 0) return;
-
+			
 			foreach (var folder in folders)
 			{
 				folder.files = VaultFunctions.GetFilenamesFromFolderId(folder.folderID);

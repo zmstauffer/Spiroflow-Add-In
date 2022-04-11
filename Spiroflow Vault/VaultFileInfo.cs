@@ -11,7 +11,7 @@ using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Spiroflow_Vault
+namespace SpiroflowVault
 {
 	public class VaultFileInfo
 	{

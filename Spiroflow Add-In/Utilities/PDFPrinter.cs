@@ -16,7 +16,7 @@ namespace SpiroflowAddIn.Utilities
 			NameValueMap options = invApp.TransientObjects.CreateNameValueMap();
 			DataMedium dataMedium = invApp.TransientObjects.CreateDataMedium();
 
-			string filepath = @"C:\workspace\";
+			string filepath = SettingService.GetSetting("DrawingExportPath");
 			string fileName = System.IO.Path.GetFileNameWithoutExtension(drawingDoc.DisplayName);
 			var revision = drawingDoc.PropertySets["Inventor Summary Information"]["Revision Number"].Value;
 			var revisionText = revision == "1" ? "" : $" rev {revision}";

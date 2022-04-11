@@ -2,10 +2,9 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using Inventor;
-using Spiroflow_Vault;
 using SpiroflowVault;
 
-namespace SpiroflowViewModel.Button_Forms
+namespace SpiroflowAddIn.Button_Forms
 {
 	/// <summary>
 	/// Interaction logic for ReplaceSubassemblyForm.xaml
@@ -18,6 +17,7 @@ namespace SpiroflowViewModel.Button_Forms
 		public ReplaceSubassemblyForm()
 		{
 			InitializeComponent();
+			WindowStartupLocation = WindowStartupLocation.CenterScreen;
 		}
 
 		public void OnItemMouseDoubleClick(object sender, MouseButtonEventArgs args)

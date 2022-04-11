@@ -13,7 +13,6 @@ using Autodesk.DataManagement.Client.Framework.Vault.Currency.Entities;
 using Autodesk.DataManagement.Client.Framework.Vault.Currency.Properties;
 using Autodesk.DataManagement.Client.Framework.Vault.Settings;
 using Connectivity.Application.VaultBase;
-using Spiroflow_Vault;
 using VDF = Autodesk.DataManagement.Client.Framework;
 
 namespace SpiroflowVault

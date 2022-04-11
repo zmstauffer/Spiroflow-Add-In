@@ -29,19 +29,21 @@ namespace Spiroflow_Add_In
 		ButtonDefinition createPDFButton;
 		ButtonDefinition createDWGButton;
 		ButtonDefinition updateDrawingTitleBlock;
+		ButtonDefinition createBendNotes;
 		#endregion
 
 		#region Assembly Button Definitions
 		ButtonDefinition changePartNumbertoFilenameButton;
-		//ButtonDefinition createNewEquipmentButton;                      //this button also shown on zero doc ribbon
 		ButtonDefinition exportStructuredBOMButton;
 		ButtonDefinition replaceSubassemblyButton;
-		ButtonDefinition setEngineerAndDateIPropertiesButton;			//also shown on drawing ribbon
+		ButtonDefinition setEngineerAndDateIPropertiesButton;			
 		ButtonDefinition findMissingFabricationDrawingsButton;
-		ButtonDefinition testButton;									//this is to put different random things in to test w/out having to worry about creating a new button every time
+		ButtonDefinition testButton;                                        //this is to put different random things in to test w/out having to worry about creating a new button every time
+		//ButtonDefinition createNewEquipmentButton;						//this button also shown on zero doc ribbon
 		#endregion
 
 		#region ZeroDoc Button Definitions
+		ButtonDefinition showSettingsWindow;
 		//ButtonDefinition createNewEquipmentButtonZeroDoc;
 		#endregion
 
@@ -69,7 +71,7 @@ namespace Spiroflow_Add_In
 			CreateSpiroflowAssemblyRibbon();
 
 			//add new buttons to zero doc ribbon
-			//CreateSpiroflowZeroDocRibbon();
+			CreateSpiroflowZeroDocRibbon();
 		}
 
 		#endregion
@@ -124,7 +126,7 @@ namespace Spiroflow_Add_In
 			drawingRibbon.AddButton(createPDFButton, "SpiroflowAddIn.Buttons.CreatePDFButton");
 			drawingRibbon.AddButton(createDWGButton, "SpiroflowAddIn.Buttons.CreateDWGButton");
 			drawingRibbon.AddButton(updateDrawingTitleBlock, "SpiroflowAddIn.Buttons.UpdateDrawingTitleBlockButton");
-			//drawingRibbon.AddButton(setEngineerAndDateIPropertiesButton, "SpiroflowAddIn.Buttons.SetEngineerAndDateIPropertiesButton");
+			drawingRibbon.AddButton(createBendNotes, "SpiroflowAddIn.Buttons.CreateBendNotesButton");
 		}
 
 		private void CreateSpiroflowAssemblyRibbon()
@@ -133,23 +135,24 @@ namespace Spiroflow_Add_In
 
 			assemblyRibbon.CreateRibbonPanels();
 
-			//assemblyRibbon.AddButton(changePartNumbertoFilenameButton, "SpiroflowAddIn.Buttons.ChangePartNumberToFilenameButton");
-			//assemblyRibbon.AddButton(createNewEquipmentButton, "SpiroflowAddIn.Buttons.CreateNewEquipmentButton");
 			assemblyRibbon.AddButton(replaceSubassemblyButton, "SpiroflowAddIn.Buttons.ReplaceSubassemblyButton");
 			assemblyRibbon.AddButton(exportStructuredBOMButton, "SpiroflowAddIn.Buttons.ExportStructuredBOMButton");
 			assemblyRibbon.AddButton(setEngineerAndDateIPropertiesButton, "SpiroflowAddIn.Buttons.SetEngineerAndDateIPropertiesButton");
 			assemblyRibbon.AddButton(findMissingFabricationDrawingsButton, "SpiroflowAddIn.Buttons.FindMissingFabricationDrawingsButton");
 			//assemblyRibbon.AddButton(testButton, "SpiroflowAddIn.Buttons.TestButton");
+			//assemblyRibbon.AddButton(changePartNumbertoFilenameButton, "SpiroflowAddIn.Buttons.ChangePartNumberToFilenameButton");
+			//assemblyRibbon.AddButton(createNewEquipmentButton, "SpiroflowAddIn.Buttons.CreateNewEquipmentButton");
 		}
 
-		//private void CreateSpiroflowZeroDocRibbon()
-		//{
-		//	ZeroDocRibbonManager zeroDocRibbon = new ZeroDocRibbonManager(inventorApp, UIManager, AddInGUID);
+		private void CreateSpiroflowZeroDocRibbon()
+		{
+			ZeroDocRibbonManager zeroDocRibbon = new ZeroDocRibbonManager(inventorApp, UIManager, AddInGUID);
 
-		//	zeroDocRibbon.CreateRibbonPanels();
+			zeroDocRibbon.CreateRibbonPanels();
 
-		//	zeroDocRibbon.AddButton(createNewEquipmentButtonZeroDoc, "SpiroflowAddIn.Buttons.CreateNewEquipmentButtonZeroDoc");
-		//}
+			zeroDocRibbon.AddButton(showSettingsWindow, "SpiroflowAddIn.Buttons.ShowSettingsWindowButton");
+			//zeroDocRibbon.AddButton(createNewEquipmentButtonZeroDoc, "SpiroflowAddIn.Buttons.CreateNewEquipmentButtonZeroDoc");
+		}
 		#endregion
 	}
 }
