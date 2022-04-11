@@ -1,10 +1,8 @@
-﻿using System.ComponentModel;
+﻿using SpiroflowAddIn.Utilities;
+using System.ComponentModel;
 using System.Windows;
-using System.Windows.Input;
-using Button = System.Windows.Controls.Button;
-using SpiroflowAddIn.Utilities;
 using System.Windows.Forms;
-using System.Windows.Navigation;
+using System.Windows.Input;
 
 namespace SpiroflowAddIn.Button_Forms
 {
@@ -15,7 +13,7 @@ namespace SpiroflowAddIn.Button_Forms
 	{
 
 		public event PropertyChangedEventHandler PropertyChanged;
-		
+
 		private string _BOMExportPath;
 		public string BOMExportPath
 		{
@@ -70,7 +68,7 @@ namespace SpiroflowAddIn.Button_Forms
 			var dialog = new FolderBrowserDialog();
 			var result = dialog.ShowDialog();
 
-			if (result == System.Windows.Forms.DialogResult.OK) BOMExportPath = $@"{dialog.SelectedPath}\";			//have to add in trailing slash for filename setting to work in future
+			if (result == System.Windows.Forms.DialogResult.OK) BOMExportPath = $@"{dialog.SelectedPath}\";         //have to add in trailing slash for filename setting to work in future
 		}
 
 		private void DrawingExportButton_OnClick(object sender, RoutedEventArgs e)

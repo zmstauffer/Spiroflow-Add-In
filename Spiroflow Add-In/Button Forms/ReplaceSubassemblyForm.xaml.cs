@@ -1,8 +1,8 @@
-﻿using System.Windows;
+﻿using Inventor;
+using SpiroflowVault;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Inventor;
-using SpiroflowVault;
 
 namespace SpiroflowAddIn.Button_Forms
 {
@@ -24,7 +24,7 @@ namespace SpiroflowAddIn.Button_Forms
 		{
 			if (sender is TreeViewItem && !((TreeViewItem)sender).IsSelected) return;
 
-			var item = (TreeViewItem) sender;
+			var item = (TreeViewItem)sender;
 			{
 				if (item.DataContext.GetType() == typeof(FolderInfo)) return;
 			}

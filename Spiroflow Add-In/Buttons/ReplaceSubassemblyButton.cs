@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Interop;
-using Inventor;
+﻿using Inventor;
 using SpiroflowAddIn.Button_Forms;
 using SpiroflowAddIn.Utilities;
 using SpiroflowVault;
+using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Interop;
 using Application = Inventor.Application;
 using IPictureDisp = stdole.IPictureDisp;
 
@@ -23,7 +23,7 @@ namespace SpiroflowAddIn.Buttons
 
 		private string subAssemblyPath { get; set; }
 		private List<FolderInfo> folders { get; set; }
-		
+
 		public ReplaceSubassemblyButton()
 		{
 			DisplayName = $"Replace{System.Environment.NewLine}Subassembly";
@@ -36,13 +36,13 @@ namespace SpiroflowAddIn.Buttons
 		public void Execute(NameValueMap context)
 		{
 			ComponentOccurrence subAssemblyToReplace;
-			if (invApp.ActiveDocument.SelectSet.Count != 1)				//check if we already have something selected, make sure it's only 1 thing
+			if (invApp.ActiveDocument.SelectSet.Count != 1)             //check if we already have something selected, make sure it's only 1 thing
 			{
-				subAssemblyToReplace = (ComponentOccurrence) invApp.CommandManager.Pick(SelectionFilterEnum.kAssemblyOccurrenceFilter, "Select Subassembly to Replace.");
+				subAssemblyToReplace = (ComponentOccurrence)invApp.CommandManager.Pick(SelectionFilterEnum.kAssemblyOccurrenceFilter, "Select Subassembly to Replace.");
 			}
 			else
 			{
-				subAssemblyToReplace = (ComponentOccurrence)invApp.ActiveDocument.SelectSet[1];				//index starts at 1...
+				subAssemblyToReplace = (ComponentOccurrence)invApp.ActiveDocument.SelectSet[1];             //index starts at 1...
 			}
 
 			if (subAssemblyToReplace is null)
@@ -52,10 +52,10 @@ namespace SpiroflowAddIn.Buttons
 			}
 
 			Document subAssemblyDocument = (Document)subAssemblyToReplace.Definition.Document;
-			
+
 			subAssemblyPath = subAssemblyDocument.FullFileName;
-			subAssemblyPath = System.IO.Path.GetFullPath(System.IO.Path.Combine(subAssemblyPath, @"..\..\"));			//this gets us two levels up in directory structure, potential for errors.
-			
+			subAssemblyPath = System.IO.Path.GetFullPath(System.IO.Path.Combine(subAssemblyPath, @"..\..\"));           //this gets us two levels up in directory structure, potential for errors.
+
 			//open form
 			var form = new ReplaceSubassemblyForm();
 			var helper = new WindowInteropHelper(form);
@@ -76,13 +76,13 @@ namespace SpiroflowAddIn.Buttons
 			folders = VaultFunctions.GetFolderNames(subAssemblyPath);
 
 			if (folders == null || folders.Count == 0) return;
-			
+
 			foreach (var folder in folders)
 			{
 				folder.files = VaultFunctions.GetFilenamesFromFolderId(folder.folderID);
 			}
 
-			folders.RemoveAll(x => x.files.Count == 0);	//remove folders w/ no files, as you can't pick that anyways
+			folders.RemoveAll(x => x.files.Count == 0); //remove folders w/ no files, as you can't pick that anyways
 		}
 	}
 }

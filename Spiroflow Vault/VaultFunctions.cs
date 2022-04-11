@@ -1,4 +1,11 @@
-﻿using System;
+﻿using Autodesk.Connectivity.WebServices;
+using Autodesk.DataManagement.Client.Framework.Vault.Currency;
+using Autodesk.DataManagement.Client.Framework.Vault.Currency.Connections;
+using Autodesk.DataManagement.Client.Framework.Vault.Currency.Entities;
+using Autodesk.DataManagement.Client.Framework.Vault.Currency.Properties;
+using Autodesk.DataManagement.Client.Framework.Vault.Settings;
+using Connectivity.Application.VaultBase;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
@@ -6,14 +13,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using Autodesk.Connectivity.WebServices;
-using Autodesk.DataManagement.Client.Framework.Vault.Currency;
-using Autodesk.DataManagement.Client.Framework.Vault.Currency.Connections;
-using Autodesk.DataManagement.Client.Framework.Vault.Currency.Entities;
-using Autodesk.DataManagement.Client.Framework.Vault.Currency.Properties;
-using Autodesk.DataManagement.Client.Framework.Vault.Settings;
-using Connectivity.Application.VaultBase;
-using VDF = Autodesk.DataManagement.Client.Framework;
 
 namespace SpiroflowVault
 {
@@ -87,7 +86,7 @@ namespace SpiroflowVault
 
 		private static FileIteration GetFileIterationFromPath(string vaultFilePath)
 		{
-			var files = new List<string> {vaultFilePath};
+			var files = new List<string> { vaultFilePath };
 			var vaultConnection = GetVaultConnection();
 			try
 			{
@@ -112,7 +111,7 @@ namespace SpiroflowVault
 				var propDefs = vaultConnection.PropertyManager.GetPropertyDefinitions(EntityClassIds.Files, null, PropertyDefinitionFilter.IncludeSystem);
 				var thumbnailPropertyDef = propDefs.SingleOrDefault(x => x.Key == "Thumbnail").Value;
 				var propSetting = new PropertyValueSettings();
-				var thumbInfo = (ThumbnailInfo) vaultConnection.PropertyManager.GetPropertyValue(fileIteration, thumbnailPropertyDef, propSetting);
+				var thumbInfo = (ThumbnailInfo)vaultConnection.PropertyManager.GetPropertyValue(fileIteration, thumbnailPropertyDef, propSetting);
 
 				return RenderThumbnailToImage(thumbInfo, height, width);
 			}
@@ -196,7 +195,7 @@ namespace SpiroflowVault
 				var propDefs = vaultConnection.PropertyManager.GetPropertyDefinitions(EntityClassIds.Files, null, PropertyDefinitionFilter.IncludeAll);
 				var descriptionPropertyDef = propDefs.SingleOrDefault(x => x.Key == "Description").Value;
 				var propSetting = new PropertyValueSettings();
-				var descriptionString = (string) vaultConnection.PropertyManager.GetPropertyValue(fileIteration, descriptionPropertyDef, propSetting);
+				var descriptionString = (string)vaultConnection.PropertyManager.GetPropertyValue(fileIteration, descriptionPropertyDef, propSetting);
 				return descriptionString;
 			}
 			catch (Exception e)
@@ -341,14 +340,14 @@ namespace SpiroflowVault
 			var propSetting = new PropertyValueSettings();
 
 
-			SrchCond[] searchConditions = {new SrchCond()};
+			SrchCond[] searchConditions = { new SrchCond() };
 			searchConditions[0].PropDefId = namePropertyDef.Id;
 			searchConditions[0].PropTyp = PropertySearchType.SingleProperty;
 			searchConditions[0].SrchOper = 3; //3 = Is Exactly (from vault SDK)
 			searchConditions[0].SrchTxt = filename;
 
 			var rootFolder = docService.GetFolderRoot();
-			long[] folderIDs = {rootFolder.Id};
+			long[] folderIDs = { rootFolder.Id };
 			var status = new SrchStatus();
 			var bookmark = string.Empty;
 

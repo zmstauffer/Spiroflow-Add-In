@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
-using DocumentFormat.OpenXml.Office2013.Drawing.ChartStyle;
-using Inventor;
+﻿using Inventor;
 using SpiroflowAddIn.Utilities;
+using System;
+using System.Windows;
 using Application = Inventor.Application;
 
 namespace SpiroflowAddIn.Buttons
@@ -34,13 +28,13 @@ namespace SpiroflowAddIn.Buttons
 		{
 			if (invApp.ActiveDocument.DocumentType != DocumentTypeEnum.kAssemblyDocumentObject) return;
 
-			AssemblyDocument assemblyDoc = (AssemblyDocument) invApp.ActiveDocument;
+			AssemblyDocument assemblyDoc = (AssemblyDocument)invApp.ActiveDocument;
 			var assemblyDef = assemblyDoc.ComponentDefinition;
 
 			foreach (ComponentOccurrence occurrence in assemblyDef.Occurrences)
 			{
 				var nodeName = occurrence.Name.Split(":".ToCharArray(), StringSplitOptions.None);
-				var instanceNum = nodeName.Length > 1? $":{nodeName[1]}" : ":1";
+				var instanceNum = nodeName.Length > 1 ? $":{nodeName[1]}" : ":1";
 				try
 				{
 					occurrence.Name = $"{GetPartNumber(occurrence)}{instanceNum}";

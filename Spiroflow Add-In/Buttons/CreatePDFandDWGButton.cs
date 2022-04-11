@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Inventor;
+﻿using Inventor;
 using SpiroflowAddIn.Utilities;
 
 namespace SpiroflowAddIn.Buttons
@@ -11,7 +6,7 @@ namespace SpiroflowAddIn.Buttons
 	public class CreatePDFandDWGButton : IButton
 	{
 		public Application invApp { get; set; }
-		public string PanelID { get;set; }
+		public string PanelID { get; set; }
 		public stdole.IPictureDisp icon { get; set; }
 		public stdole.IPictureDisp smallIcon { get; set; }
 		public string DisplayName { get; set; }

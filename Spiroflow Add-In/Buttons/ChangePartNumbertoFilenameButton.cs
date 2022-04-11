@@ -13,7 +13,7 @@ namespace SpiroflowAddIn.Buttons
 		public stdole.IPictureDisp icon { get; set; }
 		public stdole.IPictureDisp smallIcon { get; set; }
 		public ButtonDefinition buttonDef { get; set; }
-		
+
 		public ChangePartNumberToFilenameButton()
 		{
 			DisplayName = $"Change Part #{System.Environment.NewLine}To Filename";
@@ -30,7 +30,7 @@ namespace SpiroflowAddIn.Buttons
 
 			int filesAvailableForEditing = 0;
 			int currentFileCount = 0;
-			
+
 			//capture how many files are read-only because we are not going to modify those.
 			foreach (Document referencedDoc in doc.AllReferencedDocuments)
 			{
@@ -38,7 +38,7 @@ namespace SpiroflowAddIn.Buttons
 				if (!fileInfo.IsReadOnly) filesAvailableForEditing++;
 			}
 
-			if (filesAvailableForEditing <= 0)			//nothing to do here
+			if (filesAvailableForEditing <= 0)          //nothing to do here
 			{
 				MessageBox.Show("All files in this assembly are read only.");
 				return;

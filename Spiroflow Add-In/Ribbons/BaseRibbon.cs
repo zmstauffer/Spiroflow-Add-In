@@ -59,7 +59,7 @@ namespace SpiroflowAddIn.Ribbons
 
 			if (type != null) return Activator.CreateInstance(type);
 
-			try																			//this helps to fix errors in finding types from different .dll files etc.
+			try                                                                         //this helps to fix errors in finding types from different .dll files etc.
 			{
 				foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
 				{

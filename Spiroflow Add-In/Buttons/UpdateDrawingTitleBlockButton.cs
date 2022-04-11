@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using Autodesk.iLogic.Automation;
-using Autodesk.iLogic.Interfaces;
+﻿using Autodesk.iLogic.Automation;
 using Inventor;
 using SpiroflowAddIn.Utilities;
+using System;
+using System.Windows;
 using Application = Inventor.Application;
 
 namespace SpiroflowAddIn.Buttons
 {
-	class UpdateDrawingTitleBlockButton :IButton
+	class UpdateDrawingTitleBlockButton : IButton
 	{
 		public Application invApp { get; set; }
 		public string PanelID { get; set; }
@@ -152,7 +147,7 @@ namespace SpiroflowAddIn.Buttons
 						}
 					}
 				}
-				
+
 			}
 		}
 	}

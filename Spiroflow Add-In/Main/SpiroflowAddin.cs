@@ -1,12 +1,8 @@
 using Inventor;
-using Microsoft.Win32;
+using SpiroflowAddIn.Ribbons;
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using DocumentFormat.OpenXml.Office.CustomUI;
-using SpiroflowAddIn.Ribbons;
-using SpiroflowAddIn.Utilities;
-using SpiroflowAddIn.Buttons;
 
 namespace Spiroflow_Add_In
 {
@@ -36,7 +32,7 @@ namespace Spiroflow_Add_In
 		ButtonDefinition changePartNumbertoFilenameButton;
 		ButtonDefinition exportStructuredBOMButton;
 		ButtonDefinition replaceSubassemblyButton;
-		ButtonDefinition setEngineerAndDateIPropertiesButton;			
+		ButtonDefinition setEngineerAndDateIPropertiesButton;
 		ButtonDefinition findMissingFabricationDrawingsButton;
 		ButtonDefinition setWeldmentMaterial;
 		ButtonDefinition testButton;                                        //this is to put different random things in to test w/out having to worry about creating a new button every time

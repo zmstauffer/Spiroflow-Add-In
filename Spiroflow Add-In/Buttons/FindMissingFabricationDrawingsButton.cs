@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Interop;
-using Autodesk.DataManagement.Client.Framework.Vault.Services;
-using Autodesk.iLogic.Automation;
-using Connectivity.Application.VaultBase;
+﻿using Autodesk.iLogic.Automation;
 using Inventor;
 using SpiroflowAddIn.Button_Forms;
 using SpiroflowAddIn.Utilities;
 using SpiroflowVault;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Interop;
 using Application = Inventor.Application;
-using Environment = Inventor.Environment;
 
 namespace SpiroflowAddIn.Buttons
 {
@@ -34,7 +29,7 @@ namespace SpiroflowAddIn.Buttons
 			DisplayName = $"Find Missing{System.Environment.NewLine}Fab Drawings";
 			InternalName = "findMissingDrawings";
 			PanelID = "assemblyPanel";
-			icon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.findMissingFabDrawings, 32,32));
+			icon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.findMissingFabDrawings, 32, 32));
 			smallIcon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.findMissingFabDrawings, 16, 16));
 		}
 
@@ -101,7 +96,7 @@ namespace SpiroflowAddIn.Buttons
 
 			var progressBar = invApp.CreateProgressBar(false, filenames.Count, "Creating DWGs...");
 			var currentStep = 1;
-			
+
 			foreach (var filename in filenames)
 			{
 				progressBar.Message = $"Creating DWG {currentStep} of {filenames.Count} - {filename}";
@@ -125,13 +120,13 @@ namespace SpiroflowAddIn.Buttons
 					{
 						ilogicAutomation.RulesOnEventsEnabled = false;
 						var doc = invApp.Documents.Open(files[0].LocalFilePath, false);
-						
-						DrawingDocument drawingDoc = (DrawingDocument) doc;
+
+						DrawingDocument drawingDoc = (DrawingDocument)doc;
 
 						DWGPrinter.Print(drawingDoc, invApp);
 						doc.Close(true);
 					}
-					catch {}
+					catch { }
 					finally
 					{
 						ilogicAutomation.RulesOnEventsEnabled = true;
@@ -150,7 +145,7 @@ namespace SpiroflowAddIn.Buttons
 			{
 				if (subOccurrence.Name.Contains("SP") || subOccurrence.Name.Contains("PC") || subOccurrence.Name.Contains("CF") && occurrence.Name.Count(x => x == '-') <= 1)
 				{
-					if(!fileList.Contains(subOccurrence.Name)) fileList.Add(subOccurrence.Name);
+					if (!fileList.Contains(subOccurrence.Name)) fileList.Add(subOccurrence.Name);
 				}
 				if (subOccurrence.BOMStructure != BOMStructureEnum.kInseparableBOMStructure) GetSubOccurrences(subOccurrence);
 			}

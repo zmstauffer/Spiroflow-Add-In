@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Interop;
-using Inventor;
-using SpiroflowAddIn.Button_Forms;
+﻿using Inventor;
 using SpiroflowAddIn.Utilities;
 using SpiroflowVault;
+using System;
+using System.Collections.Generic;
 using Application = Inventor.Application;
 using IPictureDisp = stdole.IPictureDisp;
 
@@ -41,8 +38,8 @@ namespace SpiroflowAddIn.Buttons
 
 			try
 			{
-				AssemblyDocument assyDoc = (AssemblyDocument) doc;
-				var weldmentDef = (WeldmentComponentDefinition) assyDoc.ComponentDefinition;
+				AssemblyDocument assyDoc = (AssemblyDocument)doc;
+				var weldmentDef = (WeldmentComponentDefinition)assyDoc.ComponentDefinition;
 
 				if (weldmentDef != null)
 				{

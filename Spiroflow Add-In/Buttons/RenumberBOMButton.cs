@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Inventor;
+using SpiroflowAddIn.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
-using Inventor;
-using SpiroflowAddIn.Utilities;
 
 namespace SpiroflowAddIn.Buttons
 {
 	public class RenumberBOMButton : IButton
 	{
 		public Application invApp { get; set; }
-		public string DisplayName {get;set;}
+		public string DisplayName { get; set; }
 		public string InternalName { get; set; }
 		public string PanelID { get; set; }
 		public stdole.IPictureDisp icon { get; set; }
@@ -29,7 +29,7 @@ namespace SpiroflowAddIn.Buttons
 			smallIcon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.renumberBOM, 16, 16));
 		}
 
-		public void Execute(NameValueMap context) 
+		public void Execute(NameValueMap context)
 		{
 			var doc = invApp.ActiveDocument;
 
@@ -41,7 +41,7 @@ namespace SpiroflowAddIn.Buttons
 
 			try
 			{
-				partList = currentSheet.PartsLists[1];		//YES INDEX STARTS AT 1
+				partList = currentSheet.PartsLists[1];      //YES INDEX STARTS AT 1
 			}
 			catch (Exception e)
 			{

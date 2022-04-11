@@ -1,15 +1,12 @@
-﻿using Inventor;
-using SpiroflowAddIn.Utilities;
-using ClosedXML.Excel;
+﻿using ClosedXML.Excel;
+using Inventor;
 using Microsoft.VisualBasic.Compatibility.VB6;
+using SpiroflowAddIn.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
-using DocumentFormat.OpenXml.Drawing;
 using Application = Inventor.Application;
 
 namespace SpiroflowAddIn.Buttons

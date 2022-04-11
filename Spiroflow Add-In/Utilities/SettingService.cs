@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpiroflowAddIn.Utilities
 {
@@ -11,7 +7,7 @@ namespace SpiroflowAddIn.Utilities
 	{
 		public static string GetSetting(string settingName)
 		{
-			return DoesSettingExist(settingName)? Properties.Settings.Default[settingName].ToString() : "";
+			return DoesSettingExist(settingName) ? Properties.Settings.Default[settingName].ToString() : "";
 		}
 
 		private static bool DoesSettingExist(string settingName)
