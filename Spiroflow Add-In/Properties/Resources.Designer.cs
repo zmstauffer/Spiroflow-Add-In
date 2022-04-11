@@ -63,6 +63,16 @@ namespace SpiroflowAddIn.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
+        internal static System.Drawing.Icon bendNotes {
+            get {
+                object obj = ResourceManager.GetObject("bendNotes", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
         internal static System.Drawing.Icon billOfMaterialsIcon {
             get {
                 object obj = ResourceManager.GetObject("billOfMaterialsIcon", resourceCulture);
@@ -116,6 +126,16 @@ namespace SpiroflowAddIn.Properties {
         internal static System.Drawing.Icon findMissingFabDrawings {
             get {
                 object obj = ResourceManager.GetObject("findMissingFabDrawings", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon partDetailCheck {
+            get {
+                object obj = ResourceManager.GetObject("partDetailCheck", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

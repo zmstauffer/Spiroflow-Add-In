@@ -162,6 +162,7 @@
     <Compile Include="Buttons\FindMissingFabricationDrawingsButton.cs" />
     <Compile Include="Buttons\IButton.cs" />
     <Compile Include="Buttons\CreatePDFandDWGButton.cs" />
+    <Compile Include="Buttons\PartDetailCheckButton.cs" />
     <Compile Include="Buttons\SetEngineerAndDateIProperties_PartButton.cs" />
     <Compile Include="Buttons\SetEngineerAndDateIPropertiesButton.cs" />
     <Compile Include="Buttons\RenumberBOMButton.cs" />
@@ -239,6 +240,8 @@
     <None Include="Resources\createPDFandDWGIcon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\partDetailCheck.ico" />
+    <None Include="Resources\bendNotes.ico" />
     <Content Include="Resources\changePartNumber.ico" />
     <Content Include="Resources\createDWGIcon.ico" />
     <Content Include="Resources\CreatePDFButtonIcon.ico" />

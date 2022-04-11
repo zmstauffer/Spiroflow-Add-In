@@ -19,8 +19,8 @@ namespace SpiroflowAddIn.Buttons
 			DisplayName = $"Create Bend{System.Environment.NewLine}Notes";
 			InternalName = "createBendNotes";
 			PanelID = "miscPanel";
-			icon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.test, 32, 32));
-			smallIcon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.test, 16, 16));
+			icon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.bendNotes, 32, 32));
+			smallIcon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.bendNotes, 16, 16));
 		}
 
 		/// <summary>
