@@ -42,6 +42,20 @@ namespace SpiroflowAddIn.Button_Forms
 			}
 		}
 
+		private string _ManufacturingDrawingsPath { get; set; }
+		public string ManufacturingDrawingsPath
+		{
+			get => _ManufacturingDrawingsPath;
+			set
+			{
+				if (_ManufacturingDrawingsPath != value)
+				{
+					_ManufacturingDrawingsPath = value;
+					RaisePropertyChanged(nameof(ManufacturingDrawingsPath));
+				}
+			}
+		}
+
 		private string _Engineer { get; set; }
 		public string Engineer
 		{
@@ -68,7 +82,8 @@ namespace SpiroflowAddIn.Button_Forms
 			var dialog = new FolderBrowserDialog();
 			var result = dialog.ShowDialog();
 
-			if (result == System.Windows.Forms.DialogResult.OK) BOMExportPath = $@"{dialog.SelectedPath}\";         //have to add in trailing slash for filename setting to work in future
+			if (result == System.Windows.Forms.DialogResult.OK) BOMExportPath = $@"{dialog.SelectedPath}";        
+			if (BOMExportPath.Substring(BOMExportPath.Length - 1) != @"\") BOMExportPath += @"\";				//have to make sure file has trailing slash, as all future uses of this will have it
 		}
 
 		private void DrawingExportButton_OnClick(object sender, RoutedEventArgs e)
@@ -76,13 +91,24 @@ namespace SpiroflowAddIn.Button_Forms
 			var dialog = new FolderBrowserDialog();
 			var result = dialog.ShowDialog();
 
-			if (result == System.Windows.Forms.DialogResult.OK) DrawingExportPath = $@"{dialog.SelectedPath}\";
+			if (result == System.Windows.Forms.DialogResult.OK) DrawingExportPath = $@"{dialog.SelectedPath}";
+			if (DrawingExportPath.Substring(DrawingExportPath.Length - 1) != @"\") DrawingExportPath += @"\";
+		}
+
+		private void ManufacturingDrawingButton_OnClick(object sender, RoutedEventArgs e)
+		{
+			var dialog = new FolderBrowserDialog();
+			var result = dialog.ShowDialog();
+
+			if (result == System.Windows.Forms.DialogResult.OK) ManufacturingDrawingsPath = $@"{dialog.SelectedPath}";
+			if (ManufacturingDrawingsPath.Substring(ManufacturingDrawingsPath.Length - 1) != @"\") ManufacturingDrawingsPath += @"\";
 		}
 
 		private void SaveButton_OnClick(object sender, RoutedEventArgs e)
 		{
 			if (SettingService.GetSetting("BOMExportPath") != BOMExportPath) SettingService.SetSetting("BOMExportPath", BOMExportPath);
 			if (SettingService.GetSetting("DrawingExportPath") != DrawingExportPath) SettingService.SetSetting("DrawingExportPath", DrawingExportPath);
+			if (SettingService.GetSetting("ManufacturingDrawingsPath") != DrawingExportPath) SettingService.SetSetting("ManufacturingDrawingsPath", ManufacturingDrawingsPath);
 			if (SettingService.GetSetting("Engineer") != Engineer) SettingService.SetSetting("Engineer", Engineer);
 
 			CloseCommandBinding_Executed(sender, null);
@@ -102,6 +128,7 @@ namespace SpiroflowAddIn.Button_Forms
 		{
 			BOMExportPath = SettingService.GetSetting("BOMExportPath");
 			DrawingExportPath = SettingService.GetSetting("DrawingExportPath");
+			ManufacturingDrawingsPath = SettingService.GetSetting("ManufacturingDrawingsPath");
 			Engineer = SettingService.GetSetting("Engineer");
 		}
 
@@ -109,5 +136,6 @@ namespace SpiroflowAddIn.Button_Forms
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 		}
+
 	}
 }

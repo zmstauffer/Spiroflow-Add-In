@@ -33,26 +33,41 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0"  Content="BOM Export Path:" Margin="10"></Label>
-            <Button Grid.Row="0" Grid.Column="1" x:Name="BOMExportButton" Content="{Binding Path=BOMExportPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Click="BOMExportButton_OnClick"  Margin="10" Style="{DynamicResource RoundedButtonStyle}"></Button>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width ="Auto"/>
+                    <ColumnDefinition Width ="Auto"/>
+                </Grid.ColumnDefinitions>
+               
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-            <Label Grid.Row="1" Grid.Column="0"  Content="Drawing Export Path:" Margin="10"></Label>
-            <Button Grid.Row="1" Grid.Column="1"   x:Name="DrawingExportButton" Content="{Binding Path=DrawingExportPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Click="DrawingExportButton_OnClick"  Margin="10" Style="{DynamicResource RoundedButtonStyle}"></Button>
+                <Label Grid.Column="0" Grid.Row="0" Content="BOM Export Path:" Margin="10" HorizontalAlignment="Right"></Label>
+                <Button Grid.Column="1" Grid.Row="0" x:Name="BOMExportButton" Content="{Binding Path=BOMExportPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Click="BOMExportButton_OnClick"  Margin="10" Style="{DynamicResource RoundedButtonStyle}"></Button>
 
-            <Label Grid.Row="2" Grid.Column="0"  Content="Engineer Name:" Margin="10"></Label>
-            <TextBox Grid.Row="2" Grid.Column="1"   x:Name="EngineerTextBox" Text="{Binding Path=Engineer, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="10" TextAlignment="Center" VerticalContentAlignment="Center">
-                <TextBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="5"></Setter>
-                    </Style>
-                </TextBox.Resources>
-            </TextBox>
-            
-            <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Grid.Column="0" Grid.Row="1" Content="Drawing Export Path:" Margin="10" HorizontalAlignment="Right"></Label>
+                <Button Grid.Column="1" Grid.Row="1" x:Name="DrawingExportButton" Content="{Binding Path=DrawingExportPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Click="DrawingExportButton_OnClick"  Margin="10" Style="{DynamicResource RoundedButtonStyle}"></Button>
+
+                <Label Grid.Column="0" Grid.Row="2" Content="Manufacturing Drawing Path:" Margin="10" HorizontalAlignment="Right"></Label>
+                <Button Grid.Column="1" Grid.Row="2" x:Name="ManufacturingDrawingButton" Content="{Binding Path=ManufacturingDrawingsPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Click="ManufacturingDrawingButton_OnClick"  Margin="10" Style="{DynamicResource RoundedButtonStyle}"></Button>
+
+                <Label Grid.Column="0" Grid.Row="3" Content="Engineer Name:" Margin="10" HorizontalAlignment="Right"></Label>
+                <TextBox Grid.Column="1" Grid.Row="3" x:Name="EngineerTextBox" Text="{Binding Path=Engineer, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="10" TextAlignment="Center" VerticalContentAlignment="Center">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5"></Setter>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+            </Grid>
+
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button  x:Name="SaveButton" Content ="Save" Width="100" Click="SaveButton_OnClick" Margin="10" Style="{DynamicResource RoundedButtonStyle}"></Button>
                 <Button x:Name="CancelButton" Content ="Cancel" Width="100" Click="CancelButton_OnClick" Margin="10" Style="{DynamicResource RoundedButtonStyle}"></Button>
             </StackPanel>

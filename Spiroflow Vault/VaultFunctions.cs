@@ -368,10 +368,33 @@ namespace SpiroflowVault
 			}
 			else
 			{
-				MessageBox.Show($"Error getting drawing for {filename}");
+				MessageBox.Show($"Error getting file {filename}");
 			}
 
 			return infoList;
+		}
+
+		/// <summary>
+		/// Checks if file exists on disk and downloads it if it doesn't. Should use full filename with path as parameter.
+		/// </summary>
+		/// <param name="filename"></param>
+		/// <returns></returns>
+		public static bool CheckFileAndDownloadIfNecessary(string filename)
+		{
+			if (System.IO.File.Exists(filename)) return true;
+
+			//try to download from vault
+			filename = System.IO.Path.GetFileName(filename);	//strip off directory info
+			
+			var fileList = FindFilesByFilename(filename);
+			if (fileList.Count > 0)
+			{
+				VaultFunctions.DownloadFileById(fileList[0].Id);
+				return true;
+			}
+			
+			MessageBox.Show($"Tried to download {filename} from Vault but failed. Process will now abort.");
+			return false;
 		}
 	}
 }

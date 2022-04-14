@@ -7,7 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
+using Connectivity.Application.VaultBase;
 using Application = Inventor.Application;
+using SpiroflowAddIn.Utilities;
+using SpiroflowVault;
 
 namespace SpiroflowAddIn.Buttons
 {
@@ -22,10 +25,9 @@ namespace SpiroflowAddIn.Buttons
 		public ButtonDefinition buttonDef { get; set; }
 		public IXLWorkbook workbook { get; set; }
 		public IXLWorksheet worksheet { get; set; }
-
 		private BOM assyBOM { get; set; }
-		private const string structuredBOMImportFilename = @"C:\workspace\bom - structured view.xml";
-		private const string partslistBOMImportFilename = @"C:\workspace\bom - partslist view.xml";
+		private string structuredBOMImportFilename = $@"{SettingService.GetSetting("ConfigFilesPath")}bom - structured view.xml";
+		private string partslistBOMImportFilename = $@"{SettingService.GetSetting("ConfigFilesPath")}bom - partslist view.xml";
 
 		public ExportStructuredBOMButton()
 		{
@@ -53,14 +55,24 @@ namespace SpiroflowAddIn.Buttons
 			assyBOM.StructuredViewFirstLevelOnly = false;
 			assyBOM.StructuredViewEnabled = true;
 
-			string templateFilename = @"Y:\BOM\HEADER TEMPLATE.xlsx";
+			string configFilesPath = SettingService.GetSetting("ConfigFilesPath");
+			string templateFilename = $"{configFilesPath}HEADER TEMPLATE.xlsx";
+			structuredBOMImportFilename = $"{configFilesPath}bom - structured view.xml";
+			partslistBOMImportFilename = $"{configFilesPath}bom - partslist view.xml";
+
+			if (!VaultFunctions.CheckFileAndDownloadIfNecessary(structuredBOMImportFilename)) return;
+			if (!VaultFunctions.CheckFileAndDownloadIfNecessary(partslistBOMImportFilename)) return;
+			if (!VaultFunctions.CheckFileAndDownloadIfNecessary(templateFilename)) return;
 
 			using (workbook = new XLWorkbook(templateFilename))
 			{
 				ExportStructuredBOM(workbook);
 				ExportPartsListBOM(workbook);
+				
 				string newFilename = System.IO.Path.GetFileNameWithoutExtension(assyDoc.DisplayName);
-				workbook.SaveAs(@"C:\workspace\" + newFilename + "-BOM.xlsx");
+				string outputPath = SettingService.GetSetting("BOMExportPath");
+				
+				workbook.SaveAs($@"{outputPath}{newFilename}-BOM.xlsx");
 			}
 		}
 

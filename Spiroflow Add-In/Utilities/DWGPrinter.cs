@@ -1,5 +1,6 @@
 ﻿using Inventor;
 using System.Windows;
+using SpiroflowVault;
 using Application = Inventor.Application;
 
 namespace SpiroflowAddIn.Utilities
@@ -14,13 +15,9 @@ namespace SpiroflowAddIn.Utilities
 			NameValueMap options = invApp.TransientObjects.CreateNameValueMap();
 			DataMedium dataMedium = invApp.TransientObjects.CreateDataMedium();
 
-			string iniFilename = @"C:\workspace\AutoCAD export settings.ini";
+			string iniFilename = $@"{SettingService.GetSetting("ConfigFilesPath")}AutoCAD export settings.ini";
 
-			if (!System.IO.File.Exists(@"C:\workspace\AutoCAD export settings.ini"))
-			{
-				MessageBox.Show($@"Cannot find {iniFilename}, please generate AutoCAD export settings and save them to {iniFilename} for DWG export to work.", "ERROR");
-				return;
-			}
+			if (!VaultFunctions.CheckFileAndDownloadIfNecessary(iniFilename)) return;
 
 			string filepath = SettingService.GetSetting("DrawingExportPath");
 

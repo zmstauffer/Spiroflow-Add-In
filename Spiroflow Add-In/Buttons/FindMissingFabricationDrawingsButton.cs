@@ -153,7 +153,8 @@ namespace SpiroflowAddIn.Buttons
 
 		private List<string> GetExistingFiles()
 		{
-			var manufacturingDrawingFilePath = @"C:\Users\zstauffer\OneDrive - Spiroflow Systems\Job Files - 2018 onward\Manufacturing Drawings";
+
+			var manufacturingDrawingFilePath = SettingService.GetSetting("ManufacturingDrawingsPath");
 			return Directory.GetFiles(manufacturingDrawingFilePath, "*.dwg", SearchOption.AllDirectories).ToList();
 		}
 	}

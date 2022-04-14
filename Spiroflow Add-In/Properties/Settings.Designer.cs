@@ -58,5 +58,29 @@ namespace SpiroflowAddIn.Properties {
                 this["Engineer"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\workspace\\z_Documentation\\RULES\\")]
+        public string ConfigFilesPath {
+            get {
+                return ((string)(this["ConfigFilesPath"]));
+            }
+            set {
+                this["ConfigFilesPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ManufacturingDrawingsPath {
+            get {
+                return ((string)(this["ManufacturingDrawingsPath"]));
+            }
+            set {
+                this["ManufacturingDrawingsPath"] = value;
+            }
+        }
     }
 }
