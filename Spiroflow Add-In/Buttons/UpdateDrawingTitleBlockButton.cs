@@ -61,6 +61,22 @@ namespace SpiroflowAddIn.Buttons
 
 			DrawingDocument drawingDoc = (DrawingDocument)doc;
 
+			//replace title block, separate try/catch block because we want to do both of these things, even if one fails
+			try
+			{
+
+				var templateLocation = $@"C:\workspace\z_Documentation\TEMPLATES\SPIROFLOW MANUFACTURING - IMPERIAL.idw";
+				DrawingDocument templateDoc = (DrawingDocument)invApp.Documents.Open(templateLocation, false);
+
+				var titleBlock = templateDoc.TitleBlockDefinitions["Spiroflow Manufacturing"];
+
+				ReplaceTitleBlock(drawingDoc, titleBlock);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Couldn't replace titleblock. Error: {ex}", "ERROR");
+			}
+
 			//create iLogic rule to update Title Block
 			var ruleName = "UPDATE";
 
@@ -85,22 +101,45 @@ namespace SpiroflowAddIn.Buttons
 				automation.AddRule(doc, ruleName, ruleText);
 				automation.RulesOnEventsEnabled = true;
 				automation.RunRule(doc, ruleName);
+
+				AddEventTriggers(drawingDoc, ruleName);
 			}
 
-			//replace title block, separate try/catch block because we want to do both of these things, even if one fails
+		}
+
+		private void AddEventTriggers(DrawingDocument doc, string ruleName)
+		{
+			//setup event triggers for new rule
+			PropertySet iLogicPropSet = null;
 			try
 			{
-
-				var templateLocation = $@"C:\workspace\z_Documentation\TEMPLATES\SPIROFLOW MANUFACTURING - IMPERIAL.idw";
-				DrawingDocument templateDoc = (DrawingDocument)invApp.Documents.Open(templateLocation, false);
-
-				var titleBlock = templateDoc.TitleBlockDefinitions["Spiroflow Manufacturing"];
-
-				ReplaceTitleBlock(drawingDoc, titleBlock);
+				iLogicPropSet = doc.PropertySets["{2C540830-0723-455E-A8E2-891722EB4C3E}"];
+				if (iLogicPropSet.InternalName != "{2C540830-0723-455E-A8E2-891722EB4C3E}")
+				{
+					iLogicPropSet.Delete();
+					doc.PropertySets.Add("iLogicEventsRules", "{2C540830-0723-455E-A8E2-891722EB4C3E}");
+					iLogicPropSet = doc.PropertySets["{2C540830-0723-455E-A8E2-891722EB4C3E}"];
+				}
 			}
-			catch (Exception ex)
+			catch
 			{
-				MessageBox.Show($"Couldn't replace titleblock. Error: {ex}", "ERROR");
+				try
+				{
+					doc.PropertySets.Add("iLogicEventsRules", "{2C540830-0723-455E-A8E2-891722EB4C3E}");
+					iLogicPropSet = doc.PropertySets["{2C540830-0723-455E-A8E2-891722EB4C3E}"];
+				}
+				catch
+				{
+					MessageBox.Show("Unable to add Event Triggers");
+				}
+			}
+			finally
+			{
+				if (iLogicPropSet != null)
+				{
+					iLogicPropSet.Add(ruleName, "AfterDocOpen", 410);	//should technically check to make sure there isn't another event trigger at 410, but I think they are sequential and have a hard time believing someone will have 10 rules on a drawing file	
+					iLogicPropSet.Add(ruleName, "BeforeDocSave", 710); //should technically check to make sure there isn't another event trigger at 710, but I think they are sequential and have a hard time believing someone will have 10 rules on a drawing file	
+				}
 			}
 		}
 
@@ -141,7 +180,7 @@ namespace SpiroflowAddIn.Buttons
 					sheet.AddTitleBlock(sheetTitleBlockDefinition);
 					if (sheet.CustomTables.Count != 0)
 					{
-						for (int i = sheet.CustomTables.Count; i >= 0; i--)
+						for (int i = sheet.CustomTables.Count; i > 0; i--)
 						{
 							sheet.CustomTables[i].Delete();
 						}
