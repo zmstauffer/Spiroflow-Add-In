@@ -1,13 +1,11 @@
 ﻿using ClosedXML.Excel;
 using Inventor;
 using Microsoft.VisualBasic.Compatibility.VB6;
-using SpiroflowAddIn.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
-using Connectivity.Application.VaultBase;
 using Application = Inventor.Application;
 using SpiroflowAddIn.Utilities;
 using SpiroflowVault;
@@ -68,6 +66,7 @@ namespace SpiroflowAddIn.Buttons
 			{
 				ExportStructuredBOM(workbook);
 				ExportPartsListBOM(workbook);
+				FillOutHeader(workbook);
 				
 				string newFilename = System.IO.Path.GetFileNameWithoutExtension(assyDoc.DisplayName);
 				string outputPath = SettingService.GetSetting("BOMExportPath");
@@ -90,30 +89,21 @@ namespace SpiroflowAddIn.Buttons
 			int startRow = 13;
 			int currentRow = 14;
 
-			worksheet.Range("A" + startRow).Value = "Item";
-			worksheet.Range("B" + startRow).Value = "Sub Item";
-			worksheet.Range("C" + startRow).Value = "QTY";
-			worksheet.Range("D" + startRow).Value = "Part Number";
-			worksheet.Range("E" + startRow).Value = "Thumbnail";
-			worksheet.Range("F" + startRow).Value = "Description";
-			worksheet.Range("G" + startRow).Value = "Material";
-			worksheet.Range("H" + startRow).Value = "Vendor";
+			//C2 is date. C3 is Rev. C4 is "BY". E2 is Model #. E3 is Job#/Serial#. E4 is customer. G3 is PO#.
+			//retrieve header data from model
+			var date = DateTime.Today.ToShortDateString();
+			string designer = IPropService.GetParameter<string>("Designer");
+			string projectNumber = IPropService.GetParameter<string>("Project");
+			string purchaseOrder = IPropService.GetParameter<string>("Subject");
+			string company = IPropService.GetParameter<string>("Company");
+			string description = IPropService.GetParameter<string>("Description");
 
-			worksheet.Column(1).Width = 5;
-			worksheet.Column(2).Width = 6;
-			worksheet.Column(3).Width = 8.5d;
-			worksheet.Column(4).Width = 19;
-			worksheet.Column(5).Width = 9.3d;
-			worksheet.Column(6).Width = 60;
-			worksheet.Column(7).Width = 19;
-			worksheet.Column(8).Width = 20;
-			worksheet.Column(9).Width = 13;
-			worksheet.Column(10).Width = 13;
-
-			for (int i = 1; i <= 10; i++)
-			{
-				worksheet.Column(i).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-			}
+			worksheet.Range("C2").Value = date;
+			worksheet.Range("C4").Value = designer;
+			worksheet.Range("E2").Value = description;
+			worksheet.Range("E3").Value = projectNumber;
+			worksheet.Range("E4").Value = company;
+			worksheet.Range("G3").Value = purchaseOrder;
 
 			try
 			{
@@ -174,10 +164,21 @@ namespace SpiroflowAddIn.Buttons
 			worksheet.Column(8).Width = 13;
 			worksheet.Column(9).Width = 13;
 
-			for (int i = 1; i <= 10; i++)
-			{
-				worksheet.Column(i).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-			}
+			//B2 is date. B3 is Rev. B4 is "BY". D2 is Model #. D3 is Job#/Serial#. D4 is customer. F3 is PO#.
+			//retrieve header data from model
+			var date = DateTime.Today.ToShortDateString();
+			string designer = IPropService.GetParameter<string>("Designer");
+			string projectNumber = IPropService.GetParameter<string>("Project");
+			string purchaseOrder = IPropService.GetParameter<string>("Subject");
+			string company = IPropService.GetParameter<string>("Company");
+			string description = IPropService.GetParameter<string>("Description");
+
+			worksheet.Range("B2").Value = date;
+			worksheet.Range("B4").Value = designer;
+			worksheet.Range("D2").Value = description;
+			worksheet.Range("D3").Value = projectNumber;
+			worksheet.Range("D4").Value = company;
+			worksheet.Range("F3").Value = purchaseOrder;
 
 			try
 			{
@@ -441,6 +442,41 @@ namespace SpiroflowAddIn.Buttons
 
 			// set row height to fit picture
 			worksheet.Row(rowNum).Height = 53;
+		}
+
+		private void FillOutHeader(IXLWorkbook workbook)
+		{
+			worksheet = workbook.Worksheet("Subassembly BOM");
+
+			assyBOM.StructuredViewDelimiter = ".";
+			assyBOM.ImportBOMCustomization(structuredBOMImportFilename);
+
+			BOMView bomView = assyBOM.BOMViews["Structured"];
+			bomView.Sort("Part Number", true);
+			bomView.Renumber();
+
+			int startRow = 13;
+			int currentRow = 14;
+
+			worksheet.Range("A" + startRow).Value = "Item";
+			worksheet.Range("B" + startRow).Value = "Sub Item";
+			worksheet.Range("C" + startRow).Value = "QTY";
+			worksheet.Range("D" + startRow).Value = "Part Number";
+			worksheet.Range("E" + startRow).Value = "Thumbnail";
+			worksheet.Range("F" + startRow).Value = "Description";
+			worksheet.Range("G" + startRow).Value = "Material";
+			worksheet.Range("H" + startRow).Value = "Vendor";
+
+			worksheet.Column(1).Width = 5;
+			worksheet.Column(2).Width = 6;
+			worksheet.Column(3).Width = 8.5d;
+			worksheet.Column(4).Width = 19;
+			worksheet.Column(5).Width = 9.3d;
+			worksheet.Column(6).Width = 60;
+			worksheet.Column(7).Width = 19;
+			worksheet.Column(8).Width = 20;
+			worksheet.Column(9).Width = 13;
+			worksheet.Column(10).Width = 13;
 		}
 	}
 }

@@ -375,13 +375,17 @@ namespace SpiroflowVault
 		}
 
 		/// <summary>
-		/// Checks if file exists on disk and downloads it if it doesn't. Should use full filename with path as parameter.
+		/// Checks if file exists on disk and downloads it if it doesn't or if copy on hard drive is out of date. Should use full filename with path as parameter.
 		/// </summary>
 		/// <param name="filename"></param>
 		/// <returns></returns>
 		public static bool CheckFileAndDownloadIfNecessary(string filename)
 		{
-			if (System.IO.File.Exists(filename)) return true;
+			if (System.IO.File.Exists(filename))
+			{
+
+				return true;
+			}
 
 			//try to download from vault
 			filename = System.IO.Path.GetFileName(filename);	//strip off directory info

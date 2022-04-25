@@ -195,6 +195,7 @@
     <Compile Include="Utilities\CreateImageFromIcon.cs" />
     <Compile Include="Utilities\DWGPrinter.cs" />
     <Compile Include="Utilities\GetInventorApp.cs" />
+    <Compile Include="Utilities\IPropService.cs" />
     <Compile Include="Utilities\ObservableObject.cs" />
     <Compile Include="Utilities\PDFPrinter.cs" />
     <Compile Include="Utilities\PictureDispConverter.cs" />

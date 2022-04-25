@@ -23,5 +23,12 @@ namespace SpiroflowAddIn.Utilities
 				Properties.Settings.Default.Save();
 			}
 		}
+
+		public static void LoadPreviousSettings(string version)
+		{
+			Properties.Settings.Default.Upgrade();
+			SetSetting("CurrentVersion", version);
+			Properties.Settings.Default.Save();
+		}
 	}
 }

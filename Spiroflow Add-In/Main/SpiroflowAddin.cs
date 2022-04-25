@@ -3,6 +3,9 @@ using SpiroflowAddIn.Ribbons;
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Windows;
+using SpiroflowAddIn.Utilities;
+using Application = Inventor.Application;
 
 namespace Spiroflow_Add_In
 {
@@ -77,6 +80,14 @@ namespace Spiroflow_Add_In
 
 			//add new buttons to zero doc ribbon
 			CreateSpiroflowZeroDocRibbon();
+
+			//see if this is a new version and update settings to previous version if it is...this may not be necessary?
+			Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+			string version = $"{currentVersion.Major}.{currentVersion.Minor}";
+			if (version != SettingService.GetSetting("CurrentVersion"))
+			{
+				SettingService.LoadPreviousSettings(version);
+			}
 		}
 
 		#endregion
