@@ -1,10 +1,9 @@
 using Inventor;
 using SpiroflowAddIn.Ribbons;
+using SpiroflowAddIn.Utilities;
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Windows;
-using SpiroflowAddIn.Utilities;
 using Application = Inventor.Application;
 
 namespace Spiroflow_Add_In
@@ -157,7 +156,7 @@ namespace Spiroflow_Add_In
 			assemblyRibbon.AddButton(setEngineerAndDateIPropertiesButton, "SpiroflowAddIn.Buttons.SetEngineerAndDateIPropertiesButton");
 			assemblyRibbon.AddButton(findMissingFabricationDrawingsButton, "SpiroflowAddIn.Buttons.FindMissingFabricationDrawingsButton");
 			assemblyRibbon.AddButton(setWeldmentMaterial, "SpiroflowAddIn.Buttons.SetWeldmentMaterialButton");
-			//assemblyRibbon.AddButton(testButton, "SpiroflowAddIn.Buttons.TestButton");
+			assemblyRibbon.AddButton(testButton, "SpiroflowAddIn.Buttons.TestButton");
 			//assemblyRibbon.AddButton(changePartNumbertoFilenameButton, "SpiroflowAddIn.Buttons.ChangePartNumberToFilenameButton");
 			//assemblyRibbon.AddButton(createNewEquipmentButton, "SpiroflowAddIn.Buttons.CreateNewEquipmentButton");
 		}

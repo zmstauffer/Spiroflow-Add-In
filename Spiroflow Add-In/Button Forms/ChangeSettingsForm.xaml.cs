@@ -82,8 +82,8 @@ namespace SpiroflowAddIn.Button_Forms
 			var dialog = new FolderBrowserDialog();
 			var result = dialog.ShowDialog();
 
-			if (result == System.Windows.Forms.DialogResult.OK) BOMExportPath = $@"{dialog.SelectedPath}";        
-			if (BOMExportPath.Substring(BOMExportPath.Length - 1) != @"\") BOMExportPath += @"\";				//have to make sure file has trailing slash, as all future uses of this will have it
+			if (result == System.Windows.Forms.DialogResult.OK) BOMExportPath = $@"{dialog.SelectedPath}";
+			if (BOMExportPath.Substring(BOMExportPath.Length - 1) != @"\") BOMExportPath += @"\";               //have to make sure file has trailing slash, as all future uses of this will have it
 		}
 
 		private void DrawingExportButton_OnClick(object sender, RoutedEventArgs e)

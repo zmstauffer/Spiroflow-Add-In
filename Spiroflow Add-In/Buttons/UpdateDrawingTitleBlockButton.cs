@@ -137,7 +137,7 @@ namespace SpiroflowAddIn.Buttons
 			{
 				if (iLogicPropSet != null)
 				{
-					iLogicPropSet.Add(ruleName, "AfterDocOpen", 410);	//should technically check to make sure there isn't another event trigger at 410, but I think they are sequential and have a hard time believing someone will have 10 rules on a drawing file	
+					iLogicPropSet.Add(ruleName, "AfterDocOpen", 410);   //should technically check to make sure there isn't another event trigger at 410, but I think they are sequential and have a hard time believing someone will have 10 rules on a drawing file	
 					iLogicPropSet.Add(ruleName, "BeforeDocSave", 710); //should technically check to make sure there isn't another event trigger at 710, but I think they are sequential and have a hard time believing someone will have 10 rules on a drawing file	
 				}
 			}

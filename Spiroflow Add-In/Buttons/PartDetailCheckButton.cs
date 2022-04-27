@@ -1,12 +1,8 @@
 ﻿using Inventor;
+using SpiroflowAddIn.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using DocumentFormat.OpenXml.Office2010.PowerPoint;
-using SpiroflowAddIn.Utilities;
 using Application = Inventor.Application;
 using MessageBox = System.Windows.MessageBox;
 
@@ -71,7 +67,7 @@ namespace SpiroflowAddIn.Buttons
 					{
 						var firstSpaceIndex = view.Label.Text.IndexOf(" ");
 						var viewPartNumber = view.Label.Text.Substring(0, firstSpaceIndex);
-						
+
 						if (partNumbers.All(x => x != viewPartNumber) && view.Label.Text.Contains("DETAIL")) extraItems.Add($"Extra View: {view.Label.Text} on Sht. {sheet.Name}");
 
 						var partNumber = partNumbers.FirstOrDefault(x => x == viewPartNumber);

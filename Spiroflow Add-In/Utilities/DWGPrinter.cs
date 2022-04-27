@@ -1,5 +1,4 @@
 ﻿using Inventor;
-using System.Windows;
 using SpiroflowVault;
 using Application = Inventor.Application;
 

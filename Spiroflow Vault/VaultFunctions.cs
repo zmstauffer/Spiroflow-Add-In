@@ -388,15 +388,15 @@ namespace SpiroflowVault
 			}
 
 			//try to download from vault
-			filename = System.IO.Path.GetFileName(filename);	//strip off directory info
-			
+			filename = System.IO.Path.GetFileName(filename);    //strip off directory info
+
 			var fileList = FindFilesByFilename(filename);
 			if (fileList.Count > 0)
 			{
 				VaultFunctions.DownloadFileById(fileList[0].Id);
 				return true;
 			}
-			
+
 			MessageBox.Show($"Tried to download {filename} from Vault but failed. Process will now abort.");
 			return false;
 		}

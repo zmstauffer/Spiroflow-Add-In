@@ -1,14 +1,14 @@
 ﻿using ClosedXML.Excel;
 using Inventor;
 using Microsoft.VisualBasic.Compatibility.VB6;
+using SpiroflowAddIn.Utilities;
+using SpiroflowVault;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Application = Inventor.Application;
-using SpiroflowAddIn.Utilities;
-using SpiroflowVault;
 
 namespace SpiroflowAddIn.Buttons
 {
@@ -67,10 +67,10 @@ namespace SpiroflowAddIn.Buttons
 				ExportStructuredBOM(workbook);
 				ExportPartsListBOM(workbook);
 				FillOutHeader(workbook);
-				
+
 				string newFilename = System.IO.Path.GetFileNameWithoutExtension(assyDoc.DisplayName);
 				string outputPath = SettingService.GetSetting("BOMExportPath");
-				
+
 				workbook.SaveAs($@"{outputPath}{newFilename}-BOM.xlsx");
 			}
 		}
