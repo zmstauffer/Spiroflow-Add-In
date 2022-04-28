@@ -170,7 +170,7 @@
     <Compile Include="Buttons\SetWeldmentMaterialButton.cs" />
     <Compile Include="Buttons\ShowSettingsWindowButton.cs" />
     <Compile Include="Buttons\TestButton.cs" />
-    <Compile Include="Buttons\UpdateDrawingTitleBlockButton.cs" />
+    <Compile Include="Buttons\UpdateDrawingButton.cs" />
     <Compile Include="Main\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

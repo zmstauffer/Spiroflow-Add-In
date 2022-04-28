@@ -7,7 +7,7 @@ using Application = Inventor.Application;
 
 namespace SpiroflowAddIn.Buttons
 {
-	class UpdateDrawingTitleBlockButton : IButton
+	class UpdateDrawingButton : IButton
 	{
 		public Application invApp { get; set; }
 		public string PanelID { get; set; }
@@ -44,10 +44,10 @@ namespace SpiroflowAddIn.Buttons
 			}
 		}
 
-		public UpdateDrawingTitleBlockButton()
+		public UpdateDrawingButton()
 		{
-			DisplayName = $"Update{System.Environment.NewLine}Title Block";
-			InternalName = "updateTitleBlock";
+			DisplayName = $"Update{System.Environment.NewLine}Drawing";
+			InternalName = "updateDrawingButton";
 			PanelID = "miscPanel";
 			icon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.test, 32, 32));
 			smallIcon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.test, 16, 16));
@@ -61,22 +61,60 @@ namespace SpiroflowAddIn.Buttons
 
 			DrawingDocument drawingDoc = (DrawingDocument)doc;
 
-			//replace title block, separate try/catch block because we want to do both of these things, even if one fails
-			try
+			ReplaceTitleBlock(drawingDoc);
+
+			AddiLogicUpdateRule(doc);
+
+			UpdateStyles(drawingDoc);
+
+			CopySketchedSymbols(drawingDoc);
+
+			drawingDoc.Save();
+		}
+
+		private void CopySketchedSymbols(DrawingDocument drawingDoc)
+		{
+			var templateLocation = $@"C:\workspace\z_Documentation\TEMPLATES\SPIROFLOW MANUFACTURING - IMPERIAL.idw";
+
+			DrawingDocument templateDoc = (DrawingDocument) invApp.Documents.Open(templateLocation, false);
+			foreach (SketchedSymbolDefinition symbolDefinition in templateDoc.SketchedSymbolDefinitions)
 			{
+				try
+				{
+					var test = drawingDoc.SketchedSymbolDefinitions[symbolDefinition.Name].Name;
 
-				var templateLocation = $@"C:\workspace\z_Documentation\TEMPLATES\SPIROFLOW MANUFACTURING - IMPERIAL.idw";
-				DrawingDocument templateDoc = (DrawingDocument)invApp.Documents.Open(templateLocation, false);
-
-				var titleBlock = templateDoc.TitleBlockDefinitions["Spiroflow Manufacturing"];
-
-				ReplaceTitleBlock(drawingDoc, titleBlock);
+					//have to delete sketched symbols off all sheets before we can replace definition
+					foreach (Sheet sheet in drawingDoc.Sheets)
+					{
+						for (int i = sheet.SketchedSymbols.Count; i > 0; i--)
+						{
+							if (sheet.SketchedSymbols[i].Name == test) sheet.SketchedSymbols[i].Delete();
+						}
+					}
+					drawingDoc.SketchedSymbolDefinitions[test].Delete();
+					symbolDefinition.CopyTo((_DrawingDocument) drawingDoc);
+				}
+				catch (Exception e)
+				{
+					symbolDefinition.CopyTo((_DrawingDocument)drawingDoc);
+				}
 			}
-			catch (Exception ex)
+
+			templateDoc.Close();
+		}
+
+		private void UpdateStyles(DrawingDocument drawingDoc)
+		{
+			var styles = drawingDoc.StylesManager.Styles;
+
+			foreach (Inventor.Style style in styles)
 			{
-				MessageBox.Show($"Couldn't replace titleblock. Error: {ex}", "ERROR");
+				if (!style.UpToDate) style.UpdateFromGlobal();
 			}
+		}
 
+		private void AddiLogicUpdateRule(Document doc)
+		{
 			//create iLogic rule to update Title Block
 			var ruleName = "UPDATE";
 
@@ -102,12 +140,11 @@ namespace SpiroflowAddIn.Buttons
 				automation.RulesOnEventsEnabled = true;
 				automation.RunRule(doc, ruleName);
 
-				AddEventTriggers(drawingDoc, ruleName);
+				AddEventTriggers(doc, ruleName);
 			}
-
 		}
 
-		private void AddEventTriggers(DrawingDocument doc, string ruleName)
+		private void AddEventTriggers(Document doc, string ruleName)
 		{
 			//setup event triggers for new rule
 			PropertySet iLogicPropSet = null;
@@ -137,36 +174,58 @@ namespace SpiroflowAddIn.Buttons
 			{
 				if (iLogicPropSet != null)
 				{
-					iLogicPropSet.Add(ruleName, "AfterDocOpen", 410);   //should technically check to make sure there isn't another event trigger at 410, but I think they are sequential and have a hard time believing someone will have 10 rules on a drawing file	
-					iLogicPropSet.Add(ruleName, "BeforeDocSave", 710); //should technically check to make sure there isn't another event trigger at 710, but I think they are sequential and have a hard time believing someone will have 10 rules on a drawing file	
+					iLogicPropSet.Add(ruleName, "AfterDocOpen", 410);       //should technically check to make sure there isn't another event trigger at 410, but I think they are sequential and have a hard time believing someone will have 10 rules on a drawing file	
+					iLogicPropSet.Add(ruleName, "BeforeDocSave", 710);      //should technically check to make sure there isn't another event trigger at 710, but I think they are sequential and have a hard time believing someone will have 10 rules on a drawing file	
 				}
 			}
 		}
 
-		private void ReplaceTitleBlock(DrawingDocument drawingDoc, TitleBlockDefinition titleBlockDefinition)
+		private void ReplaceTitleBlock(DrawingDocument drawingDoc)
 		{
+			//replace title block, separate try/catch block because we want to do both of these things, even if one fails
+			var templateLocation = $@"C:\workspace\z_Documentation\TEMPLATES\SPIROFLOW MANUFACTURING - IMPERIAL.idw";
+
+			DrawingDocument templateDoc = (DrawingDocument)invApp.Documents.Open(templateLocation, false);
+
+			TitleBlockDefinition titleBlockDefinition = null;
+
+			if (templateDoc != null)
+			{
+				try
+				{
+					titleBlockDefinition = templateDoc.TitleBlockDefinitions["Spiroflow Manufacturing"];
+
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show($"Couldn't replace title block. Error: {ex}", "ERROR");
+					templateDoc.Close();
+					return;
+				}
+			}
+
 			try
 			{
-				//we have to delete any titleblocks that have the same name as this one, as well as delete any titleblock currently in use
+				//we have to delete any title blocks that have the same name as this one, as well as delete any title block currently in use
 				var existingTitleBlockDef = drawingDoc.TitleBlockDefinitions[titleBlockDefinition.Name];
 
 				if (existingTitleBlockDef != null)
 				{
-					foreach (Sheet sheet in drawingDoc.Sheets)
+
+					for (int i = drawingDoc.Sheets.Count; i > 0; i--)
 					{
-						if (sheet.TitleBlock == null) continue;
-						if (sheet.TitleBlock.Definition == existingTitleBlockDef) sheet.TitleBlock.Delete();
+						if (drawingDoc.Sheets[i].TitleBlock != null) drawingDoc.Sheets[i].TitleBlock.Delete();
 					}
 
-					foreach (SheetFormat format in drawingDoc.SheetFormats)
+					for (int i = drawingDoc.SheetFormats.Count; i > 0; i--)
 					{
-						if (format.ReferencedTitleBlockDefinition == existingTitleBlockDef) format.Delete();
+						if (drawingDoc.SheetFormats[i].ReferencedTitleBlockDefinition == existingTitleBlockDef) drawingDoc.SheetFormats[i].Delete();
 					}
 				}
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show($"Couldn't delete existing titleblock or sheetformat. Error: {ex}");
+				MessageBox.Show($"Couldn't delete existing title block or sheet format.");
 			}
 			finally
 			{
@@ -186,7 +245,7 @@ namespace SpiroflowAddIn.Buttons
 						}
 					}
 				}
-
+				templateDoc.Close();
 			}
 		}
 	}
