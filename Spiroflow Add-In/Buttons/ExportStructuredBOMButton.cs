@@ -31,7 +31,7 @@ namespace SpiroflowAddIn.Buttons
 		{
 			DisplayName = $"Export BOM";
 			InternalName = "exportBOM";
-			PanelID = "assemblyPanel";
+			PanelID = "assemblyBookkeepingPanel";
 			icon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.billOfMaterialsIcon, 32, 32));
 			smallIcon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.billOfMaterialsIcon, 16, 16));
 		}

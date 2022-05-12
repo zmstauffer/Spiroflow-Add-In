@@ -37,7 +37,8 @@ namespace Spiroflow_Add_In
 		ButtonDefinition replaceSubassemblyButton;
 		ButtonDefinition setEngineerAndDateIPropertiesButton;
 		ButtonDefinition findMissingFabricationDrawingsButton;
-		ButtonDefinition setWeldmentMaterial;
+		ButtonDefinition setWeldmentMaterialButton;
+		ButtonDefinition constrainToOriginButton;
 		ButtonDefinition testButton;                                        //this is to put different random things in to test w/out having to worry about creating a new button every time
 																			//ButtonDefinition createNewEquipmentButton;						//this button also shown on zero doc ribbon
 		#endregion
@@ -155,8 +156,9 @@ namespace Spiroflow_Add_In
 			assemblyRibbon.AddButton(exportStructuredBOMButton, "SpiroflowAddIn.Buttons.ExportStructuredBOMButton");
 			assemblyRibbon.AddButton(setEngineerAndDateIPropertiesButton, "SpiroflowAddIn.Buttons.SetEngineerAndDateIPropertiesButton");
 			assemblyRibbon.AddButton(findMissingFabricationDrawingsButton, "SpiroflowAddIn.Buttons.FindMissingFabricationDrawingsButton");
-			assemblyRibbon.AddButton(setWeldmentMaterial, "SpiroflowAddIn.Buttons.SetWeldmentMaterialButton");
-			assemblyRibbon.AddButton(testButton, "SpiroflowAddIn.Buttons.TestButton");
+			assemblyRibbon.AddButton(setWeldmentMaterialButton, "SpiroflowAddIn.Buttons.SetWeldmentMaterialButton");
+			assemblyRibbon.AddButton(constrainToOriginButton, "SpiroflowAddIn.Buttons.ConstrainToOriginButton");
+			//assemblyRibbon.AddButton(testButton, "SpiroflowAddIn.Buttons.TestButton");
 			//assemblyRibbon.AddButton(changePartNumbertoFilenameButton, "SpiroflowAddIn.Buttons.ChangePartNumberToFilenameButton");
 			//assemblyRibbon.AddButton(createNewEquipmentButton, "SpiroflowAddIn.Buttons.CreateNewEquipmentButton");
 		}

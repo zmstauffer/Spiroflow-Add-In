@@ -20,7 +20,7 @@ namespace SpiroflowAddIn.Buttons
 		{
 			DisplayName = $"Set Engineer{System.Environment.NewLine}and Date";
 			InternalName = "setEngineerAndDate";
-			PanelID = "assemblyPanel";
+			PanelID = "assemblyBookkeepingPanel";
 			icon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.setEngineerAndDate, 32, 32));
 			smallIcon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.setEngineerAndDate, 16, 16));
 		}

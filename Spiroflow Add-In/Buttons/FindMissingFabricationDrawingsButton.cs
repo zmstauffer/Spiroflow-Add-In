@@ -28,7 +28,7 @@ namespace SpiroflowAddIn.Buttons
 		{
 			DisplayName = $"Find Missing{System.Environment.NewLine}Fab Drawings";
 			InternalName = "findMissingDrawings";
-			PanelID = "assemblyPanel";
+			PanelID = "assemblyBookkeepingPanel";
 			icon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.findMissingFabDrawings, 32, 32));
 			smallIcon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.findMissingFabDrawings, 16, 16));
 		}

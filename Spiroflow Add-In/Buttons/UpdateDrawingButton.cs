@@ -61,9 +61,9 @@ namespace SpiroflowAddIn.Buttons
 
 			DrawingDocument drawingDoc = (DrawingDocument)doc;
 
-			ReplaceTitleBlock(drawingDoc);
-
 			AddiLogicUpdateRule(doc);
+
+			ReplaceTitleBlock(drawingDoc);
 
 			UpdateStyles(drawingDoc);
 
@@ -76,7 +76,7 @@ namespace SpiroflowAddIn.Buttons
 		{
 			var templateLocation = $@"C:\workspace\z_Documentation\TEMPLATES\SPIROFLOW MANUFACTURING - IMPERIAL.idw";
 
-			DrawingDocument templateDoc = (DrawingDocument) invApp.Documents.Open(templateLocation, false);
+			DrawingDocument templateDoc = (DrawingDocument)invApp.Documents.Open(templateLocation, false);
 			foreach (SketchedSymbolDefinition symbolDefinition in templateDoc.SketchedSymbolDefinitions)
 			{
 				try
@@ -92,7 +92,7 @@ namespace SpiroflowAddIn.Buttons
 						}
 					}
 					drawingDoc.SketchedSymbolDefinitions[test].Delete();
-					symbolDefinition.CopyTo((_DrawingDocument) drawingDoc);
+					symbolDefinition.CopyTo((_DrawingDocument)drawingDoc);
 				}
 				catch (Exception e)
 				{
@@ -189,62 +189,63 @@ namespace SpiroflowAddIn.Buttons
 
 			TitleBlockDefinition titleBlockDefinition = null;
 
-			if (templateDoc != null)
-			{
-				try
-				{
-					titleBlockDefinition = templateDoc.TitleBlockDefinitions["Spiroflow Manufacturing"];
-
-				}
-				catch (Exception ex)
-				{
-					MessageBox.Show($"Couldn't replace title block. Error: {ex}", "ERROR");
-					templateDoc.Close();
-					return;
-				}
-			}
+			if (templateDoc == null) return;
 
 			try
 			{
-				//we have to delete any title blocks that have the same name as this one, as well as delete any title block currently in use
-				var existingTitleBlockDef = drawingDoc.TitleBlockDefinitions[titleBlockDefinition.Name];
+				titleBlockDefinition = templateDoc.TitleBlockDefinitions["Spiroflow Manufacturing"];
 
-				if (existingTitleBlockDef != null)
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Couldn't replace title block. Error: {ex}", "ERROR");
+				templateDoc.Close();
+				return;
+			}
+
+			if (titleBlockDefinition == null) return;
+
+			try
+			{
+				//we have to delete any title blocks in use
+				for (int i = drawingDoc.Sheets.Count; i > 0; i--)
 				{
-
-					for (int i = drawingDoc.Sheets.Count; i > 0; i--)
-					{
-						if (drawingDoc.Sheets[i].TitleBlock != null) drawingDoc.Sheets[i].TitleBlock.Delete();
-					}
-
-					for (int i = drawingDoc.SheetFormats.Count; i > 0; i--)
-					{
-						if (drawingDoc.SheetFormats[i].ReferencedTitleBlockDefinition == existingTitleBlockDef) drawingDoc.SheetFormats[i].Delete();
-					}
+					if (drawingDoc.Sheets[i].TitleBlock != null) drawingDoc.Sheets[i].TitleBlock.Delete();
 				}
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show($"Couldn't delete existing title block or sheet format.");
+				
 			}
 			finally
 			{
-				//we are assuming either that title block doesn't exist already, or we can safely replace it now
-				titleBlockDefinition.CopyTo((_DrawingDocument)drawingDoc, true);
+				//we are assuming either that title block doesn't exist already, or we can add a new one that isn't replacing the old one
+				var newTitleBlockDef = titleBlockDefinition.CopyTo((_DrawingDocument)drawingDoc, false);
 
-				var sheetTitleBlockDefinition = drawingDoc.TitleBlockDefinitions[titleBlockDefinition.Name];
+				var sheetTitleBlockDefinition = drawingDoc.TitleBlockDefinitions[newTitleBlockDef.Name];
 
 				foreach (Sheet sheet in drawingDoc.Sheets)
 				{
-					sheet.AddTitleBlock(sheetTitleBlockDefinition);
-					if (sheet.CustomTables.Count != 0)
+					try
 					{
-						for (int i = sheet.CustomTables.Count; i > 0; i--)
+						if (sheet.Name.ToUpper().Contains("FLAT")) continue;        //skip sheets that have flat patterns
+
+						sheet.AddTitleBlock(sheetTitleBlockDefinition);
+
+						if (sheet.CustomTables.Count != 0)
 						{
-							sheet.CustomTables[i].Delete();
+							for (int i = sheet.CustomTables.Count; i > 0; i--)
+							{
+								sheet.CustomTables[i].Delete();
+							}
 						}
 					}
+					catch
+					{
+						continue;
+					}
 				}
+
 				templateDoc.Close();
 			}
 		}

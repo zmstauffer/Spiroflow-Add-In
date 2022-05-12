@@ -13,7 +13,9 @@ namespace SpiroflowAddIn.Ribbons
 		{
 			ribbon = UIManager.Ribbons["Assembly"];
 			ribbonTab = ribbon.RibbonTabs["id_TabAssemble"]; //must use internal names of tabs
-			panels.Add(ribbonTab.RibbonPanels.Add("Spiroflow", "assemblyPanel", AddInGUID));
+			panels.Add(ribbonTab.RibbonPanels.Add("Modeling Functions", "assemblyModelPanel", AddInGUID));
+			panels.Add(ribbonTab.RibbonPanels.Add("Bookkeeping Functions", "assemblyBookkeepingPanel", AddInGUID));
+
 		}
 	}
 }

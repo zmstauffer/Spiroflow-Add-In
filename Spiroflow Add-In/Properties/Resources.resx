@@ -127,6 +127,9 @@
   <data name="changePartNumber" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\changePartNumber.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="constrainToOrigin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\contrainToOrigin.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="createDWGIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\createDWGIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

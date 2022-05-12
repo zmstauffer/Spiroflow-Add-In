@@ -20,7 +20,7 @@ namespace SpiroflowAddIn.Buttons
 		{
 			DisplayName = "Test Button";
 			InternalName = "testButton";
-			PanelID = "assemblyPanel";
+			PanelID = "assemblyModelPanel";
 			icon = CreateImageFromIcon.CreateInventorIcon(Properties.Resources.test);
 		}
 

@@ -28,7 +28,7 @@ namespace SpiroflowAddIn.Buttons
 		{
 			DisplayName = $"Replace{System.Environment.NewLine}Subassembly";
 			InternalName = "replaceSubassembly";
-			PanelID = "assemblyPanel";
+			PanelID = "assemblyModelPanel";
 			icon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.Replace_Subassembly, 32, 32));
 			smallIcon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.Replace_Subassembly, 16, 16));
 		}

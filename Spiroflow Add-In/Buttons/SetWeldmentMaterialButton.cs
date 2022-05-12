@@ -25,7 +25,7 @@ namespace SpiroflowAddIn.Buttons
 		{
 			DisplayName = $"Set Weld{System.Environment.NewLine}Material";
 			InternalName = "setWeldMaterial";
-			PanelID = "assemblyPanel";
+			PanelID = "assemblyBookkeepingPanel";
 			icon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.weldMaterial, 32, 32));
 			smallIcon = CreateImageFromIcon.CreateInventorIcon(new System.Drawing.Icon(Properties.Resources.weldMaterial, 16, 16));
 		}

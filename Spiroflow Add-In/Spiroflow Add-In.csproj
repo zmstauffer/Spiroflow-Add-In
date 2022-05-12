@@ -153,6 +153,7 @@
       <DependentUpon>ReplaceSubassemblyForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Buttons\ChangePartNumberToFilenameButton.cs" />
+    <Compile Include="Buttons\ConstrainToOriginButton.cs" />
     <Compile Include="Buttons\CreateBendNotesButton.cs" />
     <Compile Include="Buttons\CreateDWGButton.cs" />
     <Compile Include="Buttons\CreateNewEquipmentButton.cs" />
@@ -244,6 +245,7 @@
     <None Include="Resources\partDetailCheck.ico" />
     <None Include="Resources\bendNotes.ico" />
     <Content Include="Resources\changePartNumber.ico" />
+    <None Include="Resources\contrainToOrigin.ico" />
     <Content Include="Resources\createDWGIcon.ico" />
     <Content Include="Resources\CreatePDFButtonIcon.ico" />
     <Content Include="Resources\findMissingFabDrawings.ico" />
