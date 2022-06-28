@@ -1,0 +1,171 @@
+﻿<Window x:Class="SpiroflowAddIn.Button_Forms.ConfigureFSCForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SpiroflowAddIn.Button_Forms"
+             xmlns:SpiroflowVault="clr-namespace:SpiroflowVault;assembly=SpiroflowVault"
+             xmlns:converters="clr-namespace:SpiroflowAddIn.Converters"
+             mc:Ignorable="d" 
+             WindowStyle="ToolWindow"
+             WindowStartupLocation="CenterScreen"
+             SizeToContent="WidthAndHeight"
+             ResizeMode="NoResize"
+             Background="White"
+             AllowsTransparency="False" Title="Flexible Screw Conveyor Configuration">
+
+    <Window.Resources>
+        <converters:SubPathConverter x:Key="SubPathConverter"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="800"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Row="0" BorderBrush="LightGray" Margin="3,5,3,5" Header="Overall FSC Configuration" Width="Auto" Height="Auto" Padding="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="120"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="5">
+                    <TextBlock Margin="0,0,0,3">Flex Screw Size</TextBlock>
+                    <ComboBox x:Name="TypeComboBox" ItemsSource="{Binding ScrewTypes}" SelectionChanged="TypeComboBox_OnSelectionChanged" Height="25" Width="150"></ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Margin="5">
+                    <TextBlock Margin="0,0,0,3">Length</TextBlock>
+                    <TextBox x:Name="LengthTextBox" Height="25" Width="150" VerticalContentAlignment="Center" KeyDown="LengthTextBox_OnKeyDown"></TextBox>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="5">
+                    <TextBlock Margin="0,0,0,3">Tube Material</TextBlock>
+                    <ComboBox x:Name="TubeMaterialComboBox" Height="25" Width="150"></ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="5">
+                    <TextBlock Margin="0,0,0,3">Screw Type</TextBlock>
+                    <ComboBox x:Name="ScrewTypeComboBox" Height="25" Width="150"></ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="5">
+                    <TextBlock Margin="0,0,0,3">Screw Material</TextBlock>
+                    <ComboBox x:Name="ScrewMaterialComboBox" Height="25" Width="150"></ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" Margin="5">
+                    <TextBlock Margin="0,0,0,3">Outlet Angle (deg)</TextBlock>
+                    <TextBox x:Name ="OutletAngleTextBox" Height="25" Width="150" VerticalContentAlignment="Center"></TextBox>
+                </StackPanel>
+
+                <StackPanel Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" Margin="5">
+                    <TextBlock Margin="0,0,0,3">Center Core Material</TextBlock>
+                    <ComboBox x:Name="CentercoreMaterialComboBox" Height="25" Width="150"></ComboBox>
+                </StackPanel>
+
+                <Border Grid.Column="4" Grid.Row="0" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="1" CornerRadius="2">
+                    <Button Margin="3" Content="APPLY" HorizontalContentAlignment="Center"/>
+
+                </Border>
+          </Grid>
+        </GroupBox>
+        <Border Grid.Row="1" BorderBrush="LightGray" CornerRadius="2" Margin="2" Background="White">
+            <StackPanel Orientation="Vertical">
+                <GroupBox Header="Choose Feed Restrictor">
+                    <ComboBox x:Name="FeedRestrictorComboBox" Height="108" ItemsSource="{Binding DataContext.FeedRestrictors, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}" ScrollViewer.CanContentScroll="False">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type SpiroflowVault:VaultFileInfo}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding Picture}" Margin="5,0,5,0" Height="100" Width="100"/>
+                                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
+                                    <TextBlock Text="{Binding LocalFolderPath, Converter={StaticResource SubPathConverter}}" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
+                                    <TextBlock Text="{Binding FileName}" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </GroupBox>
+
+                <GroupBox Header="Choose Inlet Housing">
+                    <ComboBox x:Name="InletHousingComboBox" Height="108" ItemsSource="{Binding DataContext.InletHousings, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}" ScrollViewer.CanContentScroll="False">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type SpiroflowVault:VaultFileInfo}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding Picture}" Margin="5,0,5,0" Height="100" Width="100"/>
+                                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
+                                    <TextBlock Text="{Binding LocalFolderPath, Converter={StaticResource SubPathConverter}}" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
+                                    <TextBlock Text="{Binding FileName}" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </GroupBox>
+
+                <GroupBox Header="Choose Outlet Housing">
+                    <ComboBox x:Name="OutletHousingComboBox" Height="108" ItemsSource="{Binding DataContext.OutletHousings, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}" ScrollViewer.CanContentScroll="False">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type SpiroflowVault:VaultFileInfo}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding Picture}" Margin="5,0,5,0" Height="100" Width="100"/>
+                                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
+                                    <TextBlock Text="{Binding LocalFolderPath, Converter={StaticResource SubPathConverter}}" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
+                                    <TextBlock Text="{Binding FileName}" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </GroupBox>
+
+                <GroupBox Header="Choose Drive Connection">
+                    <ComboBox x:Name="DriveConnectionComboBox" Height="108" ItemsSource="{Binding DataContext.DriveConnections, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}" ScrollViewer.CanContentScroll="False">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type SpiroflowVault:VaultFileInfo}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding Picture}" Margin="5,0,5,0" Height="100" Width="100"/>
+                                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
+                                    <TextBlock Text="{Binding LocalFolderPath, Converter={StaticResource SubPathConverter}}" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
+                                    <TextBlock Text="{Binding FileName}" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </GroupBox>
+
+                <GroupBox Header="Choose Outlet Chute">
+                    <ComboBox x:Name="OutletChuteComboBox" Height="108" ItemsSource="{Binding DataContext.OutletChutes, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}" ScrollViewer.CanContentScroll="False">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type SpiroflowVault:VaultFileInfo}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding Picture}" Margin="5,0,5,0" Height="100" Width="100"/>
+                                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
+                                    <TextBlock Text="{Binding LocalFolderPath, Converter={StaticResource SubPathConverter}}" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
+                                    <TextBlock Text="{Binding FileName}" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </GroupBox>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

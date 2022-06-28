@@ -31,7 +31,7 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>Y:\ACAD INVENTOR\Addin\Spiroflow\</OutputPath>
+    <OutputPath>Y:\ACAD INVENTOR\Addin\SpiroflowTest\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -137,14 +137,16 @@
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Serialization" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Button Forms\ChangeSettingsForm.xaml.cs">
       <DependentUpon>ChangeSettingsForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Button Forms\ConfigureFSC.xaml.cs">
-      <DependentUpon>ConfigureFSC.xaml</DependentUpon>
+    <Compile Include="Button Forms\ConfigureFSCForm.xaml.cs">
+      <DependentUpon>ConfigureFSCForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Button Forms\FindMissingFabDrawingsForm.xaml.cs">
       <DependentUpon>FindMissingFabDrawingsForm.xaml</DependentUpon>
@@ -152,7 +154,11 @@
     <Compile Include="Button Forms\ReplaceSubassemblyForm.xaml.cs">
       <DependentUpon>ReplaceSubassemblyForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Button Forms\TestForm.xaml.cs">
+      <DependentUpon>TestForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Buttons\ChangePartNumberToFilenameButton.cs" />
+    <Compile Include="Buttons\ConfigureFSCButton.cs" />
     <Compile Include="Buttons\ConstrainToOriginButton.cs" />
     <Compile Include="Buttons\CreateBendNotesButton.cs" />
     <Compile Include="Buttons\CreateDWGButton.cs" />
@@ -193,6 +199,7 @@
     <Compile Include="Ribbons\DrawingRibbonManager.cs" />
     <Compile Include="Ribbons\PartRibbonManager.cs" />
     <Compile Include="Ribbons\ZeroDocRibbonManager.cs" />
+    <Compile Include="Converters\SubPathConverter.cs" />
     <Compile Include="Utilities\CreateImageFromIcon.cs" />
     <Compile Include="Utilities\DWGPrinter.cs" />
     <Compile Include="Utilities\GetInventorApp.cs" />
@@ -200,6 +207,7 @@
     <Compile Include="Utilities\ObservableObject.cs" />
     <Compile Include="Utilities\PDFPrinter.cs" />
     <Compile Include="Utilities\PictureDispConverter.cs" />
+    <Compile Include="Utilities\ScrewData.cs" />
     <Compile Include="Utilities\SettingService.cs" />
     <Compile Include="Utilities\TreeViewNode.cs" />
   </ItemGroup>
@@ -260,7 +268,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Button Forms\ConfigureFSC.xaml">
+    <Page Include="Button Forms\ConfigureFSCForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -271,6 +279,10 @@
     <Page Include="Button Forms\ReplaceSubassemblyForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Button Forms\TestForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StyleTemplates\Styles.xaml">
       <SubType>Designer</SubType>

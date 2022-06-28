@@ -24,7 +24,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Background="White">
+    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="3" Background="White">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

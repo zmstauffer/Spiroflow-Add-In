@@ -52,9 +52,9 @@ namespace SpiroflowAddIn.Buttons
 				if (occurrence.BOMStructure != BOMStructureEnum.kInseparableBOMStructure) GetSubOccurrences(occurrence);
 			}
 
-			MessageBox.Show($"Found {fileList.Count} files that might need a drawing.");
-
 			var existingFileList = GetExistingFiles();
+
+			if (existingFileList == null || existingFileList.Count < 1) return;
 
 			foreach (var name in fileList)
 			{
@@ -64,8 +64,6 @@ namespace SpiroflowAddIn.Buttons
 			}
 
 			neededFiles = neededFiles.Distinct().ToList();
-
-			MessageBox.Show($"There are {neededFiles.Count} distinct files that are needed.");
 
 			var sticker = neededFiles.FirstOrDefault(x => x.Contains("STICKER"));
 			if (sticker != null) neededFiles.Remove(sticker);
@@ -158,9 +156,16 @@ namespace SpiroflowAddIn.Buttons
 		private List<string> GetExistingFiles()
 		{
 			var manufacturingDrawingFilePath = SettingService.GetSetting("ManufacturingDrawingsPath");
-			var files = Directory.GetFiles(manufacturingDrawingFilePath, "*.dwg", SearchOption.AllDirectories).ToList();
-			MessageBox.Show($"Got {files.Count} files.");
-			return files;
+			try
+			{
+				var files = Directory.GetFiles(manufacturingDrawingFilePath, "*.dwg", SearchOption.AllDirectories).ToList();
+				return files;
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Error reading manufacturing files. Please check directory. Error: {ex.Message}");
+				return null;
+			}
 		}
 	}
 }

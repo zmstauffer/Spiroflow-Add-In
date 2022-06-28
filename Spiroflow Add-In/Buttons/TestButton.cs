@@ -1,7 +1,9 @@
 ﻿using Inventor;
 using SpiroflowAddIn.Utilities;
 using System;
+using System.Collections.Generic;
 using System.Windows;
+using SpiroflowAddIn.Button_Forms;
 using Application = Inventor.Application;
 
 namespace SpiroflowAddIn.Buttons
@@ -26,32 +28,34 @@ namespace SpiroflowAddIn.Buttons
 
 		public void Execute(NameValueMap context)
 		{
-			if (invApp.ActiveDocument.DocumentType != DocumentTypeEnum.kAssemblyDocumentObject) return;
-
-			AssemblyDocument assemblyDoc = (AssemblyDocument)invApp.ActiveDocument;
-			var assemblyDef = assemblyDoc.ComponentDefinition;
-
-			foreach (ComponentOccurrence occurrence in assemblyDef.Occurrences)
-			{
-				var nodeName = occurrence.Name.Split(":".ToCharArray(), StringSplitOptions.None);
-				var instanceNum = nodeName.Length > 1 ? $":{nodeName[1]}" : ":1";
-				try
-				{
-					occurrence.Name = $"{GetPartNumber(occurrence)}{instanceNum}";
-				}
-				catch (Exception ex)
-				{
-					MessageBox.Show($"Test Button Error: {ex}");
-					continue;
-				}
-			}
+			var testForm = new TestForm();
+			testForm.ShowDialog();
 		}
 
-		private string GetPartNumber(ComponentOccurrence occurrence)
-		{
-			var propertySet = occurrence.Definition.Document.PropertySets["Design Tracking Properties"];
-			string partNumber = (string)propertySet["Part Number"].Value;
-			return partNumber;
-		}
+		//private void SetOccurrencePartNumbers(ComponentOccurrences occurrences)
+		//{
+		//	foreach (ComponentOccurrence occurrence in occurrences)
+		//	{
+		//		var nodeName = occurrence.Name.Split(":".ToCharArray(), StringSplitOptions.None);
+		//		var instanceNum = nodeName.Length > 1 ? $":{nodeName[1]}" : ":1";
+		//		try
+		//		{
+		//			occurrence.Name = $"{GetPartNumber(occurrence)}{instanceNum}";
+		//		}
+		//		catch (Exception ex)
+		//		{
+		//			MessageBox.Show($"Test Button Error: {ex}");
+		//			continue;
+		//		}
+		//		if (occurrence.DefinitionDocumentType == DocumentTypeEnum.kAssemblyDocumentObject) SetOccurrencePartNumbers(occurrence.Definition.Occurrences);
+		//	}
+		//}
+
+		//private string GetPartNumber(ComponentOccurrence occurrence)
+		//{
+		//	var propertySet = occurrence.Definition.Document.PropertySets["Design Tracking Properties"];
+		//	string partNumber = (string)propertySet["Part Number"].Value;
+		//	return partNumber;
+		//}
 	}
 }

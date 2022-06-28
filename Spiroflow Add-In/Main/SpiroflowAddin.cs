@@ -39,8 +39,9 @@ namespace Spiroflow_Add_In
 		ButtonDefinition findMissingFabricationDrawingsButton;
 		ButtonDefinition setWeldmentMaterialButton;
 		ButtonDefinition constrainToOriginButton;
+		ButtonDefinition configureFSCButton;
 		ButtonDefinition testButton;                                        //this is to put different random things in to test w/out having to worry about creating a new button every time
-																			//ButtonDefinition createNewEquipmentButton;						//this button also shown on zero doc ribbon
+																			
 		#endregion
 
 		#region Part Button Definitions
@@ -158,6 +159,7 @@ namespace Spiroflow_Add_In
 			assemblyRibbon.AddButton(findMissingFabricationDrawingsButton, "SpiroflowAddIn.Buttons.FindMissingFabricationDrawingsButton");
 			assemblyRibbon.AddButton(setWeldmentMaterialButton, "SpiroflowAddIn.Buttons.SetWeldmentMaterialButton");
 			assemblyRibbon.AddButton(constrainToOriginButton, "SpiroflowAddIn.Buttons.ConstrainToOriginButton");
+			assemblyRibbon.AddButton(configureFSCButton, "SpiroflowAddIn.Buttons.ConfigureFSCButton");
 			//assemblyRibbon.AddButton(testButton, "SpiroflowAddIn.Buttons.TestButton");
 			//assemblyRibbon.AddButton(changePartNumbertoFilenameButton, "SpiroflowAddIn.Buttons.ChangePartNumberToFilenameButton");
 			//assemblyRibbon.AddButton(createNewEquipmentButton, "SpiroflowAddIn.Buttons.CreateNewEquipmentButton");
