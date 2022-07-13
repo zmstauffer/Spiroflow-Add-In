@@ -81,16 +81,16 @@
                     <Button Margin="3" Content="APPLY" HorizontalContentAlignment="Center"/>
 
                 </Border>
-          </Grid>
+            </Grid>
         </GroupBox>
         <Border Grid.Row="1" BorderBrush="LightGray" CornerRadius="2" Margin="2" Background="White">
             <StackPanel Orientation="Vertical">
                 <GroupBox Header="Choose Feed Restrictor">
-                    <ComboBox x:Name="FeedRestrictorComboBox" Height="108" ItemsSource="{Binding DataContext.FeedRestrictors, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}" ScrollViewer.CanContentScroll="False">
+                    <ComboBox x:Name="FeedRestrictorComboBox" Height="83" ItemsSource="{Binding DataContext.FeedRestrictors, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}" ScrollViewer.CanContentScroll="False">
                         <ComboBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type SpiroflowVault:VaultFileInfo}">
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding Picture}" Margin="5,0,5,0" Height="100" Width="100"/>
+                                    <Image Source="{Binding Picture}" Margin="5,0,5,0" Height="75" Width="75"/>
                                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
                                     <TextBlock Text="{Binding LocalFolderPath, Converter={StaticResource SubPathConverter}}" Margin="5,0,5,0" VerticalAlignment="Center"/>
                                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
@@ -102,11 +102,11 @@
                 </GroupBox>
 
                 <GroupBox Header="Choose Inlet Housing">
-                    <ComboBox x:Name="InletHousingComboBox" Height="108" ItemsSource="{Binding DataContext.InletHousings, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}" ScrollViewer.CanContentScroll="False">
+                    <ComboBox x:Name="InletHousingComboBox" Height="83" ItemsSource="{Binding DataContext.InletHousings, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}" ScrollViewer.CanContentScroll="False">
                         <ComboBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type SpiroflowVault:VaultFileInfo}">
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding Picture}" Margin="5,0,5,0" Height="100" Width="100"/>
+                                    <Image Source="{Binding Picture}" Margin="5,0,5,0" Height="75" Width="75"/>
                                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
                                     <TextBlock Text="{Binding LocalFolderPath, Converter={StaticResource SubPathConverter}}" Margin="5,0,5,0" VerticalAlignment="Center"/>
                                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
@@ -118,11 +118,11 @@
                 </GroupBox>
 
                 <GroupBox Header="Choose Outlet Housing">
-                    <ComboBox x:Name="OutletHousingComboBox" Height="108" ItemsSource="{Binding DataContext.OutletHousings, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}" ScrollViewer.CanContentScroll="False">
+                    <ComboBox x:Name="OutletHousingComboBox" Height="83" ItemsSource="{Binding DataContext.OutletHousings, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}" ScrollViewer.CanContentScroll="False">
                         <ComboBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type SpiroflowVault:VaultFileInfo}">
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding Picture}" Margin="5,0,5,0" Height="100" Width="100"/>
+                                    <Image Source="{Binding Picture}" Margin="5,0,5,0" Height="75" Width="75"/>
                                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
                                     <TextBlock Text="{Binding LocalFolderPath, Converter={StaticResource SubPathConverter}}" Margin="5,0,5,0" VerticalAlignment="Center"/>
                                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
@@ -134,11 +134,11 @@
                 </GroupBox>
 
                 <GroupBox Header="Choose Drive Connection">
-                    <ComboBox x:Name="DriveConnectionComboBox" Height="108" ItemsSource="{Binding DataContext.DriveConnections, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}" ScrollViewer.CanContentScroll="False">
+                    <ComboBox x:Name="DriveConnectionComboBox" Height="83" ItemsSource="{Binding DataContext.DriveConnections, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}" ScrollViewer.CanContentScroll="False">
                         <ComboBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type SpiroflowVault:VaultFileInfo}">
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding Picture}" Margin="5,0,5,0" Height="100" Width="100"/>
+                                    <Image Source="{Binding Picture}" Margin="5,0,5,0" Height="75" Width="75"/>
                                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
                                     <TextBlock Text="{Binding LocalFolderPath, Converter={StaticResource SubPathConverter}}" Margin="5,0,5,0" VerticalAlignment="Center"/>
                                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
@@ -150,11 +150,11 @@
                 </GroupBox>
 
                 <GroupBox Header="Choose Outlet Chute">
-                    <ComboBox x:Name="OutletChuteComboBox" Height="108" ItemsSource="{Binding DataContext.OutletChutes, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}" ScrollViewer.CanContentScroll="False">
+                    <ComboBox x:Name="OutletChuteComboBox" Height="83" ItemsSource="{Binding DataContext.OutletChutes, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}" ScrollViewer.CanContentScroll="False">
                         <ComboBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type SpiroflowVault:VaultFileInfo}">
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding Picture}" Margin="5,0,5,0" Height="100" Width="100"/>
+                                    <Image Source="{Binding Picture}" Margin="5,0,5,0" Height="75" Width="75"/>
                                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
                                     <TextBlock Text="{Binding LocalFolderPath, Converter={StaticResource SubPathConverter}}" Margin="5,0,5,0" VerticalAlignment="Center"/>
                                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
@@ -165,7 +165,36 @@
                     </ComboBox>
                 </GroupBox>
 
+                <GroupBox x:Name="MotorGroupBox" Header="Choose Drive Motor">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center">
+                            <TextBlock Margin="0,0,0,3">Motor HP</TextBlock>
+                            <ComboBox x:Name="MotorHorsepowerComboBox" Height="25" Width="75" SelectionChanged="MotorHorsepowerComboBox_OnSelectionChanged"></ComboBox>
+                        </StackPanel>
+                        <ComboBox x:Name="MotorComboBox" Height="83" Width="699" ItemsSource="{Binding DataContext.Motors, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}" ScrollViewer.CanContentScroll="False">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate DataType="{x:Type SpiroflowVault:VaultFileInfo}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{Binding Picture}" Margin="5,0,5,0" Height="75" Width="75"/>
+                                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
+                                        <TextBlock Text="{Binding FileName}" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
+                                        <TextBlock Text="{Binding Description}" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                </GroupBox>
+
             </StackPanel>
         </Border>
     </Grid>
+
+    <Window.InputBindings>
+        <KeyBinding Command="ApplicationCommands.Close" Key="Escape"></KeyBinding>
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Close" Executed="CloseCommandBinding_Executed"></CommandBinding>
+    </Window.CommandBindings>
 </Window>

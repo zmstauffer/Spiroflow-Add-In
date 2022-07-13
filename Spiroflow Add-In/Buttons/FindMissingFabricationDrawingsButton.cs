@@ -10,6 +10,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Interop;
 using Application = Inventor.Application;
+using Path = System.IO.Path;
 
 namespace SpiroflowAddIn.Buttons
 {
@@ -45,10 +46,9 @@ namespace SpiroflowAddIn.Buttons
 
 			foreach (ComponentOccurrence occurrence in assemblyDoc.ComponentDefinition.Occurrences)
 			{
-				if (occurrence.Name.Contains("SP") || occurrence.Name.Contains("PC") || occurrence.Name.Contains("CF") && occurrence.Name.Count(x => x == '-') <= 1)
-				{
-					fileList.Add(occurrence.Name);
-				}
+				var filename = occurrence.ReferencedDocumentDescriptor.DisplayName;
+				filename = Path.ChangeExtension(filename, ".idw");
+				fileList.Add(filename);
 				if (occurrence.BOMStructure != BOMStructureEnum.kInseparableBOMStructure) GetSubOccurrences(occurrence);
 			}
 
@@ -58,9 +58,14 @@ namespace SpiroflowAddIn.Buttons
 
 			foreach (var name in fileList)
 			{
-				var filename = name.Split(new[] { ':' })[0];
-				var file = existingFileList.FirstOrDefault(x => x.Contains(filename));
-				if (file is null) neededFiles.Add(filename);
+				//see if file has drawing in vault
+				var vaultFileList = VaultFunctions.FindFilesByFilename(name);
+
+				if (vaultFileList.Count > 0)
+				{
+					var file = existingFileList.FirstOrDefault(x => x.Contains(name));
+					if (file is null) neededFiles.Add(name);
+				}
 			}
 
 			neededFiles = neededFiles.Distinct().ToList();

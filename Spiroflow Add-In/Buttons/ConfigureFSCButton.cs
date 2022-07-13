@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Navigation;
+using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Serialization;
 using Autodesk.Connectivity.WebServices;
@@ -34,6 +35,8 @@ namespace SpiroflowAddIn.Buttons
 		private List<ScrewData> ScrewData { get; set; }
 		public Dictionary<string, List<string>> spiralTypes { get; set; }
 		public Dictionary<string, List<string>> spiralMaterials { get; set; }
+
+		public DispatcherOperation ReloadOperation { get; set; }
 
 		#region Properties
 
@@ -92,6 +95,17 @@ namespace SpiroflowAddIn.Buttons
 			}
 		}
 
+		private ObservableCollection<VaultFileInfo> motors;
+		public ObservableCollection<VaultFileInfo> Motors
+		{
+			get => motors;
+			set
+			{
+				motors = value;
+				OnPropertyChanged();
+			}
+		}
+
 		#endregion
 
 		public List<string> ScrewTypes => new List<string>() { "F21 - 214 FLEX SCREW", "F25 - 258 FLEX SCREW", "F31 - 318 FLEX SCREW", "F41 - 412 FLEX SCREW", "F65 - 658 FLEX SCREW", "F83 - 834 FLEX SCREW" };
@@ -120,8 +134,8 @@ namespace SpiroflowAddIn.Buttons
 
 			if (document == null || document.DocumentType != DocumentTypeEnum.kAssemblyDocumentObject) return;
 
-			assemblyDoc = (AssemblyDocument) document;
-			
+			assemblyDoc = (AssemblyDocument)document;
+			ReloadOperation = null;
 			ScrewData = LoadScrewDataFromXML<List<ScrewData>>();
 
 			HasSetupHappened = false;
@@ -136,18 +150,21 @@ namespace SpiroflowAddIn.Buttons
 
 		private void SetupConfigureForm()
 		{
-			ReloadComboBoxes(GetCurrentConveyorSize());
+			//ReloadComboBoxes(GetCurrentConveyorSize());
 
+			form.TypeComboBox.SelectedItem = GetCurrentConveyorSize();
 			form.LengthTextBox.Text = GetCurrentLength();
 			form.OutletAngleTextBox.Text = GetCurrentOutletAngle();
 			form.ScrewTypeComboBox.SelectedItem = GetScrewType();
 			form.ScrewMaterialComboBox.SelectedItem = GetCurrentScrewMaterial();
-			
-			form.TubeMaterialComboBox.ItemsSource = new List<string>() {"UHMW", "ST.ST.304 PROSCREW", "CARBON STEEL", "ST.ST.304 OVERSIZED PROSCREW", "UHMW ANTI-STATIC", "UHMW STATIC DISSIPATIVE"};
+
+			form.TubeMaterialComboBox.ItemsSource = new List<string>() { "UHMW", "ST.ST.304 PROSCREW", "CARBON STEEL", "ST.ST.304 OVERSIZED PROSCREW", "UHMW ANTI-STATIC", "UHMW STATIC DISSIPATIVE" };
 			form.TubeMaterialComboBox.SelectedItem = GetCurrentTubeMaterial();
 
-			form.CentercoreMaterialComboBox.ItemsSource = new List<string>() {"UHMW, WHITE", "UHMW, BLACK"};
+			form.CentercoreMaterialComboBox.ItemsSource = new List<string>() { "UHMW, WHITE", "UHMW, BLACK" };
 			form.CentercoreMaterialComboBox.SelectedItem = GetCurrentCenterCoreMaterial();
+
+			form.MotorHorsepowerComboBox.ItemsSource = new List<string>() {"2 HP", "3 HP", "5 HP", "7.5 HP", "10 HP", "_56 FRAME", "1 HP", "1.5 HP"};
 		}
 
 		public void TypeChanged()
@@ -164,13 +181,13 @@ namespace SpiroflowAddIn.Buttons
 		public string GetCurrentLength()
 		{
 			var lengthInCentimeters = assemblyDoc.ComponentDefinition.Parameters["length"].Value;
-			return ConvertLengthToInches((lengthInCentimeters/2.54).ToString());
+			return ConvertLengthToInches((lengthInCentimeters / 2.54).ToString());
 		}
 
 		private string GetCurrentOutletAngle()
 		{
 			var angleInRadians = assemblyDoc.ComponentDefinition.Parameters["outletAngle"].Value;
-			return ((180/Math.PI) * angleInRadians).ToString();				//convert to degrees
+			return ((180 / Math.PI) * angleInRadians).ToString();               //convert to degrees
 		}
 
 		private string GetCurrentTubeMaterial()
@@ -222,7 +239,7 @@ namespace SpiroflowAddIn.Buttons
 			foreach (ComponentOccurrence occurrence in assemblyDoc.ComponentDefinition.Occurrences)
 			{
 				if (occurrence.DefinitionDocumentType != DocumentTypeEnum.kPartDocumentObject) continue;
-				PartDocument partDoc = (PartDocument) occurrence.Definition.Document;
+				PartDocument partDoc = (PartDocument)occurrence.Definition.Document;
 
 				var designPropSet = partDoc.PropertySets["Design Tracking Properties"];
 				string description = designPropSet["Description"].Value.ToString().ToUpper();
@@ -278,25 +295,52 @@ namespace SpiroflowAddIn.Buttons
 				HasSetupHappened = true;
 				SetupConfigureForm();
 			}
-
 			var sizeCode = type.Substring(6, 3); //gets the 318 from F31 - 318, etc.
 			var feedRestrictorVaultPath = $"$/Designs/MECHANICAL/FSC/_FSC Sub-assemblies/{type}/00 FEED RESTRICTORS/";
 			var inletHousingVaultPath = $"$/Designs/MECHANICAL/FSC/_FSC Sub-assemblies/{type}/01 INLET HOUSING ASSY/";
 			var outletHousingVaultPath = $"$/Designs/MECHANICAL/FSC/_FSC Sub-assemblies/{type}/02 OUTLET HOUSING ASSY/";
 			var driveConnectionsVaultPath = $"$/Designs/MECHANICAL/FSC/_FSC Sub-assemblies/{type}/03 DRIVE CONNECTIONS/";
 			var outletChutesVaultPath = sizeCode == "658" || sizeCode == "834" ? "$/Designs/MECHANICAL/FSC/_FSC Sub-assemblies/FSC - COMMON/01 - 658-834 DISCHARGE CHUTES/" : "$/Designs/MECHANICAL/FSC/_FSC Sub-assemblies/FSC - COMMON/00 - 214-412 DISCHARGE CHUTES/";
+			var gearReducersVaultPath = "$/Designs/PURCHASE PARTS/GEARBOX/";
 
+			ProgressBar progressBar = GetInventorApp.GetApp().CreateProgressBar(false, 7, "Loading Subassemblies", true);
+
+			UpdateProgressBar(progressBar, "Loading Screw Types");
 			form.ScrewTypeComboBox.ItemsSource = GetScrewTypes(sizeCode);
+			UpdateProgressBar(progressBar, "Loading Screw Materials");
 			form.ScrewMaterialComboBox.ItemsSource = GetScrewMaterials(sizeCode);
 
+			UpdateProgressBar(progressBar, "Loading Feed Restrictors");
 			FeedRestrictors = GetFilesFromVault(feedRestrictorVaultPath);
+
+			UpdateProgressBar(progressBar, "Loading Inlet Housings");
 			InletHousings = GetFilesFromVault(inletHousingVaultPath);
+
+			UpdateProgressBar(progressBar, "Loading OutletHousings");
 			OutletHousings = GetFilesFromVault(outletHousingVaultPath);
+
+			UpdateProgressBar(progressBar, "Loading Drive Connections");
 			DriveConnections = GetFilesFromVault(driveConnectionsVaultPath);
+
+			UpdateProgressBar(progressBar, "Loading Outlet Chutes");
 			OutletChutes = GetFilesFromVault(outletChutesVaultPath);
+
+			progressBar.Close();
 		}
 
-		private ObservableCollection<VaultFileInfo> GetFilesFromVault(string vaultPath)
+		private void UpdateMotorCombobox(string horsepower)
+		{
+			var motorsVaultPath = $"$/Designs/PURCHASE PARTS/MOTOR/{horsepower}";
+			Motors = GetFilesFromVault(motorsVaultPath);
+		}
+
+		private void UpdateProgressBar(ProgressBar progressBar, string message)
+		{
+			progressBar.Message = message;
+			progressBar.UpdateProgress();
+		}
+
+		private ObservableCollection<VaultFileInfo> GetFilesFromVault(string vaultPath, string extension = ".iam")
 		{
 			List<FolderInfo> folders = VaultFunctions.GetFolderNames(vaultPath);
 
@@ -315,13 +359,12 @@ namespace SpiroflowAddIn.Buttons
 
 				foreach (var file in folder.files)
 				{
-					if (file.FileName.Contains(".iam"))
+					if (file.FileName.Contains(extension))
 					{
 						fileList.Add(file);
 					}
 				}
 			}
-			
 			return fileList;
 		}
 
@@ -372,8 +415,8 @@ namespace SpiroflowAddIn.Buttons
 			try
 			{
 				xmlFileStream = new FileStream(filePath, FileMode.Open);
-				xmlReader = new XmlTextReader(xmlFileStream);				//XmlTextReader.Create(xmlFileStream);
-				data = (T) XMLSerializer.Deserialize(xmlReader);
+				xmlReader = new XmlTextReader(xmlFileStream);               //XmlTextReader.Create(xmlFileStream);
+				data = (T)XMLSerializer.Deserialize(xmlReader);
 			}
 			finally
 			{

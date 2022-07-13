@@ -366,11 +366,6 @@ namespace SpiroflowVault
 					infoList.Add(new FolderAndFileInfo(folder.Name, localFolderPath, file.Name, localFilePath, file.Id));
 				}
 			}
-			else
-			{
-				MessageBox.Show($"Error getting file {filename}");
-			}
-
 			return infoList;
 		}
 

@@ -12,8 +12,11 @@ namespace SpiroflowAddIn.Button_Forms
 	/// </summary>
 	public partial class ConfigureFSCForm : Window
 	{
+		private ConfigureFSCButton buttonDataContext { get; set; }
+
 		public ConfigureFSCForm(ConfigureFSCButton _dataContext)
 		{
+			buttonDataContext = _dataContext;
 			this.DataContext = _dataContext;
 			InitializeComponent();
 		}
@@ -26,8 +29,7 @@ namespace SpiroflowAddIn.Button_Forms
 
 		private void TypeComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			var button = (ConfigureFSCButton)DataContext;
-			button.TypeChanged();
+			buttonDataContext.TypeChanged();
 		}
 
 		private void LengthTextBox_OnKeyDown(object sender, KeyEventArgs e)
@@ -52,6 +54,11 @@ namespace SpiroflowAddIn.Button_Forms
 
 				LengthTextBox.Text = newLength; 
 			}
+		}
+
+		private void MotorHorsepowerComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }
